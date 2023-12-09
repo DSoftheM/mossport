@@ -18,7 +18,7 @@ export const Title = styled.div`
 
 export const InputTitle = styled.div`
     text-decoration: dashed;
-    color: red;
+    
 `;
 
 export const Body = styled.div`
