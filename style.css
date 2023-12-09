@@ -1,0 +1,255 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Unbounded', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: row;
+}
+.red-panel {
+    background-color: rgb(245, 144, 144);
+    padding: 10px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+
+}
+.nav-panel {
+    background-color: rgb(255, 0, 0);
+    height: 100vh;
+    width: 120px;
+}
+
+.center {
+    background-color: rgb(240, 196, 196);
+    width: 100%;
+}
+.rectangle {
+    width: 300px;
+    height: 300px;
+    display: inline-block;
+}
+.rectangle-1 {
+    background-color: rgb(255, 4, 4);
+    border-radius: 30px;
+    font-size: 20px;
+    padding-top: 10px;
+    width: 500px;
+    color: aliceblue;
+}
+.title {
+    margin-left: 130px;
+}
+.data {
+    font-size: 50px;
+}
+
+.icons {
+    display: flex;
+    gap: 10px;
+}
+
+.icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 24px;
+}
+
+.time {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.rectangles {
+    padding: 50px;
+}
+
+.line {
+    display: flex;
+    gap: 50px;
+    margin-bottom: 40px;
+}
+
+.rectangle-2 {
+    background-color: rgb(255, 4, 4);
+    border-radius: 30px;
+    font-size: 20px;
+    padding-top: 10px;
+    color: aliceblue;
+    flex-grow: 1;
+}
+.mainicon {
+    height: 120px;
+    margin-left: -9px;
+}
+.rectangle-3 {
+    background-color: rgb(255, 4, 4);
+    border-radius: 30px;
+    font-size: 20px;
+    height: 500px;
+    flex-basis: 70%;
+    padding-top: 10px;
+    color: aliceblue;
+    padding: 20px;
+}
+.rectangle-4 {
+    background-color: rgb(255, 4, 4);
+    border-radius: 30px;
+    font-size: 20px;
+    height: 300px;
+    margin-top: 30px;
+    padding-top: 10px;
+    color: aliceblue;
+}
+
+.hello {
+    margin-bottom: 20px;
+}
+.icon1 {
+    width: 35px;
+    margin-left: 20px;
+}
+.icon2 {
+    width: 30px;
+}
+.icon3 {
+    width: 30px;
+    margin-left: 10px;
+}
+td {
+    width: 50%;
+}
+table {
+    width: 100%;
+}
+.sorev {
+    text-align: center;
+}
+
+tbody {
+    background-color: brown;
+}
+.maintitle {
+    color: aliceblue;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    font-weight: 700;
+}
+.data {
+    font-size: 23px;
+    margin-bottom: 20px;
+}
+
+.calendar-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.calendar-header {
+    background-color: #ccc;
+    display: flex;
+    color: black;
+}
+
+.calendar-date {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.calendar-body {
+    padding-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 40px;
+    background-color: #fff;
+}
+
+.calendar-cell {
+    color: black;
+    border: 1px solid #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+.calendar-cell:hover {
+    border: 2px solid orange;
+}
+
+.selected {
+    background-color: #2b2b2b;
+    color: white;
+}
+
+.news {
+    height: 500px;
+    background-color: red;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 30px;
+    color: white;
+    flex-basis: 30%;
+}
+
+.news-title {
+    margin-bottom: 20px;
+}
+
+.news-items {
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.news-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.news-button {
+    width: 20px;
+    height: 20px;
+    background-color: slateblue;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.trener {
+    height: 500px;
+    background-color: red;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 30px;
+    color: white;
+    flex-basis: 30%;
+}
+
+.trener-header {
+    display: flex;
+    gap: 20px;
+}
+
+.trener-img {
+    width: 50px;
+    height: 50px;
+}
+
+.trener-header {
+    margin-bottom: 20px;
+}
+
+.trener-grops {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

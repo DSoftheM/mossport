@@ -1,0 +1,65 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Unbounded";
+}
+body {
+    background-color: rgb(255, 255, 255);
+    display: flex;
+}
+input {
+}
+.left {
+    width: 50%;
+    padding: 20px;
+}
+.reg {
+    height: 100vh;
+    width: 50%;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(245, 50, 50);
+}
+.logoreg {
+    height: 50vh;
+}
+.main {
+}
+.data {
+}
+.pers {
+    width: 50%;
+}
+.cont {
+    width: 50%;
+    text-align: center;
+}
+.perstitle {
+    margin-bottom: 30px;
+    text-align: center;
+}
+.conttitle {
+    margin-bottom: 30px;
+    text-align: center;
+}
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.column2 {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.security {
+}
+
+.button {
+    margin-top: 100px;
+    text-align: center;
+}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style2.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Unbounded&display=swap" rel="stylesheet">
+        <title></title>
+    </head>
+
+    <body>
+        <h1 class="up">Электронная система "Московский спорт"</h1>
+        <img class="mainicon" src="logo.png" />
+        <h1 class="main">Цифровые технологии в спортивных организациях Москвы</h1>
+        <h1 class="main2">
+            Электронная система Московский спорт помогает быть в курсе всех спортивных событий, соревнований и успеваемости. В
+            любое время и с любых устройств.
+        </h1>
+        <div class="news">
+            <div class="news-items"></div>
+        </div>
+        <div class="contacts">
+            <h1 class="tcontacts">Контакты</h1>
+        </div>
+        <div class="login">
+            <h1 class="tlogin">Добро пожаловать</h1>
+            <div class="flogin">
+                <input type="text" class="login-input" />
+                <input type="text" class="password-input" />
+                <div class="buttons">
+                    <button class="login-button">Вход</button>
+                    <button class="register">Регистрация</button>
+                </div>
+                <div class="error-text">Ошибка</div>
+            </div>
+        </div>
+        <script>
+            fetch("http://localhost:3000/news")
+                .then((d) => d.json())
+                .then((data) => {
+                    const d = data.news;
+                    const newsItems = document.querySelector(".news-items");
+
+                    d.forEach((e) => {
+                        const html = `
+                            <h2 class="news-title">${e.title}</h2>
+                            <p class="news-text">
+                                ${e.text}
+                            </p>`;
+
+                        newsItems.innerHTML += html;
+                    });
+                });
+
+            const registerButton = document.querySelector(".register");
+            const loginButton = document.querySelector(".login-button");
+            const loginInput = document.querySelector(".login-input");
+            const passwordInput = document.querySelector(".password-input");
+
+            function check(log, pass) {
+                const errorText = document.querySelector(".error-text");
+
+                if (!log || !pass) {
+                    errorText.style.opacity = 1;
+
+                    setTimeout(() => {
+                        errorText.style.opacity = 0;
+                    }, 3000);
+                    return false;
+                }
+                return true;
+            }
+
+            loginButton.addEventListener("click", () => {
+                const login = loginInput.value;
+                const password = passwordInput.value;
+                if (!check(login, password)) {
+                    return;
+                }
+                fetch("http://localhost:3000/login", {
+                    method: "POST",
+                    body: JSON.stringify({ login, password }),
+                })
+                    .then((d) => d.json())
+                    .then((response) => {
+                        if (response.ok) {
+                            window.location.href = "http://localhost:5500/project.html";
+                        } else {
+                            console.log("fail");
+                        }
+                    });
+            });
+
+            registerButton.addEventListener("click", () => {
+                const login = loginInput.value;
+                const password = passwordInput.value;
+                if (!check(login, password)) {
+                    return;
+                }
+                fetch("http://localhost:3000/register", {
+                    method: "POST",
+                    body: JSON.stringify({ login, password }),
+                })
+                    .then((d) => d.json())
+                    .then((response) => {
+                        if (response.ok) {
+                            console.log("ok");
+                        } else {
+                            console.log("fail");
+                        }
+                    });
+            });
+        </script>
+    </body>
+</html>
