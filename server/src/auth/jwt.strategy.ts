@@ -4,6 +4,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { authConstants } from './constants';
 import { Observable } from 'rxjs';
 import { Reflector } from '@nestjs/core';
+import { User } from 'src/users/users.service';
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
@@ -33,7 +34,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: { sub: number; username: string }) {
-    return { userId: payload.sub, username: payload.username };
+  async validate(payload: { sub: number; iat: number; exp: number } & User) {
+    const { exp, iat, sub, ...rest } = payload;
+    return rest;
   }
 }

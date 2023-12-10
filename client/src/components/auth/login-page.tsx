@@ -2,7 +2,7 @@ import { useState } from "react";
 import * as S from "./register-page.styled";
 import { apiProvider } from "../../provider/api-provider";
 import { useQuery } from "react-query";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Nav } from "@nav";
 
@@ -11,17 +11,17 @@ export function LoginPage(): JSX.Element {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-    const query = useQuery<AxiosResponse<{ access_token: string }>>({
+    const query = useQuery({
         queryKey: "auth",
         queryFn: () => apiProvider.auth.login(email, password),
         enabled: false,
 
-        onSuccess: ({ data }) => {
+        onSuccess: (data) => {
             axios.interceptors.request.use((config) => {
-                config.headers.Authorization = `Bearer ${data?.access_token}`;
+                config.headers.Authorization = `Bearer ${data.access_token}`;
                 return config;
             });
-            document.cookie = `Bearer ${data?.access_token}`;
+            document.cookie = `Bearer ${data.access_token}`;
             return navigate(Nav.profile());
         },
     });

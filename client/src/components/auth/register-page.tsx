@@ -5,7 +5,6 @@ import { useQuery } from "react-query";
 import { apiProvider } from "../../provider/api-provider";
 import { useNavigate } from "react-router-dom";
 import { Nav } from "@nav";
-import { AxiosResponse } from "axios";
 
 export function RegisterPage() {
     const [surname, setSurname] = useState("");
@@ -19,7 +18,7 @@ export function RegisterPage() {
 
     const valid = surname && name && patronymic && tel && email && password && confirmPassword && password === confirmPassword;
 
-    const registerQuery = useQuery<AxiosResponse<void>>({
+    const registerQuery = useQuery<void>({
         queryKey: "register",
         queryFn: () => apiProvider.auth.register({ email, name, password, patronymic, surname, tel }),
         enabled: false,

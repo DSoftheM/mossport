@@ -12,6 +12,10 @@ export type User = {
   password: string;
 };
 
+export function isUser(data: any): data is User {
+  return Boolean(data.email);
+}
+
 @Injectable()
 export class UsersService {
   async findOne(email: string): Promise<User | undefined> {
@@ -23,6 +27,9 @@ export class UsersService {
   async register(user: User) {
     const buffer = await fs.readFile(getUsersJsonPath());
     const currentUsers: User[] = JSON.parse(buffer.toString()).users;
+    if (user.userId === undefined) {
+      user.userId = currentUsers.length;
+    }
     currentUsers.push(user);
     await fs.writeFile(
       getUsersJsonPath(),

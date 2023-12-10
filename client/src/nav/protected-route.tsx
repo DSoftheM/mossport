@@ -1,5 +1,5 @@
-import { PropsWithChildren, useEffect } from "react";
-import { IndexRouteProps, Navigate, Outlet, Route, RouteProps, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { apiProvider } from "../provider/api-provider";
 import { Nav } from "@nav";
 import axios from "axios";

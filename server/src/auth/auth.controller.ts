@@ -12,7 +12,7 @@ import { LocalAuthGuard } from './local.strategy';
 import { AuthService } from './auth.service';
 import * as path from 'path';
 import { JwtAuthGuard } from './jwt.strategy';
-import { User } from 'src/users/users.service';
+import { User, isUser } from 'src/users/users.service';
 
 function SetPublic() {
   return SetMetadata('isPublic', true);
@@ -26,7 +26,9 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @SetPublic()
   login(@Req() req: Request) {
-    return this.authService.login(req.user);
+    if (req.user && isUser(req.user)) {
+      return this.authService.login(req.user);
+    }
   }
 
   @Get('profile')
