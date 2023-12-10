@@ -13,4 +13,8 @@ export class AuthService {
     }
     return null;
   }
+
+  async registerUser(username: string, password: string) {
+    await this.usersService.register(username, password);
+  }
 }

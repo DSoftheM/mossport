@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import * as fs from 'fs/promises';
+import a from './users.json';
 
-// This should be a real class/interface representing a user entity
 export type User = {
   userId: number;
   username: string;
@@ -24,5 +25,15 @@ export class UsersService {
 
   async findOne(username: string): Promise<User | undefined> {
     return this.users.find((user) => user.username === username);
+  }
+
+  async register(username: string, password: string) {
+    const buffer = await fs.readFile(__dirname + '/users.json');
+    const currentUsers: User[] = JSON.parse(buffer.toString()).users;
+    currentUsers.push({ userId: currentUsers.length, username, password });
+    await fs.writeFile(
+      __dirname + '/users.json',
+      JSON.stringify({ users: currentUsers }),
+    );
   }
 }
