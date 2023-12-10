@@ -1,10 +1,26 @@
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
+
+const disappear = keyframes`
+    to {
+        opacity: 0;
+    }
+`;
 
 export const Root = styled.div`
     display: flex;
     align-items: center;
     background-color: #fff;
     min-height: 100vh;
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: sienna;
+        pointer-events: none;
+        animation: ${disappear} 1.2s ease 0s 1 forwards;
+    }
 `;
 
 export const Side = styled.div`
