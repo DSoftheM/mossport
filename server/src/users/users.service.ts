@@ -4,22 +4,26 @@ import * as fs from 'fs/promises';
 
 export type User = {
   userId: number;
-  username: string;
+  surname: string;
+  name: string;
+  patronymic: string;
+  tel: string;
+  email: string;
   password: string;
 };
 
 @Injectable()
 export class UsersService {
-  async findOne(username: string): Promise<User | undefined> {
+  async findOne(email: string): Promise<User | undefined> {
     const buffer = await fs.readFile(getUsersJsonPath());
     const currentUsers: User[] = JSON.parse(buffer.toString()).users;
-    return currentUsers.find((user) => user.username === username);
+    return currentUsers.find((user) => user.email === email);
   }
 
-  async register(username: string, password: string) {
+  async register(user: User) {
     const buffer = await fs.readFile(getUsersJsonPath());
     const currentUsers: User[] = JSON.parse(buffer.toString()).users;
-    currentUsers.push({ userId: currentUsers.length, username, password });
+    currentUsers.push(user);
     await fs.writeFile(
       getUsersJsonPath(),
       JSON.stringify({ users: currentUsers }),

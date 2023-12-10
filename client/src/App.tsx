@@ -1,33 +1,36 @@
-import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { RegisterPage } from "./components/auth/register-page";
 import { createGlobalStyle } from "styled-components";
+import { LoginPage } from "./components/auth/login-page";
+import { ProfilePage } from "./components/auth/profile-page";
+import { PrivateRoute } from "./nav/protected-route";
 
 const GlobalStyles = createGlobalStyle`
     * {
         margin: 0px;
         padding: 0px;
         box-sizing: border-box;
-        border: 1px solid orange;
+        /* border: 1px solid orange; */
     }
 
     #root {
-        height: 100vh;
+        min-height: 100vh;
         font-family: "Unbounded";
     }
 `;
 
-// React - фронтенд
-// Nest - бекэнд
-// Комментарий
 function App() {
-    const [count, setCount] = useState(0);
-
     return (
         <>
             <GlobalStyles />
             <Routes>
                 <Route path="/register" element={<RegisterPage />} />
+                <Route path="/profile" element={<PrivateRoute />}>
+                    <Route index element={<ProfilePage />} />
+                </Route>
+
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="*" element={<Navigate to={"/login"} />} />
             </Routes>
         </>
     );

@@ -1,1 +1,1 @@
-{"users":[{"userId":1,"username":"John","password":"orange"},{"userId":2,"username":"Kate","password":"apple"},{"userId":2,"username":"john232wd","password":"orange"}]}
+{"users":[{"email":"test@mail.ru","name":"Артур","password":"123","patronymic":"Леонидович","surname":"Гайнутдинов","tel":"89226549875"},{"email":"test@mail.ru","name":"qwdqwd","password":"123","patronymic":"qwdqwd","surname":"qdw","tel":"23123"},{"email":"test@mail.ru","name":"d","password":"123","patronymic":"d","surname":"d","tel":"d"}]}
