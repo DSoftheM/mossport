@@ -26,8 +26,8 @@ export class JwtAuthGuard implements CanActivate {
     return type === 'Bearer' ? token : null;
   }
 
-  private isPublic(context: ExecutionContext) {
-    const isPublic = this.reflector.getAllAndOverride<boolean>('isPublic', [context.getHandler(), context.getClass()]);
-    return isPublic;
+  private isPublic(context: ExecutionContext): boolean {
+    const isPublic = this.reflector.getAllAndOverride<boolean | undefined>('isPublic', [context.getHandler()]);
+    return isPublic ?? false;
   }
 }

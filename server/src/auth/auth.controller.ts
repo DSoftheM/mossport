@@ -32,4 +32,10 @@ export class AuthController {
   register(@Body() user: User) {
     this.authService.registerUser(user);
   }
+
+  @SetPublic()
+  @Get()
+  test() {
+    return Math.random();
+  }
 }
