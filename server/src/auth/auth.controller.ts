@@ -1,18 +1,8 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  Req,
-  SetMetadata,
-  UseGuards,
-} from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Post, Req, SetMetadata, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
-import { LocalAuthGuard } from './local.strategy';
 import { AuthService } from './auth.service';
-import * as path from 'path';
-import { JwtAuthGuard } from './jwt.strategy';
 import { User, isUser } from 'src/users/users.service';
+import { LocalAuthGuard } from './guards/local-auth.guard';
 
 function SetPublic() {
   return SetMetadata('isPublic', true);
@@ -29,10 +19,10 @@ export class AuthController {
     if (req.user && isUser(req.user)) {
       return this.authService.login(req.user);
     }
+    throw new BadRequestException('Неправильное имя или пароль');
   }
 
   @Get('profile')
-  @UseGuards(JwtAuthGuard)
   getProfile(@Req() req: Request) {
     return req.user;
   }

@@ -31,9 +31,6 @@ export class UsersService {
       user.userId = currentUsers.length;
     }
     currentUsers.push(user);
-    await fs.writeFile(
-      getUsersJsonPath(),
-      JSON.stringify({ users: currentUsers }),
-    );
+    await fs.writeFile(getUsersJsonPath(), JSON.stringify({ users: currentUsers }));
   }
 }
