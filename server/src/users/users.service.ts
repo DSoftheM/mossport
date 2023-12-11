@@ -12,6 +12,8 @@ export type User = {
   password: string;
 };
 
+export type JwtAuthMetadata = { iat: number; sub: number; exp: number };
+
 export function isUser(data: any): data is User {
   return Boolean(data.email);
 }
