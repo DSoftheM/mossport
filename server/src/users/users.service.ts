@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { getUsersJsonPath } from 'data/users';
 import * as fs from 'fs/promises';
+import { Role } from 'src/auth/guards/roles.guard';
 
 export type User = {
   userId: number;
@@ -10,6 +11,7 @@ export type User = {
   tel: string;
   email: string;
   password: string;
+  roles: Role[];
 };
 
 export type JwtAuthMetadata = { iat: number; sub: number; exp: number };
