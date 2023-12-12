@@ -5,9 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { Nav } from "@nav";
 import { Shape } from "./shape";
 import { useProfileQuery } from "../../provider/query/use-profile-query";
+import { useNewsQuery } from "../../provider/query/use-news-query";
+import { NewsView } from "./news";
 
 enum Key {
-    Rectangle = "Rectangle",
+    News = "News",
+    Schedule = "Schedule",
 }
 
 // Расписание тренировок
@@ -23,6 +26,7 @@ export function MainPage() {
     const navigate = useNavigate();
 
     const profileQuery = useProfileQuery();
+    const newsQuery = useNewsQuery();
 
     return (
         <S.Root>
@@ -38,9 +42,9 @@ export function MainPage() {
                 </S.HeaderContainer>
                 <S.Body>
                     <Shape
-                        opened={selectedId === Key.Rectangle}
+                        opened={selectedId === Key.Schedule}
                         shape="rectangle"
-                        onClick={() => setSelectedId(Key.Rectangle)}
+                        onClick={() => setSelectedId(Key.Schedule)}
                         onClose={() => setSelectedId(null)}
                         title="Расписание тренировок"
                         renderExpandedContent={() => (
@@ -53,6 +57,17 @@ export function MainPage() {
                                 </p>
                             </div>
                         )}
+                    />
+                    <Shape
+                        opened={selectedId === Key.News}
+                        shape="rectangle"
+                        onClick={() => {
+                            setSelectedId(Key.News);
+                            newsQuery.refetch();
+                        }}
+                        onClose={() => setSelectedId(null)}
+                        title="Новости"
+                        renderExpandedContent={() => <NewsView news={newsQuery.data ?? []} />}
                     />
                 </S.Body>
             </S.Container>

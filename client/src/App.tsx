@@ -18,6 +18,11 @@ const GlobalStyles = createGlobalStyle`
         min-height: 100vh;
         font-family: "Unbounded";
     }
+
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
 `;
 
 function App() {

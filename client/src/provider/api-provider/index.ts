@@ -24,6 +24,12 @@ declare namespace User {
     };
 }
 
+export type News = {
+    title: string;
+    text: string;
+    imageUrl: string;
+};
+
 export const apiProvider = {
     auth: {
         async login(email: string, password: string) {
@@ -34,6 +40,12 @@ export const apiProvider = {
         },
         async register(data: User.Register) {
             return (await axios.post<void>("auth/register", data)).data;
+        },
+    },
+    news: {
+        // Todo: skip, count
+        async getNews() {
+            return (await axios.get<News[]>("news")).data;
         },
     },
 };

@@ -1,10 +1,11 @@
 import styled, { css } from "styled-components";
 
-export const Rectangle = styled.div<{ opened: boolean }>`
+export const Rectangle = styled.div<{ $opened: boolean }>`
     border-radius: 20px;
+    overflow: auto;
 
     ${(props) =>
-        props.opened
+        props.$opened
             ? css`
                   position: absolute;
                   inset: 0;

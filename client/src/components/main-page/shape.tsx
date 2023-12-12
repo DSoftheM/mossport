@@ -14,7 +14,7 @@ type ShapeProps = {
 
 export function Shape(props: ShapeProps) {
     return (
-        <S.Rectangle style={{ backgroundColor: "lime" }} onClick={props.onClick} opened={props.opened}>
+        <S.Rectangle style={{ backgroundColor: "lime" }} onClick={props.onClick} $opened={props.opened}>
             {props.opened ? (
                 <>
                     <S.Close
