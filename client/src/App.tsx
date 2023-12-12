@@ -4,6 +4,7 @@ import { createGlobalStyle } from "styled-components";
 import { LoginPage } from "./components/auth/login-page";
 import { ProfilePage } from "./components/auth/profile-page";
 import { PrivateRoute } from "./nav/protected-route";
+import { MainPage } from "./components/main-page/main-page";
 
 const GlobalStyles = createGlobalStyle`
     * {
@@ -29,6 +30,7 @@ function App() {
                     <Route index element={<ProfilePage />} />
                 </Route>
 
+                <Route path="/main" element={<MainPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="*" element={<Navigate to={"/login"} />} />
             </Routes>
