@@ -1,1 +1,14 @@
-{"users":[{"email":"test@mail.ru","name":"Иван","password":"123","patronymic":"Иванович","surname":"Иванов","tel":"89248765698","userId":0}]}
+{
+  "users": [
+    {
+      "email": "test@mail.ru",
+      "name": "Иван",
+      "password": "123",
+      "patronymic": "Иванович",
+      "surname": "Иванов",
+      "tel": "89248765698",
+      "roles": ["admin"],
+      "userId": 0
+    }
+  ]
+}

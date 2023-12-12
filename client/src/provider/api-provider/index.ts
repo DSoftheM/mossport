@@ -19,6 +19,8 @@ declare namespace User {
 
     type View = Base & {
         userId: number;
+        // Todo: Role enum
+        roles: string;
     };
 }
 

@@ -21,7 +21,7 @@ export function LoginPage(): JSX.Element {
                 config.headers.Authorization = `Bearer ${data.access_token}`;
                 return config;
             });
-            document.cookie = `Bearer ${data.access_token}`;
+            document.cookie = `access_token=Bearer ${data.access_token}`;
             return navigate(Nav.profile());
         },
     });

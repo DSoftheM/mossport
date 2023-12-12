@@ -1,4 +1,6 @@
+import { Link, useNavigate } from "react-router-dom";
 import { useProfileQuery } from "../../provider/query/use-profile-query";
+import { Nav } from "@nav";
 
 export function ProfilePage() {
     const profileQuery = useProfileQuery();
@@ -12,6 +14,8 @@ export function ProfilePage() {
             <p>Отчество = {profileQuery.data.patronymic}</p>
             <p>Фамилия = {profileQuery.data.surname}</p>
             <p>Телефон = {profileQuery.data.tel}</p>
+            <p>Роль = {JSON.stringify(profileQuery.data.roles)}</p>
+            <Link to={Nav.main()}>Перейти на главную</Link>
         </div>
     );
 }
