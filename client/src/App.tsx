@@ -26,12 +26,13 @@ function App() {
             <GlobalStyles />
             <Routes>
                 <Route path="/register" element={<RegisterPage />} />
-                <Route path="/profile" element={<PrivateRoute />}>
-                    <Route index element={<ProfilePage />} />
+                <Route path="/login" element={<LoginPage />} />
+
+                <Route path="/" element={<PrivateRoute />}>
+                    <Route path="/profile" element={<ProfilePage />} />
+                    <Route path="/main" element={<MainPage />} />
                 </Route>
 
-                <Route path="/main" element={<MainPage />} />
-                <Route path="/login" element={<LoginPage />} />
                 <Route path="*" element={<Navigate to={"/login"} />} />
             </Routes>
         </>

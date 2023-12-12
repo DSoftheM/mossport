@@ -5,7 +5,7 @@ import { Nav } from "@nav";
 import axios from "axios";
 
 export function PrivateRoute() {
-    const auth = document.cookie;
+    const auth = document.cookie.split("=")[1];
 
     const navigate = useNavigate();
 

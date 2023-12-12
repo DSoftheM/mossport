@@ -59,33 +59,3 @@ export const Body = styled.div`
     backdrop-filter: blur(7px) saturate(95%);
     border-radius: 20px;
 `;
-
-export const Rectangle = styled.div<{ selected: boolean }>`
-    transition: all 0.3s ease 0s;
-    cursor: pointer;
-    border-radius: 20px;
-
-    ${(props) =>
-        props.selected
-            ? css`
-                  position: absolute;
-                  inset: 0;
-              `
-            : css`
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  position: relative;
-
-                  &:hover {
-                      font-size: 24px;
-                      transform: scale(0.9);
-                  }
-              `}
-`;
-
-export const Close = styled.button`
-    position: absolute;
-    top: 20px;
-    right: 20px;
-`;
