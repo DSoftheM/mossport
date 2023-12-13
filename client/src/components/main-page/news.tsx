@@ -10,8 +10,8 @@ export function NewsView(props: Props) {
         <S.Root>
             <S.Title>Новости</S.Title>
             <S.NewsContainer>
-                {props.news.map((newsItem) => (
-                    <S.NewsItem>
+                {props.news.map((newsItem, i) => (
+                    <S.NewsItem key={i}>
                         <S.NewsItemTitle>{newsItem.title}</S.NewsItemTitle>
                         <S.NewsItemImg src={newsItem.imageUrl} />
                         <p>{newsItem.text}</p>

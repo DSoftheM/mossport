@@ -37,6 +37,12 @@ export const Avatar = styled.div`
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    transition: all 0.3s ease 0s;
+
+    &:hover {
+        color: slateblue;
+        background-color: white;
+    }
 `;
 
 export const Title = styled.h3``;

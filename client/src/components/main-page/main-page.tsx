@@ -7,6 +7,7 @@ import { Shape } from "./shape";
 import { useProfileQuery } from "../../provider/query/use-profile-query";
 import { useNewsQuery } from "../../provider/query/use-news-query";
 import { NewsView } from "./news";
+import { TrainingSchedule } from "./training-schedule";
 
 enum Key {
     News = "News",
@@ -14,7 +15,6 @@ enum Key {
 }
 
 // Расписание тренировок
-// Новости
 // У тренера каждый прямоугольник - отдельный блок
 
 function extractFirstLetters(name: string, surname: string) {
@@ -47,16 +47,7 @@ export function MainPage() {
                         onClick={() => setSelectedId(Key.Schedule)}
                         onClose={() => setSelectedId(null)}
                         title="Расписание тренировок"
-                        renderExpandedContent={() => (
-                            <div style={{ padding: 20 }}>
-                                <h2 style={{ textAlign: "center" }}>Text</h2>
-                                <p>
-                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex incidunt dolore tempore ipsam
-                                    repudiandae necessitatibus harum nobis doloribus earum perspiciatis optio qui, fuga commodi
-                                    maxime alias voluptatem! Cupiditate, quo atque!
-                                </p>
-                            </div>
-                        )}
+                        renderExpandedContent={() => <TrainingSchedule />}
                     />
                     <Shape
                         opened={selectedId === Key.News}

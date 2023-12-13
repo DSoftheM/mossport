@@ -14,7 +14,6 @@ export const Rectangle = styled.div<{ $opened: boolean }>`
                   display: flex;
                   align-items: center;
                   justify-content: center;
-                  position: relative;
                   cursor: pointer;
                   transition: all 0.3s ease 0s;
 

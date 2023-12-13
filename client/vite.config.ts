@@ -8,6 +8,7 @@ export default defineConfig({
     resolve: {
         alias: {
             "@nav": path.resolve(__dirname, "./src/nav"),
+            "@ui": path.resolve(__dirname, "./src/ui"),
         },
     },
 });

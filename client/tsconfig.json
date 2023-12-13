@@ -21,7 +21,8 @@
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true,
         "paths": {
-            "@nav": ["./src/nav"]
+            "@nav": ["./src/nav"],
+            "@ui/*": ["./src/ui/*"]
         }
     },
     "include": ["src"],
