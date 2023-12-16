@@ -8,10 +8,12 @@ import { useProfileQuery } from "../../provider/query/use-profile-query";
 import { useNewsQuery } from "../../provider/query/use-news-query";
 import { NewsView } from "./news";
 import { TrainingSchedule } from "./training-schedule";
+import { Journals } from "./journals/journals";
 
 enum Key {
     News = "News",
     Schedule = "Schedule",
+    Journals = "Journals",
 }
 
 // Расписание тренировок
@@ -59,6 +61,17 @@ export function MainPage() {
                         onClose={() => setSelectedId(null)}
                         title="Новости"
                         renderExpandedContent={() => <NewsView news={newsQuery.data ?? []} />}
+                    />
+                    <Shape
+                        opened={selectedId === Key.Journals}
+                        shape="rectangle"
+                        onClick={() => {
+                            setSelectedId(Key.Journals);
+                            newsQuery.refetch();
+                        }}
+                        onClose={() => setSelectedId(null)}
+                        title="Журналы"
+                        renderExpandedContent={() => <Journals />}
                     />
                 </S.Body>
             </S.Container>

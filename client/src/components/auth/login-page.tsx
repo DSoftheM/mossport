@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { Nav } from "@nav";
 
 export function LoginPage(): JSX.Element {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("test@mail.ru");
+    const [password, setPassword] = useState("123");
     const navigate = useNavigate();
 
     const query = useQuery({
