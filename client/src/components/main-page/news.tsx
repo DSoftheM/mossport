@@ -3,11 +3,13 @@ import * as S from "./news.styled";
 
 type Props = {
     news: News[];
+    onClose: () => void;
 };
 
 export function NewsView(props: Props) {
     return (
         <S.Root>
+            <button onClick={props.onClose}> Закрыть новости</button>
             <S.Title>Новости</S.Title>
             <S.NewsContainer>
                 {props.news.map((newsItem, i) => (

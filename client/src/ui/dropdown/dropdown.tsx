@@ -24,6 +24,12 @@ const Field = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #fff;
+    transition: all 0.1s ease 0s;
+
+    &:hover {
+        background-color: #cacaca;
+    }
 `;
 
 const Popover = styled.div`
@@ -34,8 +40,13 @@ const Popover = styled.div`
     top: 100%;
 `;
 
-const Item = styled.div`
+const Item = styled.div<{ selected: boolean }>`
     cursor: pointer;
+    ${(props) => props.selected && `background-color: #cacaca;`}
+
+    &:hover {
+        background-color: #cacaca;
+    }
 `;
 
 export function Dropdown<V>(props: Props<V>) {
@@ -59,6 +70,7 @@ export function Dropdown<V>(props: Props<V>) {
                 <Popover>
                     {props.items.map((item) => (
                         <Item
+                            selected={item.id === props.selectedId}
                             onClick={() => {
                                 props.onChange(item.value);
                                 setIsOpen(false);

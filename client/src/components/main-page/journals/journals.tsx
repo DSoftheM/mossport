@@ -46,7 +46,11 @@ const mockJournals: Journal[] = [
     },
 ];
 
-export function Journals() {
+type Props = {
+    onClose: () => void;
+};
+
+export function Journals(props: Props) {
     const [journals, setJournals] = useState<Journal[]>(mockJournals);
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
@@ -67,6 +71,7 @@ export function Journals() {
 
     return (
         <S.Root>
+            <button onClick={props.onClose}>Закрыть журналы</button>
             <S.Title>Журналы</S.Title>
             {journals.map((journal, i) => {
                 return (

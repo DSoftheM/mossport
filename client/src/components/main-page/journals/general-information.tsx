@@ -6,6 +6,7 @@ import { getDate, getSportsCategory } from "./general-information.lib";
 type Props = {
     sportsmen: Sportsman[];
     onCreate: (sportsman: Sportsman) => void;
+    onClose: () => void;
 };
 
 export enum SportsCategory {
@@ -44,6 +45,7 @@ export function GeneralInformation(props: Props) {
 
     return (
         <div style={{ padding: 20 }}>
+            <button onClick={props.onClose}>Закрыть таблицу</button>
             <S.Table>
                 <p>№</p>
                 <p>Фамилия, имя</p>

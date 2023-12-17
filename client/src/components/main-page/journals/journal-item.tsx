@@ -15,28 +15,38 @@ enum JournalStage {
 
 // Todo: переименовать JournalItem
 export function JournalItem(props: Props) {
-    const [selectedIndex, setSelectedIndex] = useState<JournalStage | null>(null);
+    const [selectedStage, setSelectedStage] = useState<JournalStage | null>(null);
     const [sportsmen, setSportsmen] = useState<Sportsman[]>(props.journal.generalInformation.sportsmen);
 
-    return (
-        <S.Root>
-            <button onClick={props.onClose}>Закрыть журнал</button>
-            <S.Title>{props.journal.name}</S.Title>
-            <p>Отделение: {props.journal.department}</p>
-            <p>Этап спортивной подготовки: {props.journal.sportsTrainingStage}</p>
-            <p>Начат: {props.journal.startDate.toLocaleDateString("ru")}</p>
-            <S.Shapes>
-                <Shape
-                    shape="rectangle"
-                    onClick={() => setSelectedIndex(JournalStage.GeneralInformation)}
-                    onClose={() => setSelectedIndex(null)}
-                    opened={selectedIndex === JournalStage.GeneralInformation}
-                    title="Общие сведения"
-                    renderExpandedContent={() => (
-                        <GeneralInformation sportsmen={sportsmen} onCreate={(x) => setSportsmen([...sportsmen, x])} />
-                    )}
+    function renderBody() {
+        if (!selectedStage) {
+            return (
+                <>
+                    <button onClick={props.onClose}>Закрыть журнал</button>
+                    <S.Title>{props.journal.name}</S.Title>
+                    <p>Отделение: {props.journal.department}</p>
+                    <p>Этап спортивной подготовки: {props.journal.sportsTrainingStage}</p>
+                    <p>Начат: {props.journal.startDate.toLocaleDateString("ru")}</p>
+                    <S.Shapes>
+                        <Shape
+                            shape="rectangle"
+                            onClick={() => setSelectedStage(JournalStage.GeneralInformation)}
+                            title="Общие сведения"
+                        />
+                    </S.Shapes>
+                </>
+            );
+        }
+        if (selectedStage === JournalStage.GeneralInformation) {
+            return (
+                <GeneralInformation
+                    sportsmen={sportsmen}
+                    onCreate={(x) => setSportsmen([...sportsmen, x])}
+                    onClose={() => setSelectedStage(null)}
                 />
-            </S.Shapes>
-        </S.Root>
-    );
+            );
+        }
+    }
+
+    return <S.Root>{renderBody()}</S.Root>;
 }

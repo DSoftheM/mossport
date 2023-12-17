@@ -12,7 +12,6 @@ import { Journals } from "./journals/journals";
 
 enum Key {
     News = "News",
-    Schedule = "Schedule",
     Journals = "Journals",
 }
 
@@ -30,6 +29,39 @@ export function MainPage() {
     const profileQuery = useProfileQuery();
     const newsQuery = useNewsQuery();
 
+    function renderBody() {
+        if (!selectedId) {
+            return (
+                <S.Body>
+                    <Shape
+                        title="Новости"
+                        shape="rectangle"
+                        onClick={() => {
+                            setSelectedId(Key.News);
+                            newsQuery.refetch();
+                        }}
+                    />
+                    <Shape
+                        title="Журналы"
+                        shape="rectangle"
+                        onClick={() => {
+                            setSelectedId(Key.Journals);
+                            newsQuery.refetch();
+                        }}
+                    />
+                </S.Body>
+            );
+        }
+
+        if (selectedId === Key.News) {
+            return <NewsView news={newsQuery.data ?? []} onClose={() => setSelectedId(null)} />;
+        }
+
+        if (selectedId === Key.Journals) {
+            return <Journals onClose={() => setSelectedId(null)} />;
+        }
+    }
+
     return (
         <S.Root>
             <S.Container>
@@ -42,38 +74,7 @@ export function MainPage() {
                         </S.Avatar>
                     </S.Header>
                 </S.HeaderContainer>
-                <S.Body>
-                    <Shape
-                        opened={selectedId === Key.Schedule}
-                        shape="rectangle"
-                        onClick={() => setSelectedId(Key.Schedule)}
-                        onClose={() => setSelectedId(null)}
-                        title="Расписание тренировок"
-                        renderExpandedContent={() => <TrainingSchedule />}
-                    />
-                    <Shape
-                        opened={selectedId === Key.News}
-                        shape="rectangle"
-                        onClick={() => {
-                            setSelectedId(Key.News);
-                            newsQuery.refetch();
-                        }}
-                        onClose={() => setSelectedId(null)}
-                        title="Новости"
-                        renderExpandedContent={() => <NewsView news={newsQuery.data ?? []} />}
-                    />
-                    <Shape
-                        opened={selectedId === Key.Journals}
-                        shape="rectangle"
-                        onClick={() => {
-                            setSelectedId(Key.Journals);
-                            newsQuery.refetch();
-                        }}
-                        onClose={() => setSelectedId(null)}
-                        title="Журналы"
-                        renderExpandedContent={() => <Journals />}
-                    />
-                </S.Body>
+                {renderBody()}
             </S.Container>
         </S.Root>
     );
