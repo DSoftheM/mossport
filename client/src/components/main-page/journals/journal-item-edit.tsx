@@ -23,7 +23,15 @@ export function JournalCreate(props: Props) {
             <p>Этап спортивной подготовки</p>
             <input type="text" value={sportsTrainingStage} onChange={(e) => setSportsTrainingStage(e.target.value)} />
             <button
-                onClick={() => props.onCreate({ department, name, sportsTrainingStage, startDate: new Date() })}
+                onClick={() =>
+                    props.onCreate({
+                        department,
+                        name,
+                        sportsTrainingStage,
+                        startDate: new Date(),
+                        generalInformation: { sportsmen: [] },
+                    })
+                }
                 disabled={!name || !department || !setSportsTrainingStage}
             >
                 Создать

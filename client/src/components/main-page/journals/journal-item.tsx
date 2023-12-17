@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Shape } from "../shape";
 import * as S from "./journal-item.styled";
 import { Journal } from "./journals";
-import { GeneralInformation, Sportsman } from "./general-information";
+import { GeneralInformation, SportsCategory, Sportsman } from "./general-information";
 
 type Props = {
     journal: Journal;
@@ -16,16 +16,7 @@ enum JournalStage {
 // Todo: переименовать JournalItem
 export function JournalItem(props: Props) {
     const [selectedIndex, setSelectedIndex] = useState<JournalStage | null>(null);
-    const [sportsmen, setSportsmen] = useState<Sportsman[]>([
-        {
-            birthDate: new Date(),
-            medicalExamination: { first: new Date(), second: new Date() },
-            name: "имя фамилия",
-            parentsFio: "ФИО родителей",
-            sportsCategory: "1",
-            tel: "98876985765876",
-        },
-    ]);
+    const [sportsmen, setSportsmen] = useState<Sportsman[]>(props.journal.generalInformation.sportsmen);
 
     return (
         <S.Root>

@@ -15,3 +15,8 @@ export const JournalPlate = styled.div`
         background-color: #ccc;
     }
 `;
+
+export const Title = styled.h3`
+    text-align: center;
+    margin-bottom: 40px;
+`;

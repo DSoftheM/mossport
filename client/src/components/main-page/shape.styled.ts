@@ -28,6 +28,7 @@ export const Close = styled.button`
     position: absolute;
     top: 20px;
     right: 20px;
+    z-index: 1;
 `;
 
 export const Title = styled.h3``;
