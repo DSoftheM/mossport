@@ -98,23 +98,31 @@ export function GeneralInformation(props: Props) {
             </S.Table>
 
             {isCreation ? (
-                <button
-                    disabled={!birthDate || !name || !parentsFio || !tel || !sportsCategory}
-                    onClick={() => {
-                        if (!birthDate || !sportsCategory) return;
-                        props.onCreate({
-                            birthDate: new Date(birthDate),
-                            medicalExamination: { first: new Date(), second: new Date() },
-                            name,
-                            parentsFio,
-                            sportsCategory: sportsCategory.category,
-                            tel,
-                        });
-                        setIsCreation(false);
-                    }}
-                >
-                    Сохранить
-                </button>
+                <div>
+                    <button
+                        disabled={!birthDate || !name || !parentsFio || !tel || !sportsCategory}
+                        onClick={() => {
+                            if (!birthDate || !sportsCategory) return;
+                            props.onCreate({
+                                birthDate: new Date(birthDate),
+                                medicalExamination: { first: new Date(), second: new Date() },
+                                name,
+                                parentsFio,
+                                sportsCategory: sportsCategory.category,
+                                tel,
+                            });
+                            setIsCreation(false);
+                            setName("");
+                            setBirthDate(null);
+                            setParentsFio("");
+                            setTel("");
+                            setSportsCategory(null);
+                        }}
+                    >
+                        Сохранить
+                    </button>
+                    <button onClick={() => setIsCreation(false)}>Отменить</button>
+                </div>
             ) : (
                 <button onClick={() => setIsCreation(true)}>Добавить спортсмена</button>
             )}

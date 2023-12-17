@@ -1,4 +1,5 @@
 export type Journal = {
+  id: string;
   name: string;
   department: string;
   sportsTrainingStage: string;
@@ -9,6 +10,8 @@ export type Journal = {
   // Todo: endDate
   // endDate?: Date;
 };
+
+export type JournalWithoutId = Omit<Journal, 'id'>;
 
 export enum SportsCategory {
   Un1 = 'Un1',

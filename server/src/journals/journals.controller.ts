@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { JournalsService } from './journals.service';
-import { Journal } from './types';
+import { Journal, JournalWithoutId } from './types';
 
 @Controller('/journals')
 export class JournalsController {
@@ -12,7 +12,12 @@ export class JournalsController {
   }
 
   @Post('/create')
-  createJournal(@Body() journal: Journal) {
+  createJournal(@Body() journal: JournalWithoutId) {
     return this.journalsService.createJournal(journal);
+  }
+
+  @Post('/edit')
+  editJournal(@Body() journal: Journal) {
+    return this.journalsService.editJournal(journal);
   }
 }

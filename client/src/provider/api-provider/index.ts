@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Journal } from "../../components/main-page/journals/types";
 
 const base = "http://localhost:3000/";
 axios.defaults.baseURL = base;
@@ -46,6 +47,17 @@ export const apiProvider = {
         // Todo: skip, count
         async getNews() {
             return (await axios.get<News[]>("news")).data;
+        },
+    },
+    journals: {
+        async getAll() {
+            return (await axios.get<Journal[]>("journals")).data;
+        },
+        async create(journal: Journal) {
+            return (await axios.post<void>("journals/create", journal)).data;
+        },
+        async edit(journal: Journal) {
+            return (await axios.post<void>("journals/edit", journal)).data;
         },
     },
 };

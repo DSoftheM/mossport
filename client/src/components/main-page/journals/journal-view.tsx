@@ -1,22 +1,22 @@
 import { useState } from "react";
 import { Shape } from "../shape";
-import * as S from "./journal-item.styled";
+import * as S from "./journal-view.styled";
 import { GeneralInformation } from "./general-information";
 import { Journal, Sportsman } from "./types";
+import { produce } from "immer";
 
 type Props = {
     journal: Journal;
     onClose: () => void;
+    onChange: (journal: Journal) => void;
 };
 
 enum JournalStage {
     GeneralInformation = "GeneralInformation",
 }
 
-// Todo: переименовать JournalItem
-export function JournalItem(props: Props) {
+export function JournalView(props: Props) {
     const [selectedStage, setSelectedStage] = useState<JournalStage | null>(null);
-    const [sportsmen, setSportsmen] = useState<Sportsman[]>(props.journal.generalInformation.sportsmen);
 
     function renderBody() {
         if (!selectedStage) {
@@ -40,8 +40,13 @@ export function JournalItem(props: Props) {
         if (selectedStage === JournalStage.GeneralInformation) {
             return (
                 <GeneralInformation
-                    sportsmen={sportsmen}
-                    onCreate={(x) => setSportsmen([...sportsmen, x])}
+                    sportsmen={props.journal.generalInformation.sportsmen}
+                    onCreate={(x) => {
+                        const updated = produce(props.journal, (draft) => {
+                            draft.generalInformation.sportsmen.push(x);
+                        });
+                        props.onChange(updated);
+                    }}
                     onClose={() => setSelectedStage(null)}
                 />
             );

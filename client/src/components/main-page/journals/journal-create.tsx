@@ -1,10 +1,10 @@
 import { useState } from "react";
-import * as S from "./journal-item.styled";
+import * as S from "./journal-view.styled";
 import { Journal } from "./types";
+import { useCreateJournalMutation } from "../../../provider/query/use-journals-query";
 
 type Props = {
     onClose: () => void;
-    onCreate: (journal: Journal) => void;
 };
 
 // Todo: переименовать JournalItem
@@ -12,6 +12,8 @@ export function JournalCreate(props: Props) {
     const [name, setName] = useState("");
     const [department, setDepartment] = useState("");
     const [sportsTrainingStage, setSportsTrainingStage] = useState("");
+
+    const createJournalCommand = useCreateJournalMutation();
 
     return (
         <S.Root>
@@ -23,15 +25,16 @@ export function JournalCreate(props: Props) {
             <p>Этап спортивной подготовки</p>
             <input type="text" value={sportsTrainingStage} onChange={(e) => setSportsTrainingStage(e.target.value)} />
             <button
-                onClick={() =>
-                    props.onCreate({
+                onClick={() => {
+                    createJournalCommand.mutate({
                         department,
                         name,
                         sportsTrainingStage,
                         startDate: new Date(),
                         generalInformation: { sportsmen: [] },
-                    })
-                }
+                    });
+                    props.onClose();
+                }}
                 disabled={!name || !department || !setSportsTrainingStage}
             >
                 Создать

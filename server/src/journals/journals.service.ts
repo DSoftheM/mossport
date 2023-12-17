@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JournalsRepository } from './journals.repository';
-import { Journal } from './types';
+import { Journal, JournalWithoutId } from './types';
 
 @Injectable()
 export class JournalsService {
@@ -10,7 +10,11 @@ export class JournalsService {
     return this.journalsRepository.getAllJournals();
   }
 
-  createJournal(journal: Journal) {
+  createJournal(journal: JournalWithoutId) {
     return this.journalsRepository.create(journal);
+  }
+
+  editJournal(journal: Journal) {
+    return this.journalsRepository.edit(journal);
   }
 }
