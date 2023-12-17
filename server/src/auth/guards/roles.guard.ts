@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 import { User } from 'src/users/users.service';
 
 export enum Role {
-  Admin = 'admin',
-  User = 'user',
+  Coach = 'coach',
+  Sportsman = 'Sportsman',
 }
 
 export function SetRoles(...roles: Role[]) {

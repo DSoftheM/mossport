@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Shape } from "../shape";
 import * as S from "./journal-item.styled";
-import { Journal } from "./journals";
-import { GeneralInformation, SportsCategory, Sportsman } from "./general-information";
+import { GeneralInformation } from "./general-information";
+import { Journal, Sportsman } from "./types";
 
 type Props = {
     journal: Journal;

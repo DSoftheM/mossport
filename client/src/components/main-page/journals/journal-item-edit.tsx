@@ -1,6 +1,6 @@
 import { useState } from "react";
 import * as S from "./journal-item.styled";
-import { Journal } from "./journals";
+import { Journal } from "./types";
 
 type Props = {
     onClose: () => void;

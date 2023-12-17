@@ -2,37 +2,12 @@ import { useState } from "react";
 import * as S from "./general-information.styled";
 import { Dropdown } from "@ui/dropdown/dropdown";
 import { getDate, getSportsCategory } from "./general-information.lib";
+import { Sportsman, SportsCategory } from "./types";
 
 type Props = {
     sportsmen: Sportsman[];
     onCreate: (sportsman: Sportsman) => void;
     onClose: () => void;
-};
-
-export enum SportsCategory {
-    Un1 = "Un1",
-    Un2 = "Un2",
-    Un3 = "Un3",
-    _3 = "_3",
-    _2 = "_2",
-    _1 = "_1",
-    KMS = "KMS",
-    MS = "MS",
-    MSMK = "MSMK",
-    ZMS = "ZMS",
-    GR = "GR",
-}
-
-export type Sportsman = {
-    name: string;
-    birthDate: Date;
-    sportsCategory: SportsCategory;
-    medicalExamination: {
-        first: Date;
-        second: Date;
-    };
-    parentsFio: string;
-    tel: string;
 };
 
 export function GeneralInformation(props: Props) {

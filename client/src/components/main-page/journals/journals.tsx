@@ -2,19 +2,7 @@ import { useState } from "react";
 import * as S from "./journals.styled";
 import { JournalItem } from "./journal-item";
 import { JournalCreate } from "./journal-item-edit";
-import { SportsCategory, Sportsman } from "./general-information";
-
-export type Journal = {
-    name: string;
-    department: string;
-    sportsTrainingStage: string;
-    startDate: Date;
-    generalInformation: {
-        sportsmen: Sportsman[];
-    };
-    // Todo: endDate
-    // endDate?: Date;
-};
+import { Journal, SportsCategory } from "./types";
 
 const mockJournals: Journal[] = [
     {

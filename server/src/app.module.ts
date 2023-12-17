@@ -7,9 +7,10 @@ import { AuthModule } from './auth/auth.module';
 import { NewsModule } from './news/news.module';
 import { LoggerExceptionFilter } from './global/exception-filters/logger.exception-filter';
 import { LoggerRepository } from './global/exception-filters/logger.service';
+import { JournalsModule } from './journals/journals.module';
 
 @Module({
-  imports: [UsersModule, AuthModule, NewsModule],
+  imports: [UsersModule, AuthModule, NewsModule, JournalsModule],
   controllers: [AppController],
   providers: [
     AppService,

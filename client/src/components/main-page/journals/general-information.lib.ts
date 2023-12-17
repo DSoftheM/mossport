@@ -1,4 +1,4 @@
-import { SportsCategory } from "./general-information";
+import { SportsCategory } from "./types";
 
 export function getSportsCategory(sportsCategory: SportsCategory) {
     switch (sportsCategory) {

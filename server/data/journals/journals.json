@@ -1,0 +1,36 @@
+{
+  "journals": [
+    {
+      "name": "Журнал тестовый 1",
+      "department": "Департамент1",
+      "sportsTrainingStage": "АА",
+      "startDate": "2023-12-17T07:22:27.431Z",
+      "generalInformation": {
+        "sportsmen": [
+          {
+            "birthDate": "2023-12-17T07:22:27.431Z",
+            "medicalExamination": { "first": "2023-12-17T07:22:27.431Z", "second": "2023-12-17T07:22:27.431Z" },
+            "name": "Иван Иванов",
+            "parentsFio": "Мама - Иванова Светлана, отец - Иванов Алексей",
+            "sportsCategory": "GR",
+            "tel": "+79765675136"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Журнал тестовый 2",
+      "department": "Департамент2",
+      "sportsTrainingStage": "АB",
+      "startDate": "2023-12-17T07:22:27.431Z",
+      "generalInformation": { "sportsmen": [] }
+    },
+    {
+      "name": "Журнал тестовый 3",
+      "department": "Департамент2",
+      "sportsTrainingStage": "АB",
+      "startDate": "2023-12-17T07:22:27.431Z",
+      "generalInformation": { "sportsmen": [] }
+    }
+  ]
+}
