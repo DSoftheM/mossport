@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Journal } from "../../components/main-page/journals/types";
+import { Role } from "../../components/auth/register-page";
 
 const base = "http://localhost:3000/";
 axios.defaults.baseURL = base;
@@ -12,6 +13,7 @@ declare namespace User {
         patronymic: string;
         tel: string;
         email: string;
+        role: Role[];
     };
 
     type Register = Base & {

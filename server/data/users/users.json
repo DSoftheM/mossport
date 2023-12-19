@@ -7,8 +7,18 @@
       "patronymic": "Иванович",
       "surname": "Иванов",
       "tel": "89248765698",
-      "roles": ["admin"],
+      "roles": ["coach"],
       "userId": 0
+    },
+    {
+      "email": "3dfsdf",
+      "name": "wdwd",
+      "password": "wef",
+      "patronymic": "wd",
+      "surname": "wdwd",
+      "tel": "13123",
+      "role": ["coach"],
+      "userId": 1
     }
   ]
 }

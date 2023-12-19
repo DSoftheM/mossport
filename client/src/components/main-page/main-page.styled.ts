@@ -45,7 +45,10 @@ export const Avatar = styled.div`
     }
 `;
 
-export const Title = styled.h3``;
+export const Title = styled.h3`
+    width: 0;
+    white-space: nowrap;
+`;
 
 export const Logo = styled.img`
     width: 50px;

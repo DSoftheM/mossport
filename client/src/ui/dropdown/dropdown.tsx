@@ -12,6 +12,7 @@ type Props<V> = {
     items: DropdownItem<V>[];
     selectedId?: string | null;
     onChange: (value: V) => void;
+    emptyPlaceholder?: string;
 };
 
 const Root = styled.div`
@@ -52,13 +53,14 @@ const Item = styled.div<{ selected: boolean }>`
 export function Dropdown<V>(props: Props<V>) {
     const [isOpen, setIsOpen] = useState(false);
     const ref = useRef<HTMLDivElement | null>(null);
+    const { emptyPlaceholder = "Не выбрано" } = props;
 
     useClickOutside(ref, () => setIsOpen(false));
 
     function renderSelected() {
         return (
             <Field onClick={() => setIsOpen(!isOpen)}>
-                {props.items.find((x) => x.id === props.selectedId)?.text ?? "Не выбрано"}
+                {props.items.find((x) => x.id === props.selectedId)?.text ?? emptyPlaceholder}
             </Field>
         );
     }

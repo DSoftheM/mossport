@@ -23,6 +23,10 @@ const GlobalStyles = createGlobalStyle`
         max-width: 100%;
         max-height: 100%;
     }
+
+    textarea {
+        resize: none;
+    }
 `;
 
 function App() {

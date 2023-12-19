@@ -5,8 +5,20 @@ import { useQuery } from "react-query";
 import { apiProvider } from "../../provider/api-provider";
 import { useNavigate } from "react-router-dom";
 import { Nav } from "@nav";
+import { Dropdown } from "@ui/dropdown/dropdown";
+
+export enum Role {
+    Coach = "coach",
+    Sportsman = "sportsman",
+}
+
+const roles = [
+    { id: "1", text: "Я спортсмен", value: Role.Sportsman },
+    { id: "2", text: "Я тренер", value: Role.Coach },
+];
 
 export function RegisterPage() {
+    const [role, setRole] = useState<Role | null>(null);
     const [surname, setSurname] = useState("");
     const [name, setName] = useState("");
     const [patronymic, setPatronymic] = useState("");
@@ -16,11 +28,12 @@ export function RegisterPage() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const navigate = useNavigate();
 
-    const valid = surname && name && patronymic && tel && email && password && confirmPassword && password === confirmPassword;
+    const valid =
+        surname && name && patronymic && tel && email && password && confirmPassword && password === confirmPassword && role;
 
     const registerQuery = useQuery<void>({
         queryKey: "register",
-        queryFn: () => apiProvider.auth.register({ email, name, password, patronymic, surname, tel }),
+        queryFn: () => apiProvider.auth.register({ email, name, password, patronymic, surname, tel, role: [role!] }),
         enabled: false,
         onSuccess: () => {
             navigate(Nav.login());
@@ -55,6 +68,7 @@ export function RegisterPage() {
                 </S.Body>
                 <S.Security>
                     <S.Title>Безопасность</S.Title>
+                    <Dropdown items={roles} onChange={setRole} selectedId={roles.find((x) => x.value === role)?.id} />
                     <S.Column>
                         <S.InputTitle>Пароль</S.InputTitle>
                         <S.Input value={password} onChange={(e) => setPassword(e.target.value)} type="password" />

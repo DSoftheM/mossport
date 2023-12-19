@@ -4,6 +4,10 @@ import * as S from "./journal-view.styled";
 import { GeneralInformation } from "./general-information";
 import { Journal, Sportsman } from "./types";
 import { produce } from "immer";
+import { Schedule } from "./schedule";
+import { Plan } from "./plan";
+import { AttendanceTracking } from "./attendance-tracking";
+import { Results } from "./results";
 
 type Props = {
     journal: Journal;
@@ -13,6 +17,10 @@ type Props = {
 
 enum JournalStage {
     GeneralInformation = "GeneralInformation",
+    Schedule = "Schedule",
+    Plan = "Plan",
+    AttendanceTracking = "AttendanceTracking",
+    Results = "Results",
 }
 
 export function JournalView(props: Props) {
@@ -28,11 +36,23 @@ export function JournalView(props: Props) {
                     <p>Этап спортивной подготовки: {props.journal.sportsTrainingStage}</p>
                     <p>Начат: {props.journal.startDate.toLocaleDateString("ru")}</p>
                     <S.Shapes>
+                        <Shape shape="rectangle" onClick={() => setSelectedStage(JournalStage.Schedule)} title="Расписание" />
                         <Shape
                             shape="rectangle"
                             onClick={() => setSelectedStage(JournalStage.GeneralInformation)}
                             title="Общие сведения"
                         />
+                        <Shape
+                            shape="rectangle"
+                            onClick={() => setSelectedStage(JournalStage.Plan)}
+                            title="План спортивной подготовки"
+                        />
+                        <Shape
+                            shape="rectangle"
+                            onClick={() => setSelectedStage(JournalStage.AttendanceTracking)}
+                            title="Учет посещаемости"
+                        />
+                        <Shape shape="rectangle" onClick={() => setSelectedStage(JournalStage.Results)} title="Итоги" />
                     </S.Shapes>
                 </>
             );
@@ -48,6 +68,23 @@ export function JournalView(props: Props) {
                         props.onChange(updated);
                     }}
                     onClose={() => setSelectedStage(null)}
+                />
+            );
+        }
+        if (selectedStage === JournalStage.Schedule) {
+            return <Schedule onClose={() => setSelectedStage(null)} />;
+        }
+        if (selectedStage === JournalStage.Plan) {
+            return <Plan onClose={() => setSelectedStage(null)} />;
+        }
+        if (selectedStage === JournalStage.Results) {
+            return <Results sportsmen={props.journal.generalInformation.sportsmen} onClose={() => setSelectedStage(null)} />;
+        }
+        if (selectedStage === JournalStage.AttendanceTracking) {
+            return (
+                <AttendanceTracking
+                    onClose={() => setSelectedStage(null)}
+                    sportsmen={props.journal.generalInformation.sportsmen}
                 />
             );
         }

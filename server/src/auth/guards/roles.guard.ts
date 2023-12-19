@@ -6,7 +6,7 @@ import { User } from 'src/users/users.service';
 
 export enum Role {
   Coach = 'coach',
-  Sportsman = 'Sportsman',
+  Sportsman = 'sportsman',
 }
 
 export function SetRoles(...roles: Role[]) {

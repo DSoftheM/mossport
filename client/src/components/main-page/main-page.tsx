@@ -1,6 +1,6 @@
 import * as S from "./main-page.styled";
 import logoPath from "./logo.png";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Nav } from "@nav";
 import { Shape } from "./shape";
@@ -22,12 +22,31 @@ function extractFirstLetters(name: string, surname: string) {
     return (name.slice(0, 1) + surname.slice(0, 1)).toUpperCase();
 }
 
+const titles = ["Добро пожаловать", `Сегодня ${new Date().toLocaleDateString("ru")}`, "Еще одна фраза"];
+
 export function MainPage() {
     const [selectedId, setSelectedId] = useState<Key | null>(null);
     const navigate = useNavigate();
 
     const profileQuery = useProfileQuery();
     const newsQuery = useNewsQuery();
+
+    function getTitleByIndex(index: number) {
+        return titles[index];
+    }
+
+    const [selectedTitleIndex, setSelectedTitleIndex] = useState<number>(0);
+    useEffect(() => {
+        setInterval(() => {
+            setSelectedTitleIndex((prevIndex) => {
+                const newIndex = prevIndex + 1;
+                if (newIndex === titles.length) {
+                    return 0;
+                }
+                return newIndex;
+            });
+        }, 1000);
+    }, []);
 
     function renderBody() {
         if (!selectedId) {
@@ -67,7 +86,7 @@ export function MainPage() {
             <S.Container>
                 <S.HeaderContainer>
                     <S.Header>
-                        <S.Title>Добро пожаловать</S.Title>
+                        <S.Title>{getTitleByIndex(selectedTitleIndex)}</S.Title>
                         <S.Logo src={logoPath} />
                         <S.Avatar onClick={() => navigate(Nav.profile())}>
                             {profileQuery.data ? extractFirstLetters(profileQuery.data.name, profileQuery.data.surname) : ".."}
