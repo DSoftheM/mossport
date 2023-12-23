@@ -32,6 +32,20 @@ export function JournalCreate(props: Props) {
                         sportsTrainingStage,
                         startDate: new Date(),
                         generalInformation: { sportsmen: [] },
+                        scheduleTable: {
+                            january: [],
+                            february: [],
+                            march: [],
+                            april: [],
+                            may: [],
+                            june: [],
+                            july: [],
+                            august: [],
+                            september: [],
+                            october: [],
+                            november: [],
+                            december: [],
+                        },
                     });
                     props.onClose();
                 }}

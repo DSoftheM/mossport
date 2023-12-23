@@ -36,17 +36,17 @@ export function MainPage() {
     }
 
     const [selectedTitleIndex, setSelectedTitleIndex] = useState<number>(0);
-    useEffect(() => {
-        setInterval(() => {
-            setSelectedTitleIndex((prevIndex) => {
-                const newIndex = prevIndex + 1;
-                if (newIndex === titles.length) {
-                    return 0;
-                }
-                return newIndex;
-            });
-        }, 1000);
-    }, []);
+    // useEffect(() => {
+    //     setInterval(() => {
+    //         setSelectedTitleIndex((prevIndex) => {
+    //             const newIndex = prevIndex + 1;
+    //             if (newIndex === titles.length) {
+    //                 return 0;
+    //             }
+    //             return newIndex;
+    //         });
+    //     }, 1000);
+    // }, []);
 
     function renderBody() {
         if (!selectedId) {

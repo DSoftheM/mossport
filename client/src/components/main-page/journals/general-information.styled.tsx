@@ -7,7 +7,7 @@ export const Table = styled.div`
     /* grid-template-rows: 100px; */
     /* grid-auto-rows: 100px; */
 
-    & * {
+    & > * {
         border: 1px solid #000;
     }
 `;

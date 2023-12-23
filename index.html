@@ -4,9 +4,9 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="style2.css" />
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Unbounded&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Unbounded&display=swap" rel="stylesheet" />
         <title></title>
     </head>
 
@@ -37,22 +37,22 @@
             </div>
         </div>
         <script>
-            fetch("http://localhost:3000/news")
-                .then((d) => d.json())
-                .then((data) => {
-                    const d = data.news;
-                    const newsItems = document.querySelector(".news-items");
+            // fetch("http://localhost:3000/news")
+            //     .then((d) => d.json())
+            //     .then((data) => {
+            //         const d = data.news;
+            //         const newsItems = document.querySelector(".news-items");
 
-                    d.forEach((e) => {
-                        const html = `
-                            <h2 class="news-title">${e.title}</h2>
-                            <p class="news-text">
-                                ${e.text}
-                            </p>`;
+            //         d.forEach((e) => {
+            //             const html = `
+            //                 <h2 class="news-title">${e.title}</h2>
+            //                 <p class="news-text">
+            //                     ${e.text}
+            //                 </p>`;
 
-                        newsItems.innerHTML += html;
-                    });
-                });
+            //             newsItems.innerHTML += html;
+            //         });
+            //     });
 
             const registerButton = document.querySelector(".register");
             const loginButton = document.querySelector(".login-button");

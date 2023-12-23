@@ -1,4 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
+import bgPath from "../main-page/bg.png";
 
 const disappear = keyframes`
     to {
@@ -12,6 +13,7 @@ export const Root = styled.div`
     background-color: #fff;
     min-height: 100vh;
     position: relative;
+    background: url(${bgPath}) center / cover no-repeat;
 
     &::before {
         content: "";

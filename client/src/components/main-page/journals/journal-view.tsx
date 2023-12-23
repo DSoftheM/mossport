@@ -67,12 +67,29 @@ export function JournalView(props: Props) {
                         });
                         props.onChange(updated);
                     }}
+                    onEdit={(sportsman, index) => {
+                        const updated = produce(props.journal, (draft) => {
+                            draft.generalInformation.sportsmen[index] = sportsman;
+                        });
+                        props.onChange(updated);
+                    }}
                     onClose={() => setSelectedStage(null)}
                 />
             );
         }
         if (selectedStage === JournalStage.Schedule) {
-            return <Schedule onClose={() => setSelectedStage(null)} />;
+            return (
+                <Schedule
+                    scheduleTable={props.journal.scheduleTable}
+                    onChange={(table) => {
+                        const updated = produce(props.journal, (draft) => {
+                            draft.scheduleTable = table;
+                        });
+                        props.onChange(updated);
+                    }}
+                    onClose={() => setSelectedStage(null)}
+                />
+            );
         }
         if (selectedStage === JournalStage.Plan) {
             return <Plan onClose={() => setSelectedStage(null)} />;
