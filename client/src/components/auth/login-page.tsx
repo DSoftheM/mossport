@@ -5,6 +5,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Nav } from "@nav";
+import { Alert, Box, Button, InputLabel, Link, Paper, Stack, TextField, Typography } from "@mui/material";
 
 export function LoginPage(): JSX.Element {
     const [email, setEmail] = useState("test@mail.ru");
@@ -28,22 +29,31 @@ export function LoginPage(): JSX.Element {
 
     return (
         <S.Root style={{ justifyContent: "center" }}>
-            <S.Body>
-                <S.Side>
-                    <S.Title>Вход</S.Title>
-                    <S.Column>
-                        <S.InputTitle>Email</S.InputTitle>
-                        <S.Input value={email} onChange={(e) => setEmail(e.target.value)} type="email" />
-                        <S.InputTitle>Пароль</S.InputTitle>
-                        <S.Input value={password} onChange={(e) => setPassword(e.target.value)} type="password" />
-                    </S.Column>
-                    <S.Button disabled={!email || !password} onClick={() => query.refetch({})}>
-                        Войти
-                    </S.Button>
-                    <S.Link onClick={() => navigate(Nav.register())}>Регистрация</S.Link>
-                    {query.isError && <S.Error>Неправильное имя или пароль</S.Error>}
-                </S.Side>
-            </S.Body>
+            <Paper variant="outlined">
+                <Box p={8}>
+                    <S.Side>
+                        <Typography variant="h4">Вход</Typography>
+                        <Stack gap={2} mt={4}>
+                            <TextField label="Email" value={email} onChange={(e) => setEmail(e.target.value)} type="email" />
+                            <TextField
+                                label="Пароль"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                type="password"
+                            />
+                        </Stack>
+                        <Box mt={3} mb={1} alignSelf="stretch">
+                            <Button disabled={!email || !password} onClick={() => query.refetch({})} variant="outlined" fullWidth>
+                                Войти
+                            </Button>
+                        </Box>
+                        <Link component="button" onClick={() => navigate(Nav.register())}>
+                            Регистрация
+                        </Link>
+                        {query.isError && <Alert severity="error">Неправильное имя или пароль</Alert>}
+                    </S.Side>
+                </Box>
+            </Paper>
         </S.Root>
     );
 }

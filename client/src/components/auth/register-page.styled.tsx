@@ -1,5 +1,7 @@
-import styled, { css, keyframes } from "styled-components";
+import styled from "@emotion/styled";
 import bgPath from "../main-page/bg.png";
+import _Button from "@mui/material/Button";
+import { css, keyframes } from "@emotion/react";
 
 const disappear = keyframes`
     to {
@@ -13,7 +15,7 @@ export const Root = styled.div`
     background-color: #fff;
     min-height: 100vh;
     position: relative;
-    background: url(${bgPath}) center / cover no-repeat;
+    /* background: url(${bgPath}) center / cover no-repeat; */
 
     &::before {
         content: "";
@@ -86,26 +88,4 @@ export const Column = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
-`;
-
-export const Button = styled.button<{ disabled: boolean }>`
-    margin-top: 20px;
-    background-color: rgb(122, 185, 122);
-    color: white;
-    cursor: pointer;
-    padding: 10px 20px;
-    border-radius: 10px;
-    border: none;
-    transition: all 0.3s ease 0s;
-
-    ${(props) =>
-        props.disabled &&
-        css`
-            pointer-events: none;
-            opacity: 0.6;
-        `}
-
-    &:hover {
-        background-color: rgb(159, 240, 159);
-    }
 `;
