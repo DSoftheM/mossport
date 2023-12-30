@@ -25,4 +25,8 @@ export class AuthService {
       access_token: this.jwtService.sign(payload),
     };
   }
+
+  async changePassword(userId: number, newPassword: string) {
+    this.usersService.changePassword(userId, newPassword);
+  }
 }

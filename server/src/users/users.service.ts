@@ -37,4 +37,18 @@ export class UsersService {
     currentUsers.push(user);
     await fs.writeFile(getUsersJsonPath(), JSON.stringify({ users: currentUsers }));
   }
+
+  async changePassword(userId: number, newPassword: string) {
+    const buffer = await fs.readFile(getUsersJsonPath());
+    const currentUsers: User[] = JSON.parse(buffer.toString()).users;
+    console.log('newPassword :>> ', newPassword);
+
+    currentUsers.forEach((user) => {
+      if (user.userId === userId) {
+        user.password = newPassword;
+      }
+    });
+
+    await fs.writeFile(getUsersJsonPath(), JSON.stringify({ users: currentUsers }));
+  }
 }

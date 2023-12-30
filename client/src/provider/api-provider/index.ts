@@ -44,6 +44,9 @@ export const apiProvider = {
         async register(data: User.Register) {
             return (await axios.post<void>("auth/register", data)).data;
         },
+        async changePassword(newPassword: string) {
+            return (await axios.post<void>("auth/change-password", { newPassword })).data;
+        },
     },
     news: {
         // Todo: skip, count

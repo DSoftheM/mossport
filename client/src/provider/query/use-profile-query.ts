@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { apiProvider } from "../api-provider";
 
 export function useProfileQuery() {
@@ -7,5 +7,16 @@ export function useProfileQuery() {
         queryFn: () => apiProvider.auth.getProfile(),
         staleTime: Infinity,
         cacheTime: Infinity,
+    });
+}
+
+export function useChangePasswordMutation() {
+    return useMutation({
+        mutationFn: (newPassword: string) => apiProvider.auth.changePassword(newPassword),
+        onSuccess: () => {
+            // queryClient.invalidateQueries({
+            //     queryKey: [JournalQueryKey.GetAllJournals],
+            // });
+        },
     });
 }

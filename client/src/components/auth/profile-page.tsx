@@ -1,7 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useProfileQuery } from "../../provider/query/use-profile-query";
+import { useChangePasswordMutation, useProfileQuery } from "../../provider/query/use-profile-query";
 import { Nav } from "@nav";
-import { Avatar, Box, Button, Grid, Paper, TextField, Typography, keyframes } from "@mui/material";
+import { Alert, Avatar, Box, Button, Grid, Paper, TextField, Typography, keyframes } from "@mui/material";
+import { useState } from "react";
 
 const fade = keyframes`
     0% {
@@ -15,6 +16,9 @@ const fade = keyframes`
 
 export function ProfilePage() {
     const profileQuery = useProfileQuery();
+    const changePasswordMutation = useChangePasswordMutation();
+
+    const [newPassword, setNewPassword] = useState("");
 
     if (!profileQuery.data) return null;
 
@@ -45,16 +49,35 @@ export function ProfilePage() {
                 </Box>
                 <Box>
                     <Paper elevation={2} sx={{ padding: 3 }}>
-                        <Box display="flex" flexDirection="column" alignItems={"center"}>
-                            <Typography variant="h4" mb={3}>
+                        <Box display="flex" flexDirection="column" width={"fit-content"} margin={"0 auto"}>
+                            <Typography variant="h4" mb={3} textAlign={"center"}>
                                 Безопасность
                             </Typography>
                             <Box display={"flex"} gap={1}>
-                                <TextField label="Новый пароль" variant="outlined" type="password" />
-                                <Button variant="contained" color="success">
+                                <TextField
+                                    label="Новый пароль"
+                                    variant="outlined"
+                                    type="password"
+                                    value={newPassword}
+                                    onChange={(e) => setNewPassword(e.target.value)}
+                                />
+                                <Button
+                                    variant="contained"
+                                    color="success"
+                                    disabled={!newPassword}
+                                    onClick={() => {
+                                        changePasswordMutation.mutate(newPassword);
+                                        setNewPassword("");
+                                    }}
+                                >
                                     Сохранить
                                 </Button>
                             </Box>
+                            {changePasswordMutation.isSuccess && (
+                                <Alert sx={{ marginTop: 2 }} severity="success">
+                                    Пароль был изменен
+                                </Alert>
+                            )}
                         </Box>
                     </Paper>
                 </Box>

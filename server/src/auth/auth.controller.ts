@@ -27,6 +27,14 @@ export class AuthController {
     return req.user;
   }
 
+  @Post('change-password')
+  changePassword(@Req() req: Request, @Body('newPassword') newPassword: string) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const userId = req.user.userId;
+    return this.authService.changePassword(userId, newPassword);
+  }
+
   @Post('register')
   @SetPublic()
   register(@Body() user: User) {
