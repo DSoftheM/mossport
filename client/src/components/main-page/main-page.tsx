@@ -1,7 +1,7 @@
 import * as S from "./main-page.styled";
 import logoPath from "./logo.png";
 import { ReactNode, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useMatch, useNavigate } from "react-router-dom";
 import { Nav } from "@nav";
 import { Shape } from "./shape";
 import { useProfileQuery } from "../../provider/query/use-profile-query";
@@ -82,36 +82,47 @@ export function MainPage() {
         }
     }
 
-    const [scope, animate] = useAnimate();
-
     return (
         <S.Root>
             <S.Container>
-                <S.HeaderContainer>
-                    <S.Header>
-                        <S.Title>{getTitleByIndex(selectedTitleIndex)}</S.Title>
-                        <S.Logo src={logoPath} />
-                        <S.Avatar
-                            ref={scope}
-                            style={{ scale: 1 }}
-                            transition={{ type: "tween", ease: "circOut", duration: "1" }}
-                            onClick={async () => {
-                                await animate(scope.current, {
-                                    scale: 100,
-                                    backgroundColor: "white",
-                                    color: "white",
-                                    position: "relative",
-                                    zIndex: 1,
-                                });
-                                navigate(Nav.profile());
-                            }}
-                        >
-                            {profileQuery.data ? extractFirstLetters(profileQuery.data.name, profileQuery.data.surname) : ".."}
-                        </S.Avatar>
-                    </S.Header>
-                </S.HeaderContainer>
+                <MainHeader />
                 {renderBody()}
             </S.Container>
         </S.Root>
+    );
+}
+
+export function MainHeader() {
+    const navigate = useNavigate();
+
+    const profileQuery = useProfileQuery();
+    const [scope, animate] = useAnimate();
+    const isProfile = useMatch(Nav.profile());
+
+    return (
+        <S.HeaderContainer>
+            <S.Header>
+                <S.Title>Добро пожаловать</S.Title>
+                <S.Logo src={logoPath} />
+                <S.Avatar
+                    ref={scope}
+                    style={{ scale: 1 }}
+                    transition={{ type: "tween", ease: "circOut", duration: "1" }}
+                    onClick={async () => {
+                        if (isProfile) return;
+                        await animate(scope.current, {
+                            scale: 100,
+                            backgroundColor: "white",
+                            color: "white",
+                            position: "relative",
+                            zIndex: 1,
+                        });
+                        navigate(Nav.profile());
+                    }}
+                >
+                    {profileQuery.data ? extractFirstLetters(profileQuery.data.name, profileQuery.data.surname) : ".."}
+                </S.Avatar>
+            </S.Header>
+        </S.HeaderContainer>
     );
 }

@@ -3,6 +3,8 @@ import { useChangePasswordMutation, useProfileQuery } from "../../provider/query
 import { Nav } from "@nav";
 import { Alert, Avatar, Box, Button, Grid, Paper, TextField, Typography, keyframes } from "@mui/material";
 import { useState } from "react";
+import { MainHeader } from "../main-page/main-page";
+import bgPath from "../main-page/bg.png";
 
 const fade = keyframes`
     0% {
@@ -23,72 +25,75 @@ export function ProfilePage() {
     if (!profileQuery.data) return null;
 
     return (
-        <Box padding={10} sx={{ animation: `${fade} 1s ease 0s 1` }}>
-            <Box display="grid" gridTemplateColumns="repeat(2, 1fr)" gap={2}>
-                <Box gridRow="span 2">
-                    <Paper sx={{ height: "100%", padding: 3 }} elevation={2}>
-                        <Box display="flex" flexDirection="column" alignItems={"center"}>
-                            <Avatar
-                                sx={{ width: 300, height: 300 }}
-                                src="https://sun9-45.userapi.com/impg/FzoC5aeURBsweEUmJ4-rR7QLVEWEFyp4D4CvLw/9sQSuS__5_c.jpg?size=600x400&quality=96&sign=a9d3f1bde0c5b240653561790746382b&c_uniq_tag=yoZ0_jxbnXmtxtGk-7tWR6aMn_pDhZ768s-qQYe1CYo&type=album"
-                            />
-                            <Typography variant="h3" component="h3" mb={3}>
-                                Мой профиль
-                            </Typography>
-                            <Box>
-                                <Typography>
-                                    ФИО: {profileQuery.data.surname} {profileQuery.data.name} {profileQuery.data.patronymic}
-                                </Typography>
-                                <Typography>Телефон: {profileQuery.data.tel}</Typography>
-                                <Typography>Почта: {profileQuery.data.email}</Typography>
-                                <Typography>Роль: {JSON.stringify(profileQuery.data.roles)}</Typography>
-                                <Link to={Nav.main()}>Перейти на главную</Link>
-                            </Box>
-                        </Box>
-                    </Paper>
+        <div style={{ background: `url(${bgPath}) center / cover no-repeat`, height: "100vh" }}>
+            <Box sx={{ animation: `${fade} 1s ease 0s 1`, padding: "10px 80px 0" }}>
+                <Box mb={5}>
+                    <MainHeader />
                 </Box>
-                <Box>
-                    <Paper elevation={2} sx={{ padding: 3 }}>
-                        <Box display="flex" flexDirection="column" width={"fit-content"} margin={"0 auto"}>
-                            <Typography variant="h4" mb={3} textAlign={"center"}>
-                                Безопасность
-                            </Typography>
-                            <Box display={"flex"} gap={1}>
-                                <TextField
-                                    label="Новый пароль"
-                                    variant="outlined"
-                                    type="password"
-                                    value={newPassword}
-                                    onChange={(e) => setNewPassword(e.target.value)}
+                <Box display="grid" gridTemplateColumns="repeat(2, 1fr)" gridTemplateRows="auto 1fr" gap={2}>
+                    <Box gridRow="span 2">
+                        <Paper sx={{ height: "100%", padding: 3, borderRadius: "20px" }} elevation={2}>
+                            <Box display="flex" flexDirection="column" alignItems={"center"}>
+                                <Avatar
+                                    sx={{ width: 300, height: 300 }}
+                                    src="https://sun9-45.userapi.com/impg/FzoC5aeURBsweEUmJ4-rR7QLVEWEFyp4D4CvLw/9sQSuS__5_c.jpg?size=600x400&quality=96&sign=a9d3f1bde0c5b240653561790746382b&c_uniq_tag=yoZ0_jxbnXmtxtGk-7tWR6aMn_pDhZ768s-qQYe1CYo&type=album"
                                 />
-                                <Button
-                                    variant="contained"
-                                    color="success"
-                                    disabled={!newPassword}
-                                    onClick={() => {
-                                        changePasswordMutation.mutate(newPassword);
-                                        setNewPassword("");
-                                    }}
-                                >
-                                    Сохранить
-                                </Button>
+                                <Typography variant="h3" component="h3" mb={3}>
+                                    Мой профиль
+                                </Typography>
+                                <Box>
+                                    <Typography>
+                                        ФИО: {profileQuery.data.surname} {profileQuery.data.name} {profileQuery.data.patronymic}
+                                    </Typography>
+                                    <Typography>Телефон: {profileQuery.data.tel}</Typography>
+                                    <Typography>Почта: {profileQuery.data.email}</Typography>
+                                    <Typography>Роль: {JSON.stringify(profileQuery.data.roles)}</Typography>
+                                    <Link to={Nav.main()}>Перейти на главную</Link>
+                                </Box>
                             </Box>
-                            {changePasswordMutation.isSuccess && (
-                                <Alert sx={{ marginTop: 2 }} severity="success">
-                                    Пароль был изменен
-                                </Alert>
-                            )}
-                        </Box>
-                    </Paper>
-                </Box>
-                <Box>
-                    <Paper elevation={2}>xs=3</Paper>
+                        </Paper>
+                    </Box>
+                    <Box>
+                        <Paper elevation={2} sx={{ padding: 3, borderRadius: "20px" }}>
+                            <Box display="flex" flexDirection="column" width={"fit-content"} margin={"0 auto"}>
+                                <Typography variant="h4" mb={3} textAlign={"center"}>
+                                    Безопасность
+                                </Typography>
+                                <Box display={"flex"} gap={1}>
+                                    <TextField
+                                        label="Новый пароль"
+                                        variant="outlined"
+                                        type="password"
+                                        value={newPassword}
+                                        onChange={(e) => setNewPassword(e.target.value)}
+                                    />
+                                    <Button
+                                        variant="contained"
+                                        color="success"
+                                        disabled={!newPassword}
+                                        onClick={() => {
+                                            changePasswordMutation.mutate(newPassword);
+                                            setNewPassword("");
+                                        }}
+                                    >
+                                        Сохранить
+                                    </Button>
+                                </Box>
+                                {changePasswordMutation.isSuccess && (
+                                    <Alert sx={{ marginTop: 2 }} severity="success">
+                                        Пароль был изменен
+                                    </Alert>
+                                )}
+                            </Box>
+                        </Paper>
+                    </Box>
+                    <Box>
+                        <Paper sx={{ padding: 3, height: "100%", borderRadius: "20px" }} elevation={2}>
+                            xs=3
+                        </Paper>
+                    </Box>
                 </Box>
             </Box>
-        </Box>
-        // <div>
-        //     <p>Роль = {JSON.stringify(profileQuery.data.roles)}</p>
-        //
-        // </div>
+        </div>
     );
 }
