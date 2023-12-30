@@ -9,6 +9,7 @@ import { useNewsQuery } from "../../provider/query/use-news-query";
 import { NewsView } from "./news";
 import { TrainingSchedule } from "./training-schedule";
 import { Journals } from "./journals/journals";
+import { useAnimate } from "framer-motion";
 
 enum Key {
     News = "News",
@@ -81,6 +82,8 @@ export function MainPage() {
         }
     }
 
+    const [scope, animate] = useAnimate();
+
     return (
         <S.Root>
             <S.Container>
@@ -88,7 +91,21 @@ export function MainPage() {
                     <S.Header>
                         <S.Title>{getTitleByIndex(selectedTitleIndex)}</S.Title>
                         <S.Logo src={logoPath} />
-                        <S.Avatar onClick={() => navigate(Nav.profile())}>
+                        <S.Avatar
+                            ref={scope}
+                            style={{ scale: 1 }}
+                            transition={{ type: "tween", ease: "circOut", duration: "1" }}
+                            onClick={async () => {
+                                await animate(scope.current, {
+                                    scale: 100,
+                                    backgroundColor: "white",
+                                    color: "white",
+                                    position: "relative",
+                                    zIndex: 1,
+                                });
+                                navigate(Nav.profile());
+                            }}
+                        >
                             {profileQuery.data ? extractFirstLetters(profileQuery.data.name, profileQuery.data.surname) : ".."}
                         </S.Avatar>
                     </S.Header>

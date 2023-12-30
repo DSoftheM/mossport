@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import bgPath from "./bg.png";
+import { motion } from "framer-motion";
 
 export const Root = styled.div`
     padding-top: 10px;
@@ -26,7 +27,7 @@ export const Header = styled.div`
     margin-bottom: 40px;
 `;
 
-export const Avatar = styled.div`
+export const Avatar = styled(motion.div)`
     color: white;
     background-color: slateblue;
     flex-basis: 50px;

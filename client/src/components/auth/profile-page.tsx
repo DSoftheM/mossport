@@ -1,7 +1,17 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useProfileQuery } from "../../provider/query/use-profile-query";
 import { Nav } from "@nav";
-import { Avatar, Box, Button, Grid, Paper, TextField, Typography } from "@mui/material";
+import { Avatar, Box, Button, Grid, Paper, TextField, Typography, keyframes } from "@mui/material";
+
+const fade = keyframes`
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+`;
 
 export function ProfilePage() {
     const profileQuery = useProfileQuery();
@@ -9,7 +19,7 @@ export function ProfilePage() {
     if (!profileQuery.data) return null;
 
     return (
-        <Box padding={10}>
+        <Box padding={10} sx={{ animation: `${fade} 1s ease 0s 1` }}>
             <Box display="grid" gridTemplateColumns="repeat(2, 1fr)" gap={2}>
                 <Box gridRow="span 2">
                     <Paper sx={{ height: "100%", padding: 3 }} elevation={2}>
