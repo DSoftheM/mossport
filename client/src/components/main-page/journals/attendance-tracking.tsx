@@ -1,10 +1,12 @@
 import { useState } from "react";
 import * as S from "./attendance-tracking.styled";
-import { Sportsman } from "./types";
+import { AbsenceReason, AttendanceTracking, Sportsman } from "./types";
 import { Dropdown } from "@ui/dropdown/dropdown";
+import { MenuItem, Select } from "@mui/material";
 
 type Props = {
     onClose: () => void;
+    attendanceTracking: AttendanceTracking;
     sportsmen: Sportsman[];
 };
 
@@ -15,11 +17,6 @@ function getMonthName(month: number) {
 
 function daysInMonth(month: number, year: number) {
     return new Date(year, month - 1, 0).getDate();
-}
-
-enum AbsenceReason {
-    Disease = "disease",
-    Lack = "lack",
 }
 
 export function AttendanceTracking(props: Props) {
@@ -51,14 +48,10 @@ export function AttendanceTracking(props: Props) {
                         <p>{x.name}</p>
                         {Array.from({ length: days }).map((x, i) => (
                             // <input type="checkbox" />
-                            <Dropdown
-                                emptyPlaceholder="..."
-                                items={[
-                                    { id: "1", text: "Б", value: AbsenceReason.Disease },
-                                    { id: "2", text: "О", value: AbsenceReason.Lack },
-                                ]}
-                                onChange={console.log}
-                            />
+                            <Select onChange={console.log}>
+                                <MenuItem value={AbsenceReason.Disease}>Болел</MenuItem>
+                                <MenuItem value={AbsenceReason.Lack}>Отсутствовал</MenuItem>
+                            </Select>
                         ))}
                     </>
                 ))}

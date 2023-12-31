@@ -17,6 +17,7 @@ const GlobalStyles = createGlobalStyle`
     #root {
         min-height: 100vh;
         font-family: "Unbounded";
+        overflow: hidden;
     }
 
     img {

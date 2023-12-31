@@ -100,6 +100,7 @@ export function JournalView(props: Props) {
         if (selectedStage === JournalStage.AttendanceTracking) {
             return (
                 <AttendanceTracking
+                    attendanceTracking={props.journal.attendance}
                     onClose={() => setSelectedStage(null)}
                     sportsmen={props.journal.generalInformation.sportsmen}
                 />

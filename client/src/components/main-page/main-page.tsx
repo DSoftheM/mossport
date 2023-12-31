@@ -112,15 +112,13 @@ export function MainHeader() {
                         await animate(
                             scope.current,
                             {
-                                scale: 100,
+                                scale: 85,
                                 backgroundColor: "white",
                                 color: "white",
                                 position: "relative",
                                 zIndex: 1,
                             },
-                            {
-                                duration: 1,
-                            }
+                            { duration: 0.4 }
                         );
                         navigate(Nav.profile());
                     }}

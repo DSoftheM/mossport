@@ -7,9 +7,39 @@ export type Journal = {
     generalInformation: {
         sportsmen: Sportsman[];
     };
+    attendance: AttendanceTracking;
     // Todo: endDate
     // endDate?: Date;
 };
+
+export type AttendanceTracking = {
+    tracking: Record<Month, MonthAttendanceTracking[]>;
+};
+
+export type MonthAttendanceTracking = {
+    sportsman: Sportsman;
+    attendance: AbsenceReason[];
+};
+
+export enum AbsenceReason {
+    Disease = "disease",
+    Lack = "lack",
+}
+
+export enum Month {
+    January = "january",
+    February = "february",
+    March = "march",
+    April = "april",
+    May = "may",
+    June = "june",
+    July = "july",
+    August = "august",
+    September = "september",
+    October = "october",
+    November = "november",
+    December = "december",
+}
 
 export type ScheduleTable = {
     january: string[];
