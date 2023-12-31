@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Nav } from "@nav";
-import { Alert, Box, Button, InputLabel, Link, Paper, Stack, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, Link, Paper, Stack, TextField, Typography } from "@mui/material";
 
 export function LoginPage(): JSX.Element {
     const [email, setEmail] = useState("test@mail.ru");

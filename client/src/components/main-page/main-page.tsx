@@ -106,17 +106,22 @@ export function MainHeader() {
                 <S.Logo src={logoPath} />
                 <S.Avatar
                     ref={scope}
-                    style={{ scale: 1 }}
-                    transition={{ type: "tween", ease: "circOut", duration: "1" }}
+                    animate={{ scale: 1 }}
                     onClick={async () => {
                         if (isProfile) return;
-                        await animate(scope.current, {
-                            scale: 100,
-                            backgroundColor: "white",
-                            color: "white",
-                            position: "relative",
-                            zIndex: 1,
-                        });
+                        await animate(
+                            scope.current,
+                            {
+                                scale: 100,
+                                backgroundColor: "white",
+                                color: "white",
+                                position: "relative",
+                                zIndex: 1,
+                            },
+                            {
+                                duration: 1,
+                            }
+                        );
                         navigate(Nav.profile());
                     }}
                 >

@@ -38,7 +38,6 @@ export const Avatar = styled(motion.div)`
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    transition: all 0.3s ease 0s;
 
     &:hover {
         color: slateblue;
