@@ -19,7 +19,7 @@ function daysInMonth(month: number, year: number) {
     return new Date(year, month - 1, 0).getDate();
 }
 
-export function AttendanceTracking(props: Props) {
+export function AttendanceTrackingEdit(props: Props) {
     const currentMonth = new Date().getMonth();
     const [month, setMonth] = useState<number>(currentMonth);
 
