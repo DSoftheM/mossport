@@ -4,6 +4,7 @@ import { AbsenceReason, AttendanceTracking, MonthAttendanceTracking, Sportsman }
 import { MenuItem, Select } from "@mui/material";
 import { getMonthByIndex } from "./schedule";
 import { produce } from "immer";
+import React from "react";
 
 type Props = {
     onClose: () => void;
@@ -37,12 +38,12 @@ export function AttendanceTrackingEdit(props: Props) {
             <button disabled={month === 11} onClick={() => setMonth(month + 1)}>
                 Следующий месяц
             </button>
-            <S.Table columns={days + 2}>
+            <S.Table $columns={days + 2}>
                 <p style={{ gridRow: "1 / 3" }}>№ п/п</p>
                 <p style={{ gridRow: "1 / 3" }}>Фамилия, имя</p>
                 <p style={{ gridColumn: "3 / -1" }}>Дни месяца {getMonthName(month)}</p>
                 {Array.from({ length: days }).map((x, i) => (
-                    <p>{i + 1}</p>
+                    <p key={i}>{i + 1}</p>
                 ))}
                 {props.sportsman.map((sportsman, i) => {
                     const attendance: MonthAttendanceTracking = props.attendanceTracking.tracking[getMonthByIndex(month)][i] ?? {
@@ -50,13 +51,14 @@ export function AttendanceTrackingEdit(props: Props) {
                         sportsman,
                     };
                     return (
-                        <>
+                        <React.Fragment key={i}>
                             <p>{i + 1}</p>
                             <p>{sportsman.name}</p>
                             {Array.from({ length: days }).map((x, j) => {
                                 const value = getFirstLetter(attendance.attendance[j] ?? "");
                                 return (
                                     <Select
+                                        key={j}
                                         color="success"
                                         sx={{ backgroundColor: value ? "#99cdf7" : "initial" }}
                                         inputProps={{ IconComponent: () => null }}
@@ -83,7 +85,7 @@ export function AttendanceTrackingEdit(props: Props) {
                                     </Select>
                                 );
                             })}
-                        </>
+                        </React.Fragment>
                     );
                 })}
             </S.Table>
