@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { months } from "./months";
 import * as S from "./schedule.styled";
-import { ScheduleTable } from "./types";
+import { Month, ScheduleTable } from "./types";
 import { useImmer } from "use-immer";
 
 type Props = {
@@ -10,19 +10,19 @@ type Props = {
     onChange: (scheduleTable: ScheduleTable) => void;
 };
 
-function getMonthByIndex(index: number) {
-    if (index === 0) return "january";
-    if (index === 1) return "february";
-    if (index === 2) return "march";
-    if (index === 3) return "april";
-    if (index === 4) return "may";
-    if (index === 5) return "june";
-    if (index === 6) return "july";
-    if (index === 7) return "august";
-    if (index === 8) return "september";
-    if (index === 9) return "october";
-    if (index === 10) return "november";
-    return "december";
+export function getMonthByIndex(index: number): Month {
+    if (index === 0) return Month.January;
+    if (index === 1) return Month.February;
+    if (index === 2) return Month.March;
+    if (index === 3) return Month.April;
+    if (index === 4) return Month.May;
+    if (index === 5) return Month.June;
+    if (index === 6) return Month.July;
+    if (index === 7) return Month.August;
+    if (index === 8) return Month.September;
+    if (index === 9) return Month.October;
+    if (index === 10) return Month.November;
+    return Month.December;
 }
 
 export function Schedule(props: Props) {

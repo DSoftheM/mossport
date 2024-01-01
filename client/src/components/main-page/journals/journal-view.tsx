@@ -100,9 +100,15 @@ export function JournalView(props: Props) {
         if (selectedStage === JournalStage.AttendanceTracking) {
             return (
                 <AttendanceTrackingEdit
+                    sportsman={props.journal.generalInformation.sportsmen}
                     attendanceTracking={props.journal.attendance}
                     onClose={() => setSelectedStage(null)}
-                    sportsmen={props.journal.generalInformation.sportsmen}
+                    onChange={(attendanceTracking) => {
+                        const updated = produce(props.journal, (draft) => {
+                            draft.attendance = attendanceTracking;
+                        });
+                        props.onChange(updated);
+                    }}
                 />
             );
         }
