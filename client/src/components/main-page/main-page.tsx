@@ -10,6 +10,9 @@ import { NewsView } from "./news";
 import { TrainingSchedule } from "./training-schedule";
 import { Journals } from "./journals/journals";
 import { useAnimate } from "framer-motion";
+import { Box, IconButton, Tooltip } from "@mui/material";
+import { LogoutSharp } from "@mui/icons-material";
+import axios from "axios";
 
 enum Key {
     News = "News",
@@ -104,27 +107,43 @@ export function MainHeader() {
             <S.Header>
                 <S.Title>Добро пожаловать</S.Title>
                 <S.Logo src={logoPath} />
-                <S.Avatar
-                    ref={scope}
-                    animate={{ scale: 1 }}
-                    onClick={async () => {
-                        if (isProfile) return;
-                        await animate(
-                            scope.current,
-                            {
-                                scale: 85,
-                                backgroundColor: "white",
-                                color: "white",
-                                position: "relative",
-                                zIndex: 1,
-                            },
-                            { duration: 0.4 }
-                        );
-                        navigate(Nav.profile());
-                    }}
-                >
-                    {profileQuery.data ? extractFirstLetters(profileQuery.data.name, profileQuery.data.surname) : ".."}
-                </S.Avatar>
+                <Box display={"flex"} alignItems={"center"} gap={2}>
+                    <Tooltip title="Выйти">
+                        <IconButton>
+                            <LogoutSharp
+                                onClick={() => {
+                                    axios.defaults.headers.common.Authorization = undefined;
+                                    document.cookie = "access_token=";
+                                    navigate(Nav.login());
+                                }}
+                                sx={{ cursor: "pointer" }}
+                            />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Профиль">
+                        <S.Avatar
+                            ref={scope}
+                            animate={{ scale: 1 }}
+                            onClick={async () => {
+                                if (isProfile) return;
+                                await animate(
+                                    scope.current,
+                                    {
+                                        scale: 85,
+                                        backgroundColor: "white",
+                                        color: "white",
+                                        position: "relative",
+                                        zIndex: 1,
+                                    },
+                                    { duration: 0.4 }
+                                );
+                                navigate(Nav.profile());
+                            }}
+                        >
+                            {profileQuery.data ? extractFirstLetters(profileQuery.data.name, profileQuery.data.surname) : ".."}
+                        </S.Avatar>
+                    </Tooltip>
+                </Box>
             </S.Header>
         </S.HeaderContainer>
     );

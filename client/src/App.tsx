@@ -1,10 +1,14 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { RegisterPage } from "./components/auth/register-page";
 import { createGlobalStyle } from "styled-components";
 import { LoginPage } from "./components/auth/login-page";
 import { ProfilePage } from "./components/auth/profile-page";
 import { PrivateRoute } from "./nav/protected-route";
 import { MainPage } from "./components/main-page/main-page";
+import { Nav } from "@nav";
+import { useEffect } from "react";
+import axios from "axios";
+import { apiProvider } from "./provider/api-provider";
 
 const GlobalStyles = createGlobalStyle`
     * {
@@ -31,6 +35,24 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 function App() {
+    const auth = document.cookie.split("=")[1];
+
+    const navigate = useNavigate();
+
+    function navigateToLogin() {
+        navigate(Nav.login());
+    }
+
+    function navigateToProfile() {
+        navigate(Nav.profile());
+    }
+
+    useEffect(() => {
+        if (auth) {
+            axios.defaults.headers.common.Authorization = auth;
+            apiProvider.auth.getProfile().then(navigateToProfile).catch(navigateToLogin);
+        }
+    }, []);
     return (
         <>
             <GlobalStyles />
