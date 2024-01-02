@@ -67,7 +67,6 @@ export enum SportsCategory {
     MS = "MS",
     MSMK = "MSMK",
     ZMS = "ZMS",
-    GR = "GR",
 }
 
 export type Sportsman = {

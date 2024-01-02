@@ -85,14 +85,13 @@ export function GeneralInformation(props: Props) {
                     <MenuItem value={SportsCategory._1}>1 спортивный разряд</MenuItem>
                     <MenuItem value={SportsCategory._2}>2 спортивный разряд</MenuItem>
                     <MenuItem value={SportsCategory._3}>3 спортивный разряд</MenuItem>
-                    <MenuItem value={SportsCategory.GR}>GR</MenuItem>
-                    <MenuItem value={SportsCategory.KMS}>KMS</MenuItem>
-                    <MenuItem value={SportsCategory.MS}>MS</MenuItem>
-                    <MenuItem value={SportsCategory.MSMK}>MSMK</MenuItem>
-                    <MenuItem value={SportsCategory.Un1}>Un1</MenuItem>
-                    <MenuItem value={SportsCategory.Un2}>Un2</MenuItem>
-                    <MenuItem value={SportsCategory.Un3}>Un3</MenuItem>
-                    <MenuItem value={SportsCategory.ZMS}>ZMS</MenuItem>
+                    <MenuItem value={SportsCategory.KMS}>КМС</MenuItem>
+                    <MenuItem value={SportsCategory.MS}>МС</MenuItem>
+                    <MenuItem value={SportsCategory.MSMK}>МСМК</MenuItem>
+                    <MenuItem value={SportsCategory.Un1}>1 юн.</MenuItem>
+                    <MenuItem value={SportsCategory.Un2}>2 юн.</MenuItem>
+                    <MenuItem value={SportsCategory.Un3}>3 юн.</MenuItem>
+                    <MenuItem value={SportsCategory.ZMS}>ЗМС</MenuItem>
                 </Select>
                 <DatePicker
                     label="Дата первого медосмотра"
