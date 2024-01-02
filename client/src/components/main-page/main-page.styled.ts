@@ -30,15 +30,14 @@ export const Header = styled.div`
 export const Avatar = styled(motion.div)`
     color: white;
     background-color: slateblue;
-    flex-basis: 50px;
-    flex-shrink: 0;
+    width: 50px;
     aspect-ratio: 1 / 1;
     border-radius: 50%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    transition: all 0.3s ease 0s;
 
     &:hover {
         color: slateblue;

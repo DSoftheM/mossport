@@ -6,7 +6,7 @@ import { Journal, Sportsman } from "./types";
 import { produce } from "immer";
 import { Schedule } from "./schedule";
 import { Plan } from "./plan";
-import { AttendanceTracking } from "./attendance-tracking";
+import { AttendanceTrackingEdit } from "./attendance-tracking";
 import { Results } from "./results";
 
 type Props = {
@@ -99,9 +99,16 @@ export function JournalView(props: Props) {
         }
         if (selectedStage === JournalStage.AttendanceTracking) {
             return (
-                <AttendanceTracking
+                <AttendanceTrackingEdit
+                    sportsman={props.journal.generalInformation.sportsmen}
+                    attendanceTracking={props.journal.attendance}
                     onClose={() => setSelectedStage(null)}
-                    sportsmen={props.journal.generalInformation.sportsmen}
+                    onChange={(attendanceTracking) => {
+                        const updated = produce(props.journal, (draft) => {
+                            draft.attendance = attendanceTracking;
+                        });
+                        props.onChange(updated);
+                    }}
                 />
             );
         }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import * as S from "./journal-view.styled";
-import { Journal } from "./types";
+import { AbsenceReason, Journal, Month, MonthAttendanceTracking } from "./types";
 import { useCreateJournalMutation } from "../../../provider/query/use-journals-query";
 
 type Props = {
@@ -32,6 +32,12 @@ export function JournalCreate(props: Props) {
                         sportsTrainingStage,
                         startDate: new Date(),
                         generalInformation: { sportsmen: [] },
+                        attendance: {
+                            tracking: Object.values(Month).reduce((total, month) => {
+                                total[month] = [];
+                                return total;
+                            }, {} as Record<Month, MonthAttendanceTracking[]>),
+                        },
                         scheduleTable: {
                             january: [],
                             february: [],

@@ -8,7 +8,6 @@ export class DbService {
   constructor(@InjectRepository(Employee) private employeeRepository: Repository<Employee>) {}
 
   executeQuery(query: string) {
-    console.log('query :>> ', query);
     return this.employeeRepository.query(query);
     return this.employeeRepository.find({ take: 3 });
   }

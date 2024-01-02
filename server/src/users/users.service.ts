@@ -41,7 +41,6 @@ export class UsersService {
   async changePassword(userId: number, newPassword: string) {
     const buffer = await fs.readFile(getUsersJsonPath());
     const currentUsers: User[] = JSON.parse(buffer.toString()).users;
-    console.log('newPassword :>> ', newPassword);
 
     currentUsers.forEach((user) => {
       if (user.userId === userId) {

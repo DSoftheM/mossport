@@ -1,11 +1,16 @@
 import { useState } from "react";
 import * as S from "./attendance-tracking.styled";
-import { Sportsman } from "./types";
-import { Dropdown } from "@ui/dropdown/dropdown";
+import { AbsenceReason, AttendanceTracking, MonthAttendanceTracking, Sportsman } from "./types";
+import { MenuItem, Select } from "@mui/material";
+import { getMonthByIndex } from "./schedule";
+import { produce } from "immer";
+import React from "react";
 
 type Props = {
     onClose: () => void;
-    sportsmen: Sportsman[];
+    attendanceTracking: AttendanceTracking;
+    sportsman: Sportsman[];
+    onChange: (attendanceTracking: AttendanceTracking) => void;
 };
 
 function getMonthName(month: number) {
@@ -14,15 +19,10 @@ function getMonthName(month: number) {
 }
 
 function daysInMonth(month: number, year: number) {
-    return new Date(year, month - 1, 0).getDate();
+    return new Date(year, month + 1, 0).getDate();
 }
 
-enum AbsenceReason {
-    Disease = "disease",
-    Lack = "lack",
-}
-
-export function AttendanceTracking(props: Props) {
+export function AttendanceTrackingEdit(props: Props) {
     const currentMonth = new Date().getMonth();
     const [month, setMonth] = useState<number>(currentMonth);
 
@@ -38,31 +38,62 @@ export function AttendanceTracking(props: Props) {
             <button disabled={month === 11} onClick={() => setMonth(month + 1)}>
                 Следующий месяц
             </button>
-            <S.Table columns={days + 2}>
+            <S.Table $columns={days + 2}>
                 <p style={{ gridRow: "1 / 3" }}>№ п/п</p>
                 <p style={{ gridRow: "1 / 3" }}>Фамилия, имя</p>
                 <p style={{ gridColumn: "3 / -1" }}>Дни месяца {getMonthName(month)}</p>
                 {Array.from({ length: days }).map((x, i) => (
-                    <p>{i + 1}</p>
+                    <p key={i}>{i + 1}</p>
                 ))}
-                {props.sportsmen.map((x, i) => (
-                    <>
-                        <p>{i + 1}</p>
-                        <p>{x.name}</p>
-                        {Array.from({ length: days }).map((x, i) => (
-                            // <input type="checkbox" />
-                            <Dropdown
-                                emptyPlaceholder="..."
-                                items={[
-                                    { id: "1", text: "Б", value: AbsenceReason.Disease },
-                                    { id: "2", text: "О", value: AbsenceReason.Lack },
-                                ]}
-                                onChange={console.log}
-                            />
-                        ))}
-                    </>
-                ))}
+                {props.sportsman.map((sportsman, i) => {
+                    const attendance: MonthAttendanceTracking = props.attendanceTracking.tracking[getMonthByIndex(month)][i] ?? {
+                        attendance: [],
+                        sportsman,
+                    };
+                    return (
+                        <React.Fragment key={i}>
+                            <p>{i + 1}</p>
+                            <p>{sportsman.name}</p>
+                            {Array.from({ length: days }).map((x, j) => {
+                                const value = getFirstLetter(attendance.attendance[j] ?? "");
+                                return (
+                                    <Select
+                                        key={j}
+                                        color="success"
+                                        sx={{ backgroundColor: value ? "#99cdf7" : "initial" }}
+                                        inputProps={{ IconComponent: () => null }}
+                                        value={value}
+                                        onChange={(e) => {
+                                            const updatedAttendance = produce(attendance, (draft) => {
+                                                draft.attendance[j] = e.target.value as AbsenceReason;
+                                            });
+                                            const updated = produce(props.attendanceTracking, (draft) => {
+                                                draft.tracking[getMonthByIndex(month)][i] = updatedAttendance;
+                                            });
+                                            props.onChange(updated);
+                                        }}
+                                    >
+                                        <MenuItem value="">Не выбрано</MenuItem>
+                                        <MenuItem value={AbsenceReason.Disease}>Болел</MenuItem>
+                                        <MenuItem style={{ display: "none" }} value={AbsenceReason.Disease}>
+                                            Б
+                                        </MenuItem>
+                                        <MenuItem value={AbsenceReason.Lack}>Отсутствовал</MenuItem>
+                                        <MenuItem style={{ display: "none" }} value={AbsenceReason.Lack}>
+                                            О
+                                        </MenuItem>
+                                    </Select>
+                                );
+                            })}
+                        </React.Fragment>
+                    );
+                })}
             </S.Table>
         </S.Root>
     );
+}
+
+function getFirstLetter(word: string | null) {
+    if (!word) return "";
+    return word;
 }

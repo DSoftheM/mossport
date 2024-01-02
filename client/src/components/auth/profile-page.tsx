@@ -5,16 +5,7 @@ import { Alert, Avatar, Box, Button, Grid, Paper, TextField, Typography, keyfram
 import { useState } from "react";
 import { MainHeader } from "../main-page/main-page";
 import bgPath from "../main-page/bg.png";
-
-const fade = keyframes`
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
-`;
+import { motion } from "framer-motion";
 
 export function ProfilePage() {
     const profileQuery = useProfileQuery();
@@ -26,7 +17,24 @@ export function ProfilePage() {
 
     return (
         <div style={{ background: `url(${bgPath}) center / cover no-repeat`, height: "100vh" }}>
-            <Box sx={{ animation: `${fade} 1s ease 0s 1`, padding: "10px 80px 0" }}>
+            <motion.div
+                style={{
+                    position: "absolute",
+                    pointerEvents: "none",
+                    inset: 0,
+                    backgroundColor: "white",
+                    zIndex: 2,
+                    opacity: 1,
+                }}
+                animate={{
+                    opacity: 0,
+                }}
+            ></motion.div>
+            <Box
+                sx={{
+                    padding: "10px 80px 0",
+                }}
+            >
                 <Box mb={5}>
                     <MainHeader />
                 </Box>
