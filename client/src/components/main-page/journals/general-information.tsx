@@ -5,8 +5,12 @@ import { getDate, getSportsCategory } from "./general-information.lib";
 import { Sportsman, SportsCategory } from "./types";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
-import { Button, MenuItem, Select } from "@mui/material";
+import { Box, Button, IconButton, MenuItem, Select, Typography } from "@mui/material";
 import React from "react";
+import { CloseButton } from "../../close-button";
+import CreateIcon from "@mui/icons-material/Create";
+import CloseIcon from "@mui/icons-material/Close";
+import CheckIcon from "@mui/icons-material/Check";
 
 type Props = {
     sportsmen: Sportsman[];
@@ -118,8 +122,10 @@ export function GeneralInformation(props: Props) {
         const sportsman = getSportsman();
         if (isCreation) {
             return (
-                <div>
+                <Box mt={2} display={"flex"} gap={1}>
                     <Button
+                        variant="contained"
+                        color="success"
                         disabled={!isSportsmanValid(sportsman)}
                         onClick={() => {
                             if (!isSportsmanValid(sportsman)) return;
@@ -130,21 +136,27 @@ export function GeneralInformation(props: Props) {
                     >
                         Сохранить
                     </Button>
-                    <button onClick={() => setIsCreation(false)}>Отменить</button>
-                </div>
+                    <Button variant="contained" color="primary" onClick={() => setIsCreation(false)}>
+                        Отменить
+                    </Button>
+                </Box>
             );
         }
 
         return (
-            <button disabled={editIndex !== null} onClick={() => setIsCreation(true)}>
+            <Button sx={{ mt: 2 }} variant="contained" disabled={editIndex !== null} onClick={() => setIsCreation(true)}>
                 Добавить спортсмена
-            </button>
+            </Button>
         );
     }
 
     return (
-        <div style={{ padding: 20 }}>
-            <button onClick={props.onClose}>Закрыть таблицу</button>
+        <div style={{ padding: "20px 40px", position: "relative" }}>
+            <CloseButton onClose={props.onClose} />
+            {/* <button onClick={props.onClose}>Закрыть таблицу</button> */}
+            <Typography variant="h3" sx={{ textAlign: "center" }} mb={2}>
+                Общие сведения
+            </Typography>
             <S.Table>
                 <p>№</p>
                 <p>Фамилия, имя</p>
@@ -163,8 +175,10 @@ export function GeneralInformation(props: Props) {
                             <React.Fragment key={i}>
                                 <div style={{ position: "relative" }}>
                                     {i + 1}
-                                    <div style={{ position: "absolute", left: "-130px", top: 0 }}>
+                                    <div style={{ position: "absolute", right: "100%", top: 0, display: "flex", gap: 8 }}>
                                         <Button
+                                            variant="contained"
+                                            color="success"
                                             disabled={!isSportsmanValid(getSportsman())}
                                             onClick={() => {
                                                 setEditIndex(null);
@@ -173,16 +187,18 @@ export function GeneralInformation(props: Props) {
                                                 props.onEdit(updatedSportsman, i);
                                             }}
                                         >
-                                            Сохранить
+                                            <CheckIcon />
                                         </Button>
-                                        <button
+                                        <Button
+                                            color="error"
+                                            variant="contained"
                                             onClick={() => {
                                                 resetFields();
                                                 setEditIndex(null);
                                             }}
                                         >
-                                            Отмена
-                                        </button>
+                                            <CloseIcon />
+                                        </Button>
                                     </div>
                                 </div>
                                 {renderInputs()}
@@ -193,8 +209,8 @@ export function GeneralInformation(props: Props) {
                         <React.Fragment key={i}>
                             <p style={{ position: "relative" }}>
                                 {i + 1}
-                                <button
-                                    style={{ position: "absolute", left: "-100px", top: 0 }}
+                                <IconButton
+                                    style={{ position: "absolute", right: "100%", top: "50%", transform: "translateY(-50%)" }}
                                     disabled={editIndex !== null || isCreation}
                                     onClick={() => {
                                         const { birthDate, medicalExamination, name, parentsFio, sportsCategory, tel } =
@@ -209,8 +225,8 @@ export function GeneralInformation(props: Props) {
                                         setSecondMedicalExamination(dateToDayjs(medicalExamination.second));
                                     }}
                                 >
-                                    Редактировать
-                                </button>
+                                    <CreateIcon />
+                                </IconButton>
                             </p>
                             <p>{sportsman.name}</p>
                             <p>{sportsman.birthDate.toLocaleDateString("ru")}</p>

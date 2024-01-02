@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { months } from "./months";
 import * as S from "./schedule.styled";
 import { Month, ScheduleTable } from "./types";
 import { useImmer } from "use-immer";
+import { Button, Typography } from "@mui/material";
+import { CloseButton } from "../../close-button";
 
 type Props = {
     onClose: () => void;
@@ -27,6 +29,7 @@ export function getMonthByIndex(index: number): Month {
 
 export function Schedule(props: Props) {
     const [table, updateTable] = useImmer<ScheduleTable>(props.scheduleTable);
+    const isChanged = useRef(false);
 
     function renderTextAreas(lineIndex: number) {
         return Array.from({ length: 7 }).map((_, i) => {
@@ -35,6 +38,7 @@ export function Schedule(props: Props) {
                     key={i}
                     value={table[getMonthByIndex(lineIndex)][i]}
                     onChange={(e) => {
+                        isChanged.current = true;
                         const text = e.target.value;
                         updateTable((draft) => {
                             draft[getMonthByIndex(lineIndex)][i] = text;
@@ -47,7 +51,11 @@ export function Schedule(props: Props) {
 
     return (
         <S.Root>
-            <button onClick={props.onClose}>Закрыть расписание</button>
+            {/* <button onClick={props.onClose}>Закрыть расписание</button> */}
+            <CloseButton onClose={props.onClose} />
+            <Typography variant="h3" sx={{ textAlign: "center" }} mb={2}>
+                Расписание
+            </Typography>
             <S.Table>
                 <b>Дни/месяцы</b>
                 <p>ПН</p>
@@ -64,7 +72,15 @@ export function Schedule(props: Props) {
                     </>
                 ))}
             </S.Table>
-            <button onClick={() => props.onChange(table)}>Сохранить</button>
+            <Button
+                sx={{ marginTop: 2 }}
+                disabled={!isChanged.current}
+                variant="contained"
+                color="success"
+                onClick={() => props.onChange(table)}
+            >
+                Сохранить
+            </Button>
         </S.Root>
     );
 }

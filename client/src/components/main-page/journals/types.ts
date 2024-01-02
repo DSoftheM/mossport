@@ -7,9 +7,28 @@ export type Journal = {
     generalInformation: {
         sportsmen: Sportsman[];
     };
+    results: {
+        sportsmanResults: Result[];
+    };
+    plans: {
+        sportsmanPlan: Plan[];
+    };
     attendance: AttendanceTracking;
     // Todo: endDate
     // endDate?: Date;
+};
+
+export type Plan = {
+    id: string;
+    content: string;
+    hoursCount: number;
+    hoursDistribution: Record<Month, number>;
+};
+
+export type Result = {
+    sportsman: Sportsman;
+    plan: string;
+    accomplishment: string;
 };
 
 export type AttendanceTracking = {

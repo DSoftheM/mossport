@@ -8,6 +8,8 @@ import { Schedule } from "./schedule";
 import { Plan } from "./plan";
 import { AttendanceTrackingEdit } from "./attendance-tracking";
 import { Results } from "./results";
+import { Box } from "@mui/material";
+import { CloseButton } from "../../close-button";
 
 type Props = {
     journal: Journal;
@@ -29,12 +31,13 @@ export function JournalView(props: Props) {
     function renderBody() {
         if (!selectedStage) {
             return (
-                <>
-                    <button onClick={props.onClose}>Закрыть журнал</button>
+                <Box p={2} position={"relative"}>
+                    <CloseButton onClose={props.onClose} />
                     <S.Title>{props.journal.name}</S.Title>
                     <p>Отделение: {props.journal.department}</p>
                     <p>Этап спортивной подготовки: {props.journal.sportsTrainingStage}</p>
                     <p>Начат: {props.journal.startDate.toLocaleDateString("ru")}</p>
+                    <br />
                     <S.Shapes>
                         <Shape shape="rectangle" onClick={() => setSelectedStage(JournalStage.Schedule)} title="Расписание" />
                         <Shape
@@ -54,7 +57,7 @@ export function JournalView(props: Props) {
                         />
                         <Shape shape="rectangle" onClick={() => setSelectedStage(JournalStage.Results)} title="Итоги" />
                     </S.Shapes>
-                </>
+                </Box>
             );
         }
         if (selectedStage === JournalStage.GeneralInformation) {
@@ -92,10 +95,33 @@ export function JournalView(props: Props) {
             );
         }
         if (selectedStage === JournalStage.Plan) {
-            return <Plan onClose={() => setSelectedStage(null)} />;
+            return (
+                <Plan
+                    onClose={() => setSelectedStage(null)}
+                    plans={props.journal.plans.sportsmanPlan}
+                    onChange={(plans) => {
+                        const updated = produce(props.journal, (draft) => {
+                            draft.plans.sportsmanPlan = plans;
+                        });
+                        props.onChange(updated);
+                    }}
+                />
+            );
         }
         if (selectedStage === JournalStage.Results) {
-            return <Results sportsmen={props.journal.generalInformation.sportsmen} onClose={() => setSelectedStage(null)} />;
+            return (
+                <Results
+                    sportsmen={props.journal.generalInformation.sportsmen}
+                    results={props.journal.results.sportsmanResults}
+                    onClose={() => setSelectedStage(null)}
+                    onChange={(results) => {
+                        const updated = produce(props.journal, (draft) => {
+                            draft.results.sportsmanResults = results;
+                        });
+                        props.onChange(updated);
+                    }}
+                />
+            );
         }
         if (selectedStage === JournalStage.AttendanceTracking) {
             return (

@@ -1,10 +1,12 @@
 import { useState } from "react";
 import * as S from "./attendance-tracking.styled";
 import { AbsenceReason, AttendanceTracking, MonthAttendanceTracking, Sportsman } from "./types";
-import { MenuItem, Select } from "@mui/material";
+import { IconButton, MenuItem, Select, Tooltip, Typography } from "@mui/material";
 import { getMonthByIndex } from "./schedule";
 import { produce } from "immer";
 import React from "react";
+import { CloseButton } from "../../close-button";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 type Props = {
     onClose: () => void;
@@ -15,7 +17,7 @@ type Props = {
 
 function getMonthName(month: number) {
     const date = new Date(2023, month, 1);
-    return date.toLocaleString("default", { month: "long" });
+    return date.toLocaleString("default", { month: "long" }).toUpperCase();
 }
 
 function daysInMonth(month: number, year: number) {
@@ -31,17 +33,26 @@ export function AttendanceTrackingEdit(props: Props) {
 
     return (
         <S.Root>
-            <button onClick={props.onClose}>Закрыть учет посещаемости</button>
-            <button disabled={month === 0} onClick={() => setMonth(month - 1)}>
-                Предыдущий месяц
-            </button>
-            <button disabled={month === 11} onClick={() => setMonth(month + 1)}>
-                Следующий месяц
-            </button>
+            <CloseButton onClose={props.onClose} />
+            <Typography variant="h3" sx={{ textAlign: "center" }} mb={2}>
+                Учет посещаемости
+            </Typography>
             <S.Table $columns={days + 2}>
                 <p style={{ gridRow: "1 / 3" }}>№ п/п</p>
                 <p style={{ gridRow: "1 / 3" }}>Фамилия, имя</p>
-                <p style={{ gridColumn: "3 / -1" }}>Дни месяца {getMonthName(month)}</p>
+                <p style={{ gridColumn: "3 / -1" }}>
+                    <Tooltip title="Предыдущий месяц">
+                        <IconButton disabled={month === 0} onClick={() => setMonth(month - 1)}>
+                            <ArrowBackIosNewIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <p style={{ display: "inline-flex", width: 105, justifyContent: "center" }}>{getMonthName(month)}</p>
+                    <Tooltip title="Следующий месяц">
+                        <IconButton disabled={month === 11} onClick={() => setMonth(month + 1)}>
+                            <ArrowBackIosNewIcon sx={{ rotate: "180deg" }} />
+                        </IconButton>
+                    </Tooltip>
+                </p>
                 {Array.from({ length: days }).map((x, i) => (
                     <p key={i}>{i + 1}</p>
                 ))}

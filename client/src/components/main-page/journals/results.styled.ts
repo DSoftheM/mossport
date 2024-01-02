@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const Root = styled.div`
-    padding: 10px;
+    padding: 20px;
+    position: relative;
 `;
 
 export const Table = styled.div`

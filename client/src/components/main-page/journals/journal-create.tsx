@@ -52,6 +52,12 @@ export function JournalCreate(props: Props) {
                             november: [],
                             december: [],
                         },
+                        results: {
+                            sportsmanResults: [],
+                        },
+                        plans: {
+                            sportsmanPlan: [],
+                        },
                     });
                     props.onClose();
                 }}
