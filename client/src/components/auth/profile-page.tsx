@@ -78,6 +78,8 @@ export function ProfilePage() {
                                     >
                                         Сохранить
                                     </Button>
+                                    
+                                    <TextField id="outlined-basic" label="Изменить почту" variant="outlined" />
                                 </Box>
                                 {changePasswordMutation.isSuccess && (
                                     <Alert sx={{ marginTop: 2 }} severity="success">

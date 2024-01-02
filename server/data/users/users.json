@@ -1,1 +1,34 @@
-{"users":[{"email":"test@mail.ru","name":"Иван","patronymic":"Иванович","surname":"Иванов","tel":"89248765698","roles":["coach"],"userId":0,"password":"123"},{"email":"3dfsdf","name":"wdwd","password":"wef","patronymic":"wd","surname":"wdwd","tel":"13123","role":["coach"],"userId":1},{"email":"test2@mail.ru","name":"wefwef","password":"123","patronymic":"wef","surname":"ewewf","tel":"wefwe","role":["coach"],"userId":2}]}
+{
+  "users": [
+    {
+      "email": "test@mail.ru",
+      "name": "Иван",
+      "patronymic": "Иванович",
+      "surname": "Иванов",
+      "tel": "89248765698",
+      "roles": ["coach"],
+      "userId": 0,
+      "password": "123"
+    },
+    {
+      "email": "3dfsdf",
+      "name": "wdwd",
+      "password": "wef",
+      "patronymic": "wd",
+      "surname": "wdwd",
+      "tel": "13123",
+      "role": ["coach"],
+      "userId": 1
+    },
+    {
+      "email": "test2@mail.ru",
+      "name": "wefwef",
+      "password": "123",
+      "patronymic": "wef",
+      "surname": "ewewf",
+      "tel": "wefwe",
+      "role": ["coach"],
+      "userId": 2
+    }
+  ]
+}

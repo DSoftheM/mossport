@@ -30,22 +30,22 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 function App() {
-    return (
-        <>
-            <GlobalStyles />
-            <Routes>
-                <Route path="/register" element={<RegisterPage />} />
-                <Route path="/login" element={<LoginPage />} />
+  return (
+    <>
+      <GlobalStyles />
+      <Routes>
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
 
-                <Route path="/" element={<PrivateRoute />}>
-                    <Route path="/profile" element={<ProfilePage />} />
-                    <Route path="/main" element={<MainPage />} />
-                </Route>
+        <Route path="/" element={<PrivateRoute />}>
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/main" element={<MainPage />} />
+        </Route>
 
-                <Route path="*" element={<Navigate to={"/login"} />} />
-            </Routes>
-        </>
-    );
+        <Route path="*" element={<Navigate to={"/login"} />} />
+      </Routes>
+    </>
+  );
 }
 
 export default App;
