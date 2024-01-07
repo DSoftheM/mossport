@@ -1,9 +1,10 @@
-import { Button, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { CloseButton } from "../../close-button";
 import { months } from "./months";
 import * as S from "./plan.styled";
 import { useImmer } from "use-immer";
-import { Plan } from "./types";
+import { CreationPlan, Month, type Plan } from "./types";
+import { produce } from "immer";
 
 type Props = {
     onClose: () => void;
@@ -11,8 +12,12 @@ type Props = {
     onChange: (plans: Plan[]) => void;
 };
 
+function arePlansValid(plans: CreationPlan[]): plans is Plan[] {
+    return plans.every((plan) => plan.content && plan.hoursCount && Object.values(plan.hoursDistribution).every(Boolean));
+}
+
 export function Plan(props: Props) {
-    const [state, updateState] = useImmer<Plan[]>(props.plans);
+    const [state, updateState] = useImmer<CreationPlan[]>(props.plans);
 
     return (
         <S.Root>
@@ -38,6 +43,7 @@ export function Plan(props: Props) {
                             }}
                         />
                         <input
+                            min={1}
                             type="number"
                             value={plan.hoursCount}
                             onChange={(e) => {
@@ -46,28 +52,66 @@ export function Plan(props: Props) {
                                 });
                             }}
                         />
-                        <input
-                            type="number"
-                            value={plan.hoursDistribution.april}
-                            onChange={(e) =>
-                                updateState((draft) => {
-                                    draft[i].hoursDistribution.april = +e.target.value;
-                                })
-                            }
-                        />
-                        <input
-                            type="number"
-                            value={plan.hoursDistribution.august}
-                            onChange={(e) =>
-                                updateState((draft) => {
-                                    draft[i].hoursDistribution.april = +e.target.value;
-                                })
-                            }
-                        />
+                        {(Object.keys(plan.hoursDistribution) as Month[]).map((month) => {
+                            return (
+                                <input
+                                    min={1}
+                                    key={month}
+                                    type="number"
+                                    value={plan.hoursDistribution[month]}
+                                    onChange={(e) =>
+                                        updateState((draft) => {
+                                            draft[i].hoursDistribution[month] = +e.target.value;
+                                        })
+                                    }
+                                />
+                            );
+                        })}
                     </>
                 ))}
             </S.Table>
-            <Button variant="contained">Добавить</Button>
+            <Box mt={1} display={"flex"} gap={1}>
+                <Button
+                    variant="contained"
+                    color="success"
+                    disabled={!arePlansValid(state)}
+                    onClick={() => {
+                        if (!arePlansValid(state)) return;
+                        props.onChange(state);
+                    }}
+                >
+                    Сохранить
+                </Button>
+                <Button
+                    variant="contained"
+                    onClick={() => {
+                        const newPlan: CreationPlan = {
+                            content: "",
+                            hoursCount: undefined,
+                            hoursDistribution: {
+                                [Month.January]: undefined,
+                                [Month.February]: undefined,
+                                [Month.March]: undefined,
+                                [Month.April]: undefined,
+                                [Month.May]: undefined,
+                                [Month.June]: undefined,
+                                [Month.July]: undefined,
+                                [Month.August]: undefined,
+                                [Month.September]: undefined,
+                                [Month.October]: undefined,
+                                [Month.November]: undefined,
+                                [Month.December]: undefined,
+                            },
+                            id: Date.now().toString(),
+                        };
+                        updateState((draft) => {
+                            draft.push(newPlan);
+                        });
+                    }}
+                >
+                    Добавить
+                </Button>
+            </Box>
         </S.Root>
     );
 }

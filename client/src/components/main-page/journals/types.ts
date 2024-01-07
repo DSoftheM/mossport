@@ -25,6 +25,13 @@ export type Plan = {
     hoursDistribution: Record<Month, number>;
 };
 
+export type CreationPlan = {
+    id: string;
+    content: string;
+    hoursCount: number | undefined;
+    hoursDistribution: Record<Month, number | undefined>;
+};
+
 export type Result = {
     sportsman: Sportsman;
     plan: string;
