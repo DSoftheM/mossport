@@ -45,7 +45,7 @@ export function RegisterPage() {
 
     const registerQuery = useQuery<void>({
         queryKey: "register",
-        queryFn: () => apiProvider.auth.register({ email, name, password, patronymic, surname, tel, role: [role as Role] }),
+        queryFn: () => apiProvider.auth.register({ email, name, password, patronymic, surname, tel, roles: [role as Role] }),
         enabled: false,
         onSuccess: () => {
             navigate(Nav.login());

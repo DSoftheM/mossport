@@ -3,28 +3,9 @@
     {
       "department": "1",
       "name": "1",
-      "sportsTrainingStage": "1",
-      "startDate": "2024-01-02T17:04:58.838Z",
-      "generalInformation": {
-        "sportsmen": [
-          {
-            "birthDate": "2024-01-08T19:00:00.000Z",
-            "medicalExamination": { "first": "2024-01-14T19:00:00.000Z", "second": "2024-01-05T19:00:00.000Z" },
-            "name": "wqd",
-            "parentsFio": "qwd",
-            "sportsCategory": "KMS",
-            "tel": "12"
-          },
-          {
-            "birthDate": "2024-01-23T19:00:00.000Z",
-            "medicalExamination": { "first": "2024-01-15T19:00:00.000Z", "second": "2024-01-28T19:00:00.000Z" },
-            "name": "gaergaergaerg",
-            "parentsFio": "regerg",
-            "sportsCategory": "KMS",
-            "tel": "3423"
-          }
-        ]
-      },
+      "sportsTrainingStage": "",
+      "startDate": "2024-01-07T08:26:41.898Z",
+      "generalInformation": { "sportsmen": [] },
       "attendance": {
         "tracking": {
           "january": [],
@@ -42,10 +23,10 @@
         }
       },
       "scheduleTable": {
-        "january": [],
+        "january": [{ "end": "14:29", "start": "14:31" }],
         "february": [],
         "march": [],
-        "april": [],
+        "april": [{ "end": "", "start": "16:29" }],
         "may": [],
         "june": [],
         "july": [],
@@ -55,153 +36,9 @@
         "november": [],
         "december": []
       },
-      "results": {
-        "sportsmanResults": [
-          {
-            "accomplishment": "dqwdqwdqwd",
-            "plan": "123123123123",
-            "sportsman": {
-              "birthDate": "2024-01-08T19:00:00.000Z",
-              "medicalExamination": { "first": "2024-01-14T19:00:00.000Z", "second": "2024-01-05T19:00:00.000Z" },
-              "name": "wqd",
-              "parentsFio": "qwd",
-              "sportsCategory": "KMS",
-              "tel": "12"
-            }
-          },
-          {
-            "accomplishment": "wefwef",
-            "plan": "wefwefasdasergfaergd",
-            "sportsman": {
-              "birthDate": "2024-01-23T19:00:00.000Z",
-              "medicalExamination": { "first": "2024-01-15T19:00:00.000Z", "second": "2024-01-28T19:00:00.000Z" },
-              "name": "gaergaergaerg",
-              "parentsFio": "regerg",
-              "sportsCategory": "KMS",
-              "tel": "3423"
-            }
-          }
-        ]
-      },
-      "id": "9471df31-108a-40fd-9180-a145ea5605b1"
-    },
-    {
-      "department": "d",
-      "name": "d",
-      "sportsTrainingStage": "d",
-      "startDate": "2024-01-07T06:18:43.574Z",
-      "generalInformation": {
-        "sportsmen": [
-          {
-            "birthDate": "2024-01-09T19:00:00.000Z",
-            "medicalExamination": { "first": "2024-01-22T19:00:00.000Z", "second": "2024-01-15T19:00:00.000Z" },
-            "name": "d",
-            "parentsFio": "zxc",
-            "sportsCategory": "KMS",
-            "tel": "zxc"
-          }
-        ]
-      },
-      "attendance": {
-        "tracking": {
-          "january": [
-            {
-              "attendance": [
-                "disease",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                "lack",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                "disease",
-                null,
-                "lack"
-              ],
-              "sportsman": {
-                "birthDate": "2024-01-09T19:00:00.000Z",
-                "medicalExamination": { "first": "2024-01-22T19:00:00.000Z", "second": "2024-01-15T19:00:00.000Z" },
-                "name": "d",
-                "parentsFio": "zxc",
-                "sportsCategory": "KMS",
-                "tel": "zxc"
-              }
-            }
-          ],
-          "february": [],
-          "march": [],
-          "april": [],
-          "may": [],
-          "june": [],
-          "july": [],
-          "august": [],
-          "september": [],
-          "october": [],
-          "november": [],
-          "december": []
-        }
-      },
-      "scheduleTable": {
-        "january": [],
-        "february": [],
-        "march": [],
-        "april": [],
-        "may": [],
-        "june": [],
-        "july": [],
-        "august": [],
-        "september": [],
-        "october": [],
-        "november": [],
-        "december": []
-      },
-      "results": {
-        "sportsmanResults": [
-          {
-            "accomplishment": "bdbdf",
-            "plan": "regerg",
-            "sportsman": {
-              "birthDate": "2024-01-09T19:00:00.000Z",
-              "medicalExamination": { "first": "2024-01-22T19:00:00.000Z", "second": "2024-01-15T19:00:00.000Z" },
-              "name": "d",
-              "parentsFio": "zxc",
-              "sportsCategory": "KMS",
-              "tel": "zxc"
-            }
-          }
-        ]
-      },
-      "plans": {
-        "sportsmanPlan": [
-          {
-            "content": "fwef",
-            "hoursCount": 1,
-            "hoursDistribution": {
-              "january": 2,
-              "february": 1,
-              "march": 1,
-              "april": 1,
-              "may": 1,
-              "june": 1,
-              "july": 1,
-              "august": 1,
-              "september": 11,
-              "october": 1,
-              "november": 1,
-              "december": 1
-            },
-            "id": "1704613308404"
-          }
-        ]
-      },
-      "id": "13d8ec4d-9b2a-4396-ace7-6e452c2ab659"
+      "results": { "sportsmanResults": [] },
+      "plans": { "sportsmanPlan": [] },
+      "id": "f9d44624-bf5c-4eba-89dc-1d74384b6301"
     }
   ]
 }

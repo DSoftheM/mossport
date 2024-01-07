@@ -3,8 +3,9 @@ import { months } from "./months";
 import * as S from "./schedule.styled";
 import { Month, ScheduleTable } from "./types";
 import { useImmer } from "use-immer";
-import { Button, Typography } from "@mui/material";
+import { Box, Button, IconButton, Stack, Typography } from "@mui/material";
 import { CloseButton } from "../../close-button";
+import AddIcon from "@mui/icons-material/Add";
 
 type Props = {
     onClose: () => void;
@@ -34,24 +35,58 @@ export function Schedule(props: Props) {
     function renderTextAreas(lineIndex: number) {
         return Array.from({ length: 7 }).map((_, i) => {
             return (
-                <textarea
-                    key={i}
-                    value={table[getMonthByIndex(lineIndex)][i]}
-                    onChange={(e) => {
-                        isChanged.current = true;
-                        const text = e.target.value;
-                        updateTable((draft) => {
-                            draft[getMonthByIndex(lineIndex)][i] = text;
-                        });
-                    }}
-                ></textarea>
+                <div key={i} style={{ overflow: "auto", display: "flex", flexDirection: "column" }}>
+                    <Box display={"flex"}>
+                        <input
+                            type="time"
+                            onChange={(e) => {
+                                isChanged.current = true;
+                                const time = e.target.value;
+                                updateTable((draft) => {
+                                    if (!draft[getMonthByIndex(lineIndex)][i]) {
+                                        draft[getMonthByIndex(lineIndex)][i] = { end: "", start: "" };
+                                    }
+                                    draft[getMonthByIndex(lineIndex)][i].start = time;
+                                });
+                            }}
+                            value={table[getMonthByIndex(lineIndex)][i]?.start ?? ""}
+                        />
+                        <input
+                            onChange={(e) => {
+                                isChanged.current = true;
+                                const time = e.target.value;
+                                updateTable((draft) => {
+                                    if (!draft[getMonthByIndex(lineIndex)][i]) {
+                                        draft[getMonthByIndex(lineIndex)][i] = { end: "", start: "" };
+                                    }
+                                    draft[getMonthByIndex(lineIndex)][i].end = time;
+                                });
+                            }}
+                            type="time"
+                            value={table[getMonthByIndex(lineIndex)][i]?.end ?? ""}
+                        />
+                    </Box>
+                    <IconButton>
+                        <AddIcon />
+                    </IconButton>
+                </div>
+                // <textarea
+                //     key={i}
+                //     value={table[getMonthByIndex(lineIndex)][i]}
+                //     onChange={(e) => {
+                //         isChanged.current = true;
+                //         const text = e.target.value;
+                //         updateTable((draft) => {
+                //             draft[getMonthByIndex(lineIndex)][i] = text;
+                //         });
+                //     }}
+                // ></textarea>
             );
         });
     }
 
     return (
         <S.Root>
-            {/* <button onClick={props.onClose}>Закрыть расписание</button> */}
             <CloseButton onClose={props.onClose} />
             <Typography variant="h3" sx={{ textAlign: "center" }} mb={2}>
                 Расписание

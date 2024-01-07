@@ -13,7 +13,7 @@ declare namespace User {
         patronymic: string;
         tel: string;
         email: string;
-        role: Role[];
+        roles: Role[];
     };
 
     type Register = Base & {

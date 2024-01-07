@@ -8,7 +8,6 @@ export const Root = styled.div`
 export const Table = styled.div`
     display: grid;
     grid-template-columns: repeat(8, 1fr);
-    grid-template-rows: 50px repeat(11, 50px);
 
     & > * {
         border: 1px solid #000;

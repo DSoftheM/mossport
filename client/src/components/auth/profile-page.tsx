@@ -86,7 +86,7 @@ export function ProfilePage() {
                                     >
                                         Сохранить
                                     </Button>
-                                    
+
                                     <TextField id="outlined-basic" label="Изменить почту" variant="outlined" />
                                 </Box>
                                 {changePasswordMutation.isSuccess && (

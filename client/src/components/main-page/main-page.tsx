@@ -13,10 +13,13 @@ import { useAnimate } from "framer-motion";
 import { Box, IconButton, Tooltip } from "@mui/material";
 import { LogoutSharp } from "@mui/icons-material";
 import axios from "axios";
+import { useQueryClient } from "react-query";
+import { SportsmanSchedule } from "./journals/sportsman-schedule";
 
 enum Key {
     News = "News",
     Journals = "Journals",
+    Schedule = "Schedule",
 }
 
 // Расписание тренировок
@@ -51,6 +54,7 @@ export function MainPage() {
     //         });
     //     }, 1000);
     // }, []);
+    console.log(profileQuery.data);
 
     function renderBody() {
         if (!selectedId) {
@@ -64,12 +68,21 @@ export function MainPage() {
                             newsQuery.refetch();
                         }}
                     />
+                    {profileQuery.data?.roles.includes("coach") && (
+                        <Shape
+                            title="Журналы"
+                            shape="rectangle"
+                            onClick={() => {
+                                setSelectedId(Key.Journals);
+                                newsQuery.refetch();
+                            }}
+                        />
+                    )}
                     <Shape
-                        title="Журналы"
+                        title="Расписание"
                         shape="rectangle"
                         onClick={() => {
-                            setSelectedId(Key.Journals);
-                            newsQuery.refetch();
+                            setSelectedId(Key.Schedule);
                         }}
                     />
                 </S.Body>
@@ -83,13 +96,17 @@ export function MainPage() {
         if (selectedId === Key.Journals) {
             return <Journals onClose={() => setSelectedId(null)} />;
         }
+
+        if (selectedId === Key.Schedule) {
+            return <SportsmanSchedule onClose={() => setSelectedId(null)} />;
+        }
     }
 
     return (
         <S.Root>
             <S.Container>
                 <MainHeader />
-                {renderBody()}
+                <div style={{ background: "peachpuff" }}>{renderBody()}</div>
             </S.Container>
         </S.Root>
     );
@@ -101,6 +118,7 @@ export function MainHeader() {
     const profileQuery = useProfileQuery();
     const [scope, animate] = useAnimate();
     const isProfile = useMatch(Nav.profile());
+    const queryClient = useQueryClient();
 
     return (
         <S.HeaderContainer>
@@ -115,6 +133,7 @@ export function MainHeader() {
                                     axios.defaults.headers.common.Authorization = undefined;
                                     document.cookie = "access_token=";
                                     navigate(Nav.login());
+                                    queryClient.invalidateQueries({ queryKey: "profile" });
                                 }}
                                 sx={{ cursor: "pointer" }}
                             />

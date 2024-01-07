@@ -8,8 +8,6 @@ export function getSportsCategory(sportsCategory: SportsCategory) {
             return "2";
         case SportsCategory._3:
             return "3";
-        case SportsCategory.GR:
-            return "ГР";
         case SportsCategory.MS:
             return "МС";
         case SportsCategory.KMS:

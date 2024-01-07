@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 
 export const Root = styled.div`
     padding-top: 10px;
-    min-height: 100vh;
     background: url(${bgPath}) center / cover no-repeat;
 `;
 

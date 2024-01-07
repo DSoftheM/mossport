@@ -67,19 +67,24 @@ export enum Month {
     December = "december",
 }
 
+type TimeRange = {
+    start: string;
+    end: string;
+};
+
 export type ScheduleTable = {
-    january: string[];
-    february: string[];
-    march: string[];
-    april: string[];
-    may: string[];
-    june: string[];
-    july: string[];
-    august: string[];
-    september: string[];
-    october: string[];
-    november: string[];
-    december: string[];
+    january: TimeRange[];
+    february: TimeRange[];
+    march: TimeRange[];
+    april: TimeRange[];
+    may: TimeRange[];
+    june: TimeRange[];
+    july: TimeRange[];
+    august: TimeRange[];
+    september: TimeRange[];
+    october: TimeRange[];
+    november: TimeRange[];
+    december: TimeRange[];
 };
 
 export enum SportsCategory {

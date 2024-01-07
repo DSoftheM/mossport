@@ -17,7 +17,7 @@
       "patronymic": "wd",
       "surname": "wdwd",
       "tel": "13123",
-      "role": ["coach"],
+      "roles": ["coach"],
       "userId": 1
     },
     {
@@ -27,8 +27,18 @@
       "patronymic": "wef",
       "surname": "ewewf",
       "tel": "wefwe",
-      "role": ["coach"],
+      "roles": ["coach"],
       "userId": 2
+    },
+    {
+      "email": "Спортсмен",
+      "name": "Спортсмен",
+      "password": "123",
+      "patronymic": "Спортсмен",
+      "surname": "Спортсмен",
+      "tel": "Спортсмен",
+      "roles": ["sportsman"],
+      "userId": 3
     }
   ]
 }

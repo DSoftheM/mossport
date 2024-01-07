@@ -61,7 +61,7 @@ export function JournalCreate(props: Props) {
                     });
                     props.onClose();
                 }}
-                disabled={!name || !department || !setSportsTrainingStage}
+                disabled={!name || !department || !sportsTrainingStage}
             >
                 Создать
             </button>
