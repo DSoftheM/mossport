@@ -38,6 +38,7 @@ export function RegisterPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [coachId, setCoachId] = useState("");
     const navigate = useNavigate();
 
     const valid =
@@ -45,11 +46,17 @@ export function RegisterPage() {
 
     const registerQuery = useQuery<void>({
         queryKey: "register",
-        queryFn: () => apiProvider.auth.register({ email, name, password, patronymic, surname, tel, roles: [role as Role] }),
+        queryFn: () =>
+            apiProvider.auth.register({ email, name, password, patronymic, surname, tel, roles: [role as Role], coachId }),
         enabled: false,
         onSuccess: () => {
             navigate(Nav.login());
         },
+    });
+
+    const allCoachesQuery = useQuery({
+        queryKey: "allCoaches",
+        queryFn: () => apiProvider.registration.allCoaches(),
     });
 
     return (
@@ -94,6 +101,20 @@ export function RegisterPage() {
                                     </MenuItem>
                                 ))}
                             </Select>
+                            {role === Role.Sportsman && (
+                                <Select
+                                    sx={{ width: 200 }}
+                                    variant="filled"
+                                    value={coachId}
+                                    onChange={(e) => setCoachId(e.target.value)}
+                                >
+                                    {allCoachesQuery.data?.map((coach) => (
+                                        <MenuItem key={coach.userId} value={coach.userId}>
+                                            {coach.name} {coach.surname} {coach.patronymic}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            )}
                             <TextField
                                 label="Пароль"
                                 value={password}

@@ -14,6 +14,7 @@ declare namespace User {
         tel: string;
         email: string;
         roles: Role[];
+        coachId: string;
     };
 
     type Register = Base & {
@@ -63,6 +64,11 @@ export const apiProvider = {
         },
         async edit(journal: Journal) {
             return (await axios.post<void>("journals/edit", journal)).data;
+        },
+    },
+    registration: {
+        async allCoaches() {
+            return (await axios.get<User.View[]>("auth/allCoaches")).data;
         },
     },
 };

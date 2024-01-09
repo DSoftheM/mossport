@@ -50,4 +50,10 @@ export class UsersService {
 
     await fs.writeFile(getUsersJsonPath(), JSON.stringify({ users: currentUsers }));
   }
+
+  async getAllCouches() {
+    const buffer = await fs.readFile(getUsersJsonPath());
+    const currentUsers: User[] = JSON.parse(buffer.toString()).users;
+    return currentUsers.filter((user) => user.roles.includes(Role.Coach));
+  }
 }

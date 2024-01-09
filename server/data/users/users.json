@@ -39,6 +39,17 @@
       "tel": "Спортсмен",
       "roles": ["sportsman"],
       "userId": 3
+    },
+    {
+      "email": "test3@mail.ru",
+      "name": "петров",
+      "password": "123",
+      "patronymic": "петрович",
+      "surname": "вася",
+      "tel": "12312312312123",
+      "roles": ["sportsman"],
+      "coachId": 0,
+      "userId": 4
     }
   ]
 }

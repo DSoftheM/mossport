@@ -1,7 +1,7 @@
 import { BadRequestException, Body, Controller, Get, Post, Req, SetMetadata, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
 import { AuthService } from './auth.service';
-import { User, isUser } from 'src/users/users.service';
+import { User, UsersService, isUser } from 'src/users/users.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 
 function SetPublic() {
@@ -10,7 +10,7 @@ function SetPublic() {
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private usersService: UsersService) {}
 
   @Post('login')
   @UseGuards(LocalAuthGuard)
@@ -45,5 +45,11 @@ export class AuthController {
   @Get()
   test() {
     return Math.random();
+  }
+
+  @SetPublic()
+  @Get('allCoaches')
+  getAllCouches() {
+    return this.usersService.getAllCouches();
   }
 }

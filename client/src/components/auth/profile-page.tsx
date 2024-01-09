@@ -6,6 +6,8 @@ import { useState } from "react";
 import { MainHeader } from "../main-page/main-page";
 import bgPath from "../main-page/bg.png";
 import { motion } from "framer-motion";
+import { useQuery } from "react-query";
+import { apiProvider } from "../../provider/api-provider";
 
 export function ProfilePage() {
     const profileQuery = useProfileQuery();
@@ -13,8 +15,16 @@ export function ProfilePage() {
 
     const [newPassword, setNewPassword] = useState("");
 
+    const allCoachesQuery = useQuery({
+        queryKey: "allCoaches",
+        queryFn: () => apiProvider.registration.allCoaches(),
+    });
+
     if (!profileQuery.data) return null;
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const coach = allCoachesQuery.data?.find((x) => x.userId == profileQuery.data.coachId);
     return (
         <div style={{ background: `url(${bgPath}) center / cover no-repeat`, height: "100vh" }}>
             <motion.div
@@ -56,6 +66,9 @@ export function ProfilePage() {
                                     <Typography>Телефон: {profileQuery.data.tel}</Typography>
                                     <Typography>Почта: {profileQuery.data.email}</Typography>
                                     <Typography>Роль: {JSON.stringify(profileQuery.data.roles)}</Typography>
+                                    <Typography>
+                                        Тренер: {coach?.name} {coach?.surname} {coach?.patronymic}
+                                    </Typography>
                                     <Link to={Nav.main()}>Перейти на главную</Link>
                                 </Box>
                             </Box>
