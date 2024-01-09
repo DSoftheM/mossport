@@ -9,6 +9,7 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { ThemeProvider, createTheme } from "@mui/material";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -21,11 +22,19 @@ const queryClient = new QueryClient({
 
 axios.defaults.headers.common.Authorization = document.cookie.split("=")[1];
 
+const theme = createTheme({
+    typography: {
+        fontFamily: ["Unbounded"].join(","),
+    },
+});
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <QueryClientProvider client={queryClient}>
         <BrowserRouter>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <App />
+                <ThemeProvider theme={theme}>
+                    <App />
+                </ThemeProvider>
             </LocalizationProvider>
         </BrowserRouter>
     </QueryClientProvider>
