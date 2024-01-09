@@ -3,9 +3,10 @@ import { months } from "./months";
 import * as S from "./schedule.styled";
 import { Month, ScheduleTable } from "./types";
 import { useImmer } from "use-immer";
-import { Box, Button, IconButton, Stack, Typography } from "@mui/material";
+import { Box, Button, IconButton, Stack, Tooltip, Typography } from "@mui/material";
 import { CloseButton } from "../../close-button";
 import AddIcon from "@mui/icons-material/Add";
+import CloseIcon from "@mui/icons-material/Close";
 
 type Props = {
     onClose: () => void;
@@ -32,58 +33,90 @@ export function Schedule(props: Props) {
     const [table, updateTable] = useImmer<ScheduleTable>(props.scheduleTable);
     const isChanged = useRef(false);
 
+    const [hoverIndex, setHoverIndex] = useState<{ col: number; row: number } | null>(null);
+
     function renderTextAreas(lineIndex: number) {
         return Array.from({ length: 7 }).map((_, i) => {
+            const isHover = hoverIndex?.col === lineIndex && hoverIndex.row === i;
             return (
-                <div key={i} style={{ overflow: "auto", display: "flex", flexDirection: "column" }}>
-                    <Box display={"flex"}>
-                        <input
-                            type="time"
-                            onChange={(e) => {
-                                isChanged.current = true;
-                                const time = e.target.value;
+                <div
+                    key={i}
+                    style={{
+                        overflow: "auto",
+                        display: "flex",
+                        flexDirection: "column",
+                        transitionDuration: "0.2s",
+                        background: isHover ? "aliceblue" : "",
+                    }}
+                    onMouseEnter={() => setHoverIndex({ col: lineIndex, row: i })}
+                    onMouseLeave={() => setHoverIndex(null)}
+                >
+                    {table[getMonthByIndex(lineIndex)][i].map((range, rangeIndex) => {
+                        return (
+                            <Box display={"flex"}>
+                                <input
+                                    type="time"
+                                    onChange={(e) => {
+                                        isChanged.current = true;
+                                        const time = e.target.value;
+                                        updateTable((draft) => {
+                                            if (!draft[getMonthByIndex(lineIndex)][i]) {
+                                                draft[getMonthByIndex(lineIndex)][i][rangeIndex] = { end: "", start: "" };
+                                            }
+                                            draft[getMonthByIndex(lineIndex)][i][rangeIndex].start = time;
+                                        });
+                                    }}
+                                    // value={table[getMonthByIndex(lineIndex)][i]?.start ?? ""}
+                                    value={range.start ?? ""}
+                                />
+                                <input
+                                    onChange={(e) => {
+                                        isChanged.current = true;
+                                        const time = e.target.value;
+                                        updateTable((draft) => {
+                                            if (!draft[getMonthByIndex(lineIndex)][i]) {
+                                                draft[getMonthByIndex(lineIndex)][i][rangeIndex] = { end: "", start: "" };
+                                            }
+                                            draft[getMonthByIndex(lineIndex)][i][rangeIndex].end = time;
+                                        });
+                                    }}
+                                    type="time"
+                                    // value={table[getMonthByIndex(lineIndex)][i]?.end ?? ""}
+                                    value={range.end ?? ""}
+                                />
+
+                                <IconButton
+                                    size="small"
+                                    onClick={() => {
+                                        updateTable((draft) => {
+                                            draft[getMonthByIndex(lineIndex)][i].splice(rangeIndex, 1);
+                                        });
+                                    }}
+                                >
+                                    <CloseIcon />
+                                </IconButton>
+                            </Box>
+                        );
+                    })}
+                    {isHover && (
+                        <IconButton
+                            onClick={() => {
                                 updateTable((draft) => {
-                                    if (!draft[getMonthByIndex(lineIndex)][i]) {
-                                        draft[getMonthByIndex(lineIndex)][i] = { end: "", start: "" };
-                                    }
-                                    draft[getMonthByIndex(lineIndex)][i].start = time;
+                                    draft[getMonthByIndex(lineIndex)][i].push({ end: "", start: "" });
                                 });
                             }}
-                            value={table[getMonthByIndex(lineIndex)][i]?.start ?? ""}
-                        />
-                        <input
-                            onChange={(e) => {
-                                isChanged.current = true;
-                                const time = e.target.value;
-                                updateTable((draft) => {
-                                    if (!draft[getMonthByIndex(lineIndex)][i]) {
-                                        draft[getMonthByIndex(lineIndex)][i] = { end: "", start: "" };
-                                    }
-                                    draft[getMonthByIndex(lineIndex)][i].end = time;
-                                });
-                            }}
-                            type="time"
-                            value={table[getMonthByIndex(lineIndex)][i]?.end ?? ""}
-                        />
-                    </Box>
-                    <IconButton>
-                        <AddIcon />
-                    </IconButton>
+                        >
+                            <AddIcon />
+                        </IconButton>
+                    )}
                 </div>
-                // <textarea
-                //     key={i}
-                //     value={table[getMonthByIndex(lineIndex)][i]}
-                //     onChange={(e) => {
-                //         isChanged.current = true;
-                //         const text = e.target.value;
-                //         updateTable((draft) => {
-                //             draft[getMonthByIndex(lineIndex)][i] = text;
-                //         });
-                //     }}
-                // ></textarea>
             );
         });
     }
+
+    const isValid = Object.values(table).every((rangesByMonth) => {
+        return rangesByMonth.every((rangeByMonth) => rangeByMonth.every((range) => Boolean(range.end) && Boolean(range.start)));
+    });
 
     return (
         <S.Root>
@@ -107,15 +140,19 @@ export function Schedule(props: Props) {
                     </>
                 ))}
             </S.Table>
-            <Button
-                sx={{ marginTop: 2 }}
-                disabled={!isChanged.current}
-                variant="contained"
-                color="success"
-                onClick={() => props.onChange(table)}
-            >
-                Сохранить
-            </Button>
+            <Tooltip title={!isValid ? "Не все временные промежутки заполнены" : ""} placement="right">
+                <div style={{ display: "inline-flex" }}>
+                    <Button
+                        sx={{ marginTop: 2 }}
+                        disabled={!isChanged.current || !isValid}
+                        variant="contained"
+                        color="success"
+                        onClick={() => props.onChange(table)}
+                    >
+                        Сохранить
+                    </Button>
+                </div>
+            </Tooltip>
         </S.Root>
     );
 }

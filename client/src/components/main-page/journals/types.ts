@@ -73,18 +73,18 @@ type TimeRange = {
 };
 
 export type ScheduleTable = {
-    january: TimeRange[];
-    february: TimeRange[];
-    march: TimeRange[];
-    april: TimeRange[];
-    may: TimeRange[];
-    june: TimeRange[];
-    july: TimeRange[];
-    august: TimeRange[];
-    september: TimeRange[];
-    october: TimeRange[];
-    november: TimeRange[];
-    december: TimeRange[];
+    january: TimeRange[][];
+    february: TimeRange[][];
+    march: TimeRange[][];
+    april: TimeRange[][];
+    may: TimeRange[][];
+    june: TimeRange[][];
+    july: TimeRange[][];
+    august: TimeRange[][];
+    september: TimeRange[][];
+    october: TimeRange[][];
+    november: TimeRange[][];
+    december: TimeRange[][];
 };
 
 export enum SportsCategory {

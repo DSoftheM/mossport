@@ -54,7 +54,6 @@ export function MainPage() {
     //         });
     //     }, 1000);
     // }, []);
-    console.log(profileQuery.data);
 
     function renderBody() {
         if (!selectedId) {
@@ -78,13 +77,15 @@ export function MainPage() {
                             }}
                         />
                     )}
-                    <Shape
-                        title="Расписание"
-                        shape="rectangle"
-                        onClick={() => {
-                            setSelectedId(Key.Schedule);
-                        }}
-                    />
+                    {profileQuery.data?.roles.includes("sportsman") && (
+                        <Shape
+                            title="Расписание"
+                            shape="rectangle"
+                            onClick={() => {
+                                setSelectedId(Key.Schedule);
+                            }}
+                        />
+                    )}
                 </S.Body>
             );
         }
