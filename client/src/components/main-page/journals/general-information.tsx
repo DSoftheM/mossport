@@ -11,6 +11,8 @@ import { CloseButton } from "../../close-button";
 import CreateIcon from "@mui/icons-material/Create";
 import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
+import { useQuery } from "react-query";
+import { apiProvider } from "../../../provider/api-provider";
 
 type Props = {
     sportsmen: Sportsman[];
@@ -27,6 +29,7 @@ function isSportsmanValid(sportsman: DeepNullish<Sportsman>): sportsman is Sport
     if (!sportsman.medicalExamination.second) return false;
     if (!sportsman.parentsFio) return false;
     if (!sportsman.tel) return false;
+    if (!sportsman.id) return false;
     return true;
 }
 
@@ -48,6 +51,7 @@ export function GeneralInformation(props: Props) {
     const [editIndex, setEditIndex] = useState<number | null>(null);
 
     const [name, setName] = useState("");
+    const [id, setId] = useState("");
     const [birthDate, setBirthDate] = useState<Dayjs | null>(null);
     const [parentsFio, setParentsFio] = useState("");
     const [tel, setTel] = useState("");
@@ -55,7 +59,13 @@ export function GeneralInformation(props: Props) {
     const [secondMedicalExamination, setSecondMedicalExamination] = useState<Dayjs | null>(null);
     const [sportsCategory, setSportsCategory] = useState<SportsCategory | "">("");
 
+    const allSportsmenQuery = useQuery({
+        queryKey: "allSportsmen",
+        queryFn: () => apiProvider.journals.allSportsmen(),
+    });
+
     function resetFields() {
+        setId("");
         setTel("");
         setName("");
         setParentsFio("");
@@ -73,13 +83,15 @@ export function GeneralInformation(props: Props) {
             parentsFio,
             sportsCategory,
             tel,
+            id,
         };
     }
 
     function renderInputs() {
         return (
             <>
-                <input type="text" placeholder="Имя и фамилия" value={name} onChange={(e) => setName(e.target.value)} />
+                {/* <input type="text" placeholder="Имя и фамилия" value={name} onChange={(e) => setName(e.target.value)} /> */}
+                <Typography>{name}</Typography>
                 <DatePicker label="Дата рождения" value={birthDate} onChange={(date) => setBirthDate(date)} />
                 <Select
                     value={sportsCategory}
@@ -149,6 +161,8 @@ export function GeneralInformation(props: Props) {
             </Button>
         );
     }
+
+    const restSportsmen = allSportsmenQuery.data?.filter((s) => !props.sportsmen.map((x) => x.id).includes(s.userId.toString()));
 
     return (
         <div style={{ padding: "20px 40px", position: "relative" }}>
@@ -245,6 +259,26 @@ export function GeneralInformation(props: Props) {
                     </>
                 )}
             </S.Table>
+            {isCreation && allSportsmenQuery.data && restSportsmen?.length && (
+                <>
+                    <Select
+                        onChange={(e) => {
+                            const sportsmanId = e.target.value;
+                            const sportsman = allSportsmenQuery.data.find((x) => x.userId === sportsmanId);
+                            const str =
+                                (sportsman?.name ?? "") + " " + (sportsman?.surname ?? "") + " " + (sportsman?.patronymic ?? "");
+                            setName(str);
+                            setId(sportsman?.userId.toString() ?? "");
+                        }}
+                    >
+                        {restSportsmen.map((sportsman) => (
+                            <MenuItem key={sportsman.userId} value={sportsman.userId}>
+                                {sportsman.name} {sportsman.patronymic} {sportsman.surname}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </>
+            )}
 
             {renderActions()}
         </div>

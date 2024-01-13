@@ -25,4 +25,10 @@ export class JournalsRepository {
       await fs.writeFile(getJournalsJsonPath(), JSON.stringify({ journals: allJournals }));
     }
   }
+
+  async getScheduleTable(sportsmanId: string): Promise<any> {
+    const allJournals = await this.getAllJournals();
+    // @ts-ignore
+    return allJournals.find((x) => x.generalInformation.sportsmen.some((s) => s.id == sportsmanId)).scheduleTable;
+  }
 }

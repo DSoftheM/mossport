@@ -10,7 +10,7 @@ type ShapeProps = {
 
 export function Shape(props: ShapeProps) {
     return (
-        <S.Rectangle style={{ backgroundColor: "lime" }} onClick={props.onClick}>
+        <S.Rectangle style={{ backgroundColor: "rgba(255,255,255,0.5)" }} onClick={props.onClick}>
             <S.Title>{props.title}</S.Title>
         </S.Rectangle>
     );

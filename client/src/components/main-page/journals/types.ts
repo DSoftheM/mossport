@@ -101,6 +101,7 @@ export enum SportsCategory {
 }
 
 export type Sportsman = {
+    id: string;
     name: string;
     birthDate: Date;
     sportsCategory: SportsCategory;

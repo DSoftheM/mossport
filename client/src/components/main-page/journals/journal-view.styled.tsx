@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const Root = styled.div`
-    background-color: peachpuff;
+    position: relative;
+    padding: 40px;
 `;
 
 export const Title = styled.h3`
@@ -15,6 +16,5 @@ export const Shapes = styled.h3`
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 200px 200px 200px;
     gap: 20px;
-    background-color: #ab9ff5;
     border-radius: 20px;
 `;

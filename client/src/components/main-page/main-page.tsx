@@ -1,5 +1,6 @@
 import * as S from "./main-page.styled";
-import logoPath from "./logo.png";
+// import logoPath from "./logo.png";
+import logoPath from "./logo.svg";
 import { ReactNode, useEffect, useState } from "react";
 import { useMatch, useNavigate } from "react-router-dom";
 import { Nav } from "@nav";
@@ -13,8 +14,9 @@ import { useAnimate } from "framer-motion";
 import { Box, IconButton, Tooltip } from "@mui/material";
 import { LogoutSharp } from "@mui/icons-material";
 import axios from "axios";
-import { useQueryClient } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { SportsmanSchedule } from "./journals/sportsman-schedule";
+import { apiProvider } from "../../provider/api-provider";
 
 enum Key {
     News = "News",
@@ -107,7 +109,7 @@ export function MainPage() {
         <S.Root>
             <S.Container>
                 <MainHeader />
-                <div style={{ background: "peachpuff" }}>{renderBody()}</div>
+                <div style={{ backgroundColor: "rgba(255,255,255,0.5)", borderRadius: 20 }}>{renderBody()}</div>
             </S.Container>
         </S.Root>
     );

@@ -3,6 +3,7 @@ import bgPath from "./bg.png";
 import { motion } from "framer-motion";
 
 export const Root = styled.div`
+    min-height: 100vh;
     padding-top: 10px;
     background: url(${bgPath}) center / cover no-repeat;
 `;
@@ -17,7 +18,7 @@ export const HeaderContainer = styled.div``;
 
 export const Header = styled.div`
     height: 70px;
-    background-color: peachpuff;
+    background-color: rgba(255, 255, 255, 0.5);
     border-radius: 20px;
     display: flex;
     justify-content: space-between;
@@ -63,7 +64,5 @@ export const Body = styled.div`
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 200px 200px 200px;
     gap: 20px;
-    background-color: #ab9ff5;
-    backdrop-filter: blur(7px) saturate(95%);
     border-radius: 20px;
 `;

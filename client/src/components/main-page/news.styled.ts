@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Root = styled.div`
     padding: 20px;
+    position: relative;
 `;
 
 export const Title = styled.h3`
@@ -18,7 +19,7 @@ export const NewsContainer = styled.div`
 export const NewsItem = styled.div`
     padding: 10px;
     border-radius: 20px;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.5);
 `;
 
 export const NewsItemTitle = styled.h3`

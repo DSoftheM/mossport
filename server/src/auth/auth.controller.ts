@@ -52,4 +52,10 @@ export class AuthController {
   getAllCouches() {
     return this.usersService.getAllCouches();
   }
+
+  @SetPublic()
+  @Get('allSportsmen')
+  allSportsmen() {
+    return this.usersService.getAllSportsmen();
+  }
 }

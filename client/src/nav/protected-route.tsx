@@ -17,6 +17,7 @@ export function PrivateRoute() {
         if (!auth) {
             return navigateToLogin();
         }
+        console.log("set auth", auth);
         axios.defaults.headers.common.Authorization = auth;
         apiProvider.auth.getProfile().catch(navigateToLogin);
     }, []);

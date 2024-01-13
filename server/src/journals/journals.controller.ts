@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 import { JournalsService } from './journals.service';
 import { Journal, JournalWithoutId } from './types';
+import { Request } from 'express';
 
 @Controller('/journals')
 export class JournalsController {
@@ -19,5 +20,12 @@ export class JournalsController {
   @Post('/edit')
   editJournal(@Body() journal: Journal) {
     return this.journalsService.editJournal(journal);
+  }
+
+  @Get('/getScheduleTable')
+  getScheduleTable(@Req() req: Request) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return this.journalsService.getScheduleTable(req.user.userId);
   }
 }

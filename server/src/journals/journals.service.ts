@@ -17,4 +17,8 @@ export class JournalsService {
   editJournal(journal: Journal) {
     return this.journalsRepository.edit(journal);
   }
+
+  getScheduleTable(sportsmanId: string) {
+    return this.journalsRepository.getScheduleTable(sportsmanId);
+  }
 }

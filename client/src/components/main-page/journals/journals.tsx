@@ -3,6 +3,7 @@ import * as S from "./journals.styled";
 import { JournalView } from "./journal-view";
 import { JournalCreate } from "./journal-create";
 import { useEditJournalMutation, useGetJournalsQuery } from "../../../provider/query/use-journals-query";
+import { CloseButton } from "../../close-button";
 
 type Props = {
     onClose: () => void;
@@ -31,7 +32,7 @@ export function Journals(props: Props) {
 
     return (
         <S.Root>
-            <button onClick={props.onClose}>Закрыть журналы</button>
+            <CloseButton onClose={props.onClose} />
             <S.Title>Журналы</S.Title>
             {getJournalsQuery.data.map((journal, i) => {
                 return (

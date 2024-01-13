@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Journal } from "../../components/main-page/journals/types";
+import { Journal, ScheduleTable } from "../../components/main-page/journals/types";
 import { Role } from "../../components/auth/register-page";
 
 const base = "http://localhost:3000/";
@@ -23,7 +23,11 @@ declare namespace User {
 
     type View = Base & {
         userId: number;
-        // Todo: Role enum
+        roles: string;
+    };
+
+    type Sportsman = Base & {
+        userId: number;
         roles: string;
     };
 }
@@ -64,6 +68,12 @@ export const apiProvider = {
         },
         async edit(journal: Journal) {
             return (await axios.post<void>("journals/edit", journal)).data;
+        },
+        async allSportsmen() {
+            return (await axios.get<User.View[]>("auth/allSportsmen")).data;
+        },
+        async getScheduleTable() {
+            return (await axios.get<ScheduleTable>("journals/getScheduleTable")).data;
         },
     },
     registration: {
