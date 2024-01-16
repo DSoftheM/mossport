@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Journal, ScheduleTable } from "../../components/main-page/journals/types";
-import { Role } from "../../components/auth/register-page";
+import { Role, SportSchool } from "../../components/auth/register-page";
 
 const base = "http://localhost:3000/";
 axios.defaults.baseURL = base;
@@ -15,6 +15,7 @@ declare namespace User {
         email: string;
         roles: Role[];
         coachId: string;
+        sportSchool?: SportSchool;
     };
 
     type Register = Base & {
@@ -45,6 +46,9 @@ export const apiProvider = {
         },
         async getProfile() {
             return (await axios.get<User.View>("auth/profile")).data;
+        },
+        async getCoachById(id: string) {
+            return (await axios.get<User.View>("auth/getCoachById", { params: { id } })).data;
         },
         async register(data: User.Register) {
             return (await axios.post<void>("auth/register", data)).data;

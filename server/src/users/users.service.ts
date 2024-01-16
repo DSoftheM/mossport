@@ -62,4 +62,10 @@ export class UsersService {
     const currentUsers: User[] = JSON.parse(buffer.toString()).users;
     return currentUsers.filter((user) => user.roles.includes(Role.Sportsman));
   }
+
+  async getCoachById(id: string) {
+    const buffer = await fs.readFile(getUsersJsonPath());
+    const currentUsers: User[] = JSON.parse(buffer.toString()).users;
+    return currentUsers.find((user) => user.userId.toString() === id);
+  }
 }

@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, Post, Req, SetMetadata, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Post, Query, Req, SetMetadata, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
 import { AuthService } from './auth.service';
 import { User, UsersService, isUser } from 'src/users/users.service';
@@ -57,5 +57,10 @@ export class AuthController {
   @Get('allSportsmen')
   allSportsmen() {
     return this.usersService.getAllSportsmen();
+  }
+
+  @Get('getCoachById')
+  getCoachInformation(@Query('id') id: string) {
+    return this.usersService.getCoachById(id);
   }
 }

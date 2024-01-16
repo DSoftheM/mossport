@@ -1,19 +1,21 @@
 import styled from "styled-components";
 
+export const Root = styled.div`
+    transition: all 0.3s ease 0s;
+    &:hover {
+        font-size: 24px;
+        padding: 20px;
+    }
+`;
 export const Rectangle = styled.div`
     border-radius: 20px;
     overflow: auto;
+    height: 100%;
 
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.3s ease 0s;
-
-    &:hover {
-        font-size: 24px;
-        transform: scale(0.9);
-    }
 `;
 
 export const Close = styled.button`

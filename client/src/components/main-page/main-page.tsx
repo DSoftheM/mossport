@@ -17,11 +17,13 @@ import axios from "axios";
 import { useQuery, useQueryClient } from "react-query";
 import { SportsmanSchedule } from "./journals/sportsman-schedule";
 import { apiProvider } from "../../provider/api-provider";
+import { SportsmanInformation } from "./journals/sportsman-information";
 
 enum Key {
     News = "News",
     Journals = "Journals",
     Schedule = "Schedule",
+    Information = "Information",
 }
 
 // Расписание тренировок
@@ -88,6 +90,15 @@ export function MainPage() {
                             }}
                         />
                     )}
+                    {profileQuery.data?.roles.includes("sportsman") && (
+                        <Shape
+                            title="Информация"
+                            shape="rectangle"
+                            onClick={() => {
+                                setSelectedId(Key.Information);
+                            }}
+                        />
+                    )}
                 </S.Body>
             );
         }
@@ -102,6 +113,10 @@ export function MainPage() {
 
         if (selectedId === Key.Schedule) {
             return <SportsmanSchedule onClose={() => setSelectedId(null)} />;
+        }
+
+        if (selectedId === Key.Information) {
+            return <SportsmanInformation onClose={() => setSelectedId(null)} />;
         }
     }
 

@@ -24,6 +24,88 @@ export enum Role {
     Sportsman = "sportsman",
 }
 
+export enum SportSchool {
+    N1 = "N1",
+    N2 = "N2",
+    N3 = "N3",
+    N4 = "N4",
+    N5 = "N5",
+    N6 = "N6",
+    N7 = "N7",
+    N8 = "N8",
+    N9 = "N9",
+    N10 = "N10",
+    N11 = "N11",
+    N12 = "N12",
+    N13 = "N13",
+    N14 = "N14",
+    N15 = "N15",
+    N16 = "N16",
+    N17 = "N17",
+    N18 = "N18",
+    N19 = "N19",
+    N20 = "N20",
+    N21 = "N21",
+    N22 = "N22",
+    N23 = "N23",
+    N24 = "N24",
+    N25 = "N25",
+    N26 = "N26",
+    N27 = "N27",
+    N28 = "N28",
+    N29 = "N29",
+    N30 = "N30",
+    N31 = "N31",
+    N32 = "N32",
+    N33 = "N33",
+    N34 = "N34",
+    N35 = "N35",
+    N36 = "N36",
+}
+
+enum TranslateSportSchool {
+    N1 = "ГБУ ДО МКСШОР «СЕВЕР»",
+    N2 = "ГБУ ДО МКСШОР «ЗАПАД»",
+    N3 = "ГБУ ДО МКСШОР «ЮГ»",
+    N4 = "ГБУ ДО МКСШОР «ВОСТОК»",
+    N5 = "ГБУ ДО МКСШОР «ЦЕНТР»",
+    N6 = "ГБУ ДО МКСШ «ЗЕЛЕНОГРАД»",
+    N7 = "ГБУ ДО «МОСКОВСКАЯ АКАДЕМИЯ ФИГУРНОГО КАТАНИЯ НА КОНЬКАХ»",
+    N8 = "ГБУ ДО «МОСКОВСКАЯ АКАДЕМИЯ ЛЫЖНЫХ ГОНОК И БИАТЛОНА»",
+    N9 = "ГБУ ДО «МОСКОВСКАЯ АКАДЕМИЯ ХОККЕЯ» ",
+    N10 = "ГБУ ДО «МОСКОВСКАЯ ГОРНОЛЫЖНАЯ АКАДЕМИЯ»",
+    N11 = "ГБУ ДО «МОСКОВСКАЯ АКАДЕМИЯ ЗИМНИХ ВИДОВ СПОРТА»",
+    N12 = "ГБУ ДО «МОСКОВСКАЯ АКАДЕМИЯ ПЛАВАНИЯ»",
+    N13 = "ГБУ ДО «МОСКОВСКАЯ АКАДЕМИЯ ПАРУСНОГО И ГРЕБНЫХ ВИДОВ СПОРТА»",
+    N14 = "ГБУ ДО «МОСКОВСКАЯ АКАДЕМИЯ ВЕЛОСИПЕДНОГО СПОРТА»",
+    N15 = "ГБУ ДО «МОСКОВСКАЯ АКАДЕМИЯ СОВРЕМЕННОГО ПЯТИБОРЬЯ»",
+    N16 = "ГБОУ ЦСИО «САМБО-70»",
+    N17 = "ГБУ ДО «МГФСО»",
+    N18 = "ГБУ ДО «МОСКОВСКАЯ БАСКЕТБОЛЬНАЯ АКАДЕМИЯ»",
+    N19 = "ГБУ ДО «МОСКОВСКАЯ ФУТБОЛЬНАЯ АКАДЕМИЯ»",
+    N20 = "ГБУ ДО «МОСКОВСКАЯ ТЕННИСНАЯ АКАДЕМИЯ»",
+    N21 = "ГБУ ДО «МОСКОВСКАЯ АКАДЕМИЯ РЕГБИ»",
+    N22 = "ГБУ ДО «МОСКОВСКАЯ ГАНДБОЛЬНАЯ АКАДЕМИЯ»",
+    N23 = "ГБУ ДО «МОСКОВСКАЯ ВОЛЕЙБОЛЬНАЯ АКАДЕМИЯ»",
+    N24 = "ГБУ ДО «ФСО ЮНОСТЬ МОСКВЫ»",
+    N25 = "ГБУ ДО «САШ»",
+    N26 = "ГБПОУ «МССУОР №1»",
+    N27 = "ГБПОУ «МССУОР №2»",
+    N28 = "ГБПОУ «МССУОР №3»",
+    N29 = "ГБПОУ «МССУ №4 ИМ. А.Я.ГОМЕЛЬСКОГО»",
+    N30 = "ГБУ ДО СШОР «МОСКВИЧ»",
+    N31 = "ГБПОУ КФКС «СПАРТА»",
+    N32 = "ГАОУ ВО «МГУСИТ»",
+    N33 = "ГБПОУ ЦСИО «МЭШ»",
+    N34 = "ГБНОУ СПОРТИВНЫЙ ИНТЕРНАТ «ЧЕРТАНОВО»",
+    N35 = "ГАУ ДО СШ «МЦБИ»",
+    N36 = "ГБОУ ЦОИС «МОСКВА-98»",
+}
+
+export function translateSchool(school: SportSchool) {
+    return TranslateSportSchool[school];
+}
+
 const roles = [
     { id: "1", text: "Я спортсмен", value: Role.Sportsman },
     { id: "2", text: "Я тренер", value: Role.Coach },
@@ -39,6 +121,7 @@ export function RegisterPage() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [coachId, setCoachId] = useState("");
+    const [coachSportSchool, setCoachSportSchool] = useState<SportSchool | "">("");
     const navigate = useNavigate();
 
     const valid =
@@ -47,7 +130,17 @@ export function RegisterPage() {
     const registerQuery = useQuery<void>({
         queryKey: "register",
         queryFn: () =>
-            apiProvider.auth.register({ email, name, password, patronymic, surname, tel, roles: [role as Role], coachId }),
+            apiProvider.auth.register({
+                email,
+                name,
+                password,
+                patronymic,
+                surname,
+                tel,
+                roles: [role as Role],
+                coachId,
+                sportSchool: coachSportSchool as SportSchool,
+            }),
         enabled: false,
         onSuccess: () => {
             navigate(Nav.login());
@@ -111,6 +204,20 @@ export function RegisterPage() {
                                     {allCoachesQuery.data?.map((coach) => (
                                         <MenuItem key={coach.userId} value={coach.userId}>
                                             {coach.name} {coach.surname} {coach.patronymic}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            )}
+                            {role === Role.Coach && (
+                                <Select
+                                    sx={{ width: 200 }}
+                                    variant="filled"
+                                    value={coachSportSchool}
+                                    onChange={(e) => setCoachSportSchool(e.target.value as SportSchool)}
+                                >
+                                    {Object.values(SportSchool).map((school) => (
+                                        <MenuItem key={school} value={school}>
+                                            {translateSchool(school)}
                                         </MenuItem>
                                     ))}
                                 </Select>
