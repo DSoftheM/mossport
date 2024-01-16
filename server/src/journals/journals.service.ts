@@ -21,4 +21,8 @@ export class JournalsService {
   getScheduleTable(sportsmanId: string) {
     return this.journalsRepository.getScheduleTable(sportsmanId);
   }
+
+  getSportsmanAttendanceByMonth(sportsmanId: string, month: number) {
+    return this.journalsRepository.getSportsmanAttendanceByMonth(sportsmanId, month);
+  }
 }

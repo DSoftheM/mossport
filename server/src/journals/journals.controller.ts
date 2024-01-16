@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Req } from '@nestjs/common';
 import { JournalsService } from './journals.service';
 import { Journal, JournalWithoutId } from './types';
 import { Request } from 'express';
@@ -27,5 +27,12 @@ export class JournalsController {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return this.journalsService.getScheduleTable(req.user.userId);
+  }
+
+  @Get('/getSportsmanAttendanceByMonth')
+  getSportsmanAttendanceByMonth(@Req() req: Request, @Query('month') month: string) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return this.journalsService.getSportsmanAttendanceByMonth(req.user.userId, +month);
   }
 }

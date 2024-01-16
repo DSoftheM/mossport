@@ -31,4 +31,18 @@ export class JournalsRepository {
     // @ts-ignore
     return allJournals.find((x) => x.generalInformation.sportsmen.some((s) => s.id == sportsmanId)).scheduleTable;
   }
+
+  async getSportsmanAttendanceByMonth(sportsmanId: string, month: number): Promise<any> {
+    const allJournals = await this.getAllJournals();
+    // @ts-ignore
+    return allJournals.find((x) => {
+      console.log(
+        '@@',
+        // @ts-ignore
+        Object.values(x.attendance.tracking)[month].find((x) => x.sportsman.id === sportsmanId),
+      );
+      // @ts-ignore
+      Object.values(x.attendance.tracking)[month].find((x) => x.sportsman.id === sportsmanId).attendance;
+    });
+  }
 }

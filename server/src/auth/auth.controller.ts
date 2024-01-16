@@ -63,4 +63,9 @@ export class AuthController {
   getCoachInformation(@Query('id') id: string) {
     return this.usersService.getCoachById(id);
   }
+
+  @Get('getSportsmanAttendanceByMonth')
+  getSportsmanAttendanceByMonth(@Query('month') month: string) {
+    return this.usersService.getCoachById(month);
+  }
 }

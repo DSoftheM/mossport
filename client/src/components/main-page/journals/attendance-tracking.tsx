@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { PropsWithChildren, useState } from "react";
 import * as S from "./attendance-tracking.styled";
 import { AbsenceReason, AttendanceTracking, MonthAttendanceTracking, Sportsman } from "./types";
 import { IconButton, MenuItem, Select, Tooltip, Typography } from "@mui/material";
@@ -20,14 +20,53 @@ function getMonthName(month: number) {
     return date.toLocaleString("default", { month: "long" }).toUpperCase();
 }
 
-function daysInMonth(month: number, year: number) {
+export function daysInMonth(month: number, year: number) {
     return new Date(year, month + 1, 0).getDate();
+}
+
+type CalendarTableProps = {
+    month: number;
+    onChange: (month: number) => void;
+    show: boolean;
+};
+
+export function CalendarTable(props: PropsWithChildren<CalendarTableProps>) {
+    const { month, onChange: setMonth } = props;
+    const currentYear = new Date().getFullYear();
+    const days = daysInMonth(month, currentYear);
+
+    return (
+        <S.Table $columns={days + 2}>
+            {props.show && (
+                <>
+                    <p style={{ gridRow: "1 / 3" }}>№ п/п</p>
+                    <p style={{ gridRow: "1 / 3" }}>Фамилия, имя</p>
+                </>
+            )}
+            <p style={{ gridColumn: "3 / -1" }}>
+                <Tooltip title="Предыдущий месяц">
+                    <IconButton disabled={month === 0} onClick={() => setMonth(month - 1)}>
+                        <ArrowBackIosNewIcon />
+                    </IconButton>
+                </Tooltip>
+                <p style={{ display: "inline-flex", width: 105, justifyContent: "center" }}>{getMonthName(month)}</p>
+                <Tooltip title="Следующий месяц">
+                    <IconButton disabled={month === 11} onClick={() => setMonth(month + 1)}>
+                        <ArrowBackIosNewIcon sx={{ rotate: "180deg" }} />
+                    </IconButton>
+                </Tooltip>
+            </p>
+            {Array.from({ length: days }).map((x, i) => (
+                <p key={i}>{i + 1}</p>
+            ))}
+            {props.children}
+        </S.Table>
+    );
 }
 
 export function AttendanceTrackingEdit(props: Props) {
     const currentMonth = new Date().getMonth();
     const [month, setMonth] = useState<number>(currentMonth);
-
     const currentYear = new Date().getFullYear();
     const days = daysInMonth(month, currentYear);
 
@@ -37,25 +76,7 @@ export function AttendanceTrackingEdit(props: Props) {
             <Typography variant="h3" sx={{ textAlign: "center" }} mb={2}>
                 Учет посещаемости
             </Typography>
-            <S.Table $columns={days + 2}>
-                <p style={{ gridRow: "1 / 3" }}>№ п/п</p>
-                <p style={{ gridRow: "1 / 3" }}>Фамилия, имя</p>
-                <p style={{ gridColumn: "3 / -1" }}>
-                    <Tooltip title="Предыдущий месяц">
-                        <IconButton disabled={month === 0} onClick={() => setMonth(month - 1)}>
-                            <ArrowBackIosNewIcon />
-                        </IconButton>
-                    </Tooltip>
-                    <p style={{ display: "inline-flex", width: 105, justifyContent: "center" }}>{getMonthName(month)}</p>
-                    <Tooltip title="Следующий месяц">
-                        <IconButton disabled={month === 11} onClick={() => setMonth(month + 1)}>
-                            <ArrowBackIosNewIcon sx={{ rotate: "180deg" }} />
-                        </IconButton>
-                    </Tooltip>
-                </p>
-                {Array.from({ length: days }).map((x, i) => (
-                    <p key={i}>{i + 1}</p>
-                ))}
+            <CalendarTable month={month} onChange={setMonth} show>
                 {props.sportsman.map((sportsman, i) => {
                     const attendance: MonthAttendanceTracking = props.attendanceTracking.tracking[getMonthByIndex(month)][i] ?? {
                         attendance: [],
@@ -99,7 +120,7 @@ export function AttendanceTrackingEdit(props: Props) {
                         </React.Fragment>
                     );
                 })}
-            </S.Table>
+            </CalendarTable>
         </S.Root>
     );
 }

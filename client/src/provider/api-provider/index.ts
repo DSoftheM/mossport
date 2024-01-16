@@ -50,6 +50,7 @@ export const apiProvider = {
         async getCoachById(id: string) {
             return (await axios.get<User.View>("auth/getCoachById", { params: { id } })).data;
         },
+
         async register(data: User.Register) {
             return (await axios.post<void>("auth/register", data)).data;
         },
@@ -78,6 +79,9 @@ export const apiProvider = {
         },
         async getScheduleTable() {
             return (await axios.get<ScheduleTable>("journals/getScheduleTable")).data;
+        },
+        async getSportsmanAttendanceByMonth(month: number) {
+            return (await axios.get<User.View>("journals/getSportsmanAttendanceByMonth", { params: { month } })).data;
         },
     },
     registration: {
