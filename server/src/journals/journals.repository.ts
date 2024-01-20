@@ -34,15 +34,52 @@ export class JournalsRepository {
 
   async getSportsmanAttendanceByMonth(sportsmanId: string, month: number): Promise<any> {
     const allJournals = await this.getAllJournals();
-    // @ts-ignore
+    const monthWord = getMonthByIndex(month);
+    // console.log('monthWord :>> ', monthWord);
+    // allJournals.forEach((x) => {
+    //   // @ts-ignore
+    //   console.log('x.attendance.tracking[month] :>> ', x.attendance.tracking[month]);
+    // });
     return allJournals.find((x) => {
+      // @ts-ignore
       console.log(
-        '@@',
+        'x.attendance.tracking[month] :>> ',
         // @ts-ignore
-        Object.values(x.attendance.tracking)[month].find((x) => x.sportsman.id === sportsmanId),
+        x.attendance.tracking[month],
       );
       // @ts-ignore
-      Object.values(x.attendance.tracking)[month].find((x) => x.sportsman.id === sportsmanId).attendance;
-    });
+      return Boolean(x.attendance.tracking[monthWord]?.find((x) => x.sportsman.id == sportsmanId));
+      // @ts-ignore
+    })?.attendance;
   }
+}
+
+enum Month {
+  January = 'january',
+  February = 'february',
+  March = 'march',
+  April = 'april',
+  May = 'may',
+  June = 'june',
+  July = 'july',
+  August = 'august',
+  September = 'september',
+  October = 'october',
+  November = 'november',
+  December = 'december',
+}
+
+function getMonthByIndex(index: number): Month {
+  if (index === 0) return Month.January;
+  if (index === 1) return Month.February;
+  if (index === 2) return Month.March;
+  if (index === 3) return Month.April;
+  if (index === 4) return Month.May;
+  if (index === 5) return Month.June;
+  if (index === 6) return Month.July;
+  if (index === 7) return Month.August;
+  if (index === 8) return Month.September;
+  if (index === 9) return Month.October;
+  if (index === 10) return Month.November;
+  return Month.December;
 }

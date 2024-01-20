@@ -19,7 +19,7 @@ export function SportsmanAttendance(props: Props) {
     const days = daysInMonth(month, currentYear);
 
     const useSportsmanAttendanceByMonthQuery = useQuery({
-        queryKey: "sportsmanAttendanceByMonth",
+        queryKey: ["sportsmanAttendanceByMonth", month],
         queryFn: () => apiProvider.journals.getSportsmanAttendanceByMonth(month),
     });
 
