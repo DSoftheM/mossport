@@ -8,6 +8,31 @@ import bgPath from "../main-page/bg.png";
 import { motion } from "framer-motion";
 import { useQuery } from "react-query";
 import { apiProvider } from "../../provider/api-provider";
+import styled from "styled-components";
+
+const SBox = styled(Box)`
+    @media (width < 1123px) {
+        grid-template-columns: 1fr;
+    }
+`;
+
+const STypography = styled(Typography)`
+    @media (width < 1123px) {
+        font-size: 30px;
+    }
+`;
+
+const SBox2 = styled(Box)`
+    @media (width < 1123px) {
+        padding: 10px 10px 0;
+    }
+`;
+
+const SBox3 = styled(Box)`
+    @media (width < 1123px) {
+        flex-wrap: wrap;
+    }
+`;
 
 export function ProfilePage() {
     const profileQuery = useProfileQuery();
@@ -26,7 +51,7 @@ export function ProfilePage() {
     // @ts-expect-error
     const coach = allCoachesQuery.data?.find((x) => x.userId == profileQuery.data.coachId);
     return (
-        <div style={{ background: `url(${bgPath}) center / cover no-repeat`, height: "100vh" }}>
+        <div style={{ background: `url(${bgPath}) center / cover no-repeat`, minHeight: "100vh" }}>
             <motion.div
                 style={{
                     position: "absolute",
@@ -40,7 +65,7 @@ export function ProfilePage() {
                     opacity: 0,
                 }}
             ></motion.div>
-            <Box
+            <SBox2
                 sx={{
                     padding: "10px 80px 0",
                 }}
@@ -48,17 +73,17 @@ export function ProfilePage() {
                 <Box mb={5}>
                     <MainHeader />
                 </Box>
-                <Box display="grid" gridTemplateColumns="repeat(2, 1fr)" gridTemplateRows="auto 1fr" gap={2}>
+                <SBox display="grid" gridTemplateColumns="repeat(2, 1fr)" gridTemplateRows="auto 1fr" gap={2}>
                     <Box gridRow="span 2">
                         <Paper sx={{ height: "100%", padding: 3, borderRadius: "20px" }} elevation={2}>
                             <Box display="flex" flexDirection="column" alignItems={"center"}>
                                 <Avatar
-                                    sx={{ width: 300, height: 300 }}
+                                    sx={{ maxWidth: "300px", width: "100%", height: 300 }}
                                     src="https://sun9-45.userapi.com/impg/FzoC5aeURBsweEUmJ4-rR7QLVEWEFyp4D4CvLw/9sQSuS__5_c.jpg?size=600x400&quality=96&sign=a9d3f1bde0c5b240653561790746382b&c_uniq_tag=yoZ0_jxbnXmtxtGk-7tWR6aMn_pDhZ768s-qQYe1CYo&type=album"
                                 />
-                                <Typography variant="h3" component="h3" mb={3}>
+                                <STypography variant="h3" component="h3" mb={3}>
                                     Мой профиль
-                                </Typography>
+                                </STypography>
                                 <Box>
                                     <Typography>
                                         ФИО: {profileQuery.data.surname} {profileQuery.data.name} {profileQuery.data.patronymic}
@@ -80,7 +105,7 @@ export function ProfilePage() {
                                 <Typography variant="h4" mb={3} textAlign={"center"}>
                                     Безопасность
                                 </Typography>
-                                <Box display={"flex"} gap={1}>
+                                <SBox3 display={"flex"} gap={1}>
                                     <TextField
                                         label="Новый пароль"
                                         variant="outlined"
@@ -101,7 +126,10 @@ export function ProfilePage() {
                                     </Button>
 
                                     <TextField id="outlined-basic" label="Изменить почту" variant="outlined" />
-                                </Box>
+                                    <Button variant="contained" color="success">
+                                        Сохранить
+                                    </Button>
+                                </SBox3>
                                 {changePasswordMutation.isSuccess && (
                                     <Alert sx={{ marginTop: 2 }} severity="success">
                                         Пароль был изменен
@@ -115,8 +143,8 @@ export function ProfilePage() {
                             xs=3
                         </Paper>
                     </Box>
-                </Box>
-            </Box>
+                </SBox>
+            </SBox2>
         </div>
     );
 }

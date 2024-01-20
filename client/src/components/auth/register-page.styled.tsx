@@ -25,6 +25,10 @@ export const Root = styled.div`
         pointer-events: none;
         animation: ${disappear} 1.2s ease 0s 1 forwards;
     }
+
+    @media (width < 700px) {
+        justify-content: center;
+    }
 `;
 
 export const Side = styled.div`
@@ -41,6 +45,10 @@ export const ImgSide = styled.div`
     align-items: center;
     align-self: stretch;
     background-color: #fc4f4f;
+
+    @media (width < 700px) {
+        display: none;
+    }
 `;
 
 export const Title = styled.div`
@@ -48,6 +56,11 @@ export const Title = styled.div`
     text-align: center;
     font-size: 40px;
     white-space: nowrap;
+
+    @media (width < 550px) {
+        white-space: normal;
+        font-size: 30px;
+    }
 `;
 
 export const InputTitle = styled.div`
@@ -66,6 +79,10 @@ export const Body = styled.div`
     margin-top: 40px;
     gap: 80px;
     text-align: center;
+
+    @media (width < 1200px) {
+        flex-direction: column;
+    }
 `;
 
 export const Security = styled.div`

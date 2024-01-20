@@ -23,7 +23,7 @@ export function Plan(props: Props) {
         <S.Root>
             <CloseButton onClose={props.onClose} />
             <Typography variant="h3" sx={{ textAlign: "center" }} mb={2}>
-                Общие сведения
+                План спортивной подготовки
             </Typography>
             <S.Table>
                 <p>Содержание занятий</p>

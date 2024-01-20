@@ -14,6 +14,14 @@ export const NewsContainer = styled.div`
     display: grid;
     gap: 20px;
     grid-template-columns: 1fr 1fr 1fr;
+
+    @media (width < 1232px) {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    @media (width < 667px) {
+        grid-template-columns: 1fr;
+    }
 `;
 
 export const NewsItem = styled.div`

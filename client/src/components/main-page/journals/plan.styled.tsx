@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Root = styled.div`
     padding: 10px;
     position: relative;
+    overflow: auto;
 `;
 
 export const Table = styled.div`

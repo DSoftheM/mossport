@@ -32,6 +32,7 @@ const GlobalStyles = createGlobalStyle`
     textarea {
         resize: none;
     }
+
 `;
 
 function App() {

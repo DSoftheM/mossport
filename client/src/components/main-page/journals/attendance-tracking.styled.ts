@@ -3,9 +3,11 @@ import styled from "styled-components";
 export const Root = styled.div`
     padding: 10px;
     position: relative;
+    overflow: auto;
 `;
 
 export const Table = styled.div<{ $columns: number }>`
+    min-width: 1760px;
     display: grid;
     grid-template-columns: repeat(${(props) => props.$columns}, 1fr);
     grid-template-rows: 50px 50px;

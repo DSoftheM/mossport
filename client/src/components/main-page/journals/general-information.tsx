@@ -165,7 +165,7 @@ export function GeneralInformation(props: Props) {
     const restSportsmen = allSportsmenQuery.data?.filter((s) => !props.sportsmen.map((x) => x.id).includes(s.userId.toString()));
 
     return (
-        <div style={{ padding: "20px 40px", position: "relative" }}>
+        <div style={{ padding: "20px 40px", position: "relative", overflow: "auto" }}>
             <CloseButton onClose={props.onClose} />
             {/* <button onClick={props.onClose}>Закрыть таблицу</button> */}
             <Typography variant="h3" sx={{ textAlign: "center" }} mb={2}>

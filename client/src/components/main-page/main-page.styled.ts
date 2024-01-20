@@ -46,7 +46,6 @@ export const Avatar = styled(motion.div)`
 `;
 
 export const Title = styled.h3`
-    width: 0;
     white-space: nowrap;
 `;
 
@@ -65,4 +64,12 @@ export const Body = styled.div`
     grid-template-rows: 200px 200px 200px;
     gap: 20px;
     border-radius: 20px;
+
+    @media (width < 1000px) {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    @media (width < 600px) {
+        grid-template-columns: 1fr;
+    }
 `;
