@@ -15,7 +15,7 @@ export function LoginPage(): JSX.Element {
     const query = useQuery({
         queryKey: "auth",
         queryFn: () => apiProvider.auth.login(email, password),
-        enabled: false,
+        enabled: true,
 
         onSuccess: (data) => {
             axios.interceptors.request.use((config) => {
@@ -23,7 +23,7 @@ export function LoginPage(): JSX.Element {
                 return config;
             });
             document.cookie = `access_token=Bearer ${data.access_token}`;
-            return navigate(Nav.profile());
+            return navigate(Nav.main());
         },
     });
 

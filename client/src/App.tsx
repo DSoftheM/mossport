@@ -45,7 +45,7 @@ function App() {
     }
 
     function navigateToProfile() {
-        navigate(Nav.profile());
+        navigate(Nav.main());
     }
 
     useEffect(() => {
