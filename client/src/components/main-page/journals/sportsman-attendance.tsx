@@ -7,6 +7,7 @@ import { useProfileQuery } from "../../../provider/query/use-profile-query";
 import { translateSchool } from "../../auth/register-page";
 import { CalendarTable, daysInMonth } from "./attendance-tracking";
 import { useState } from "react";
+import { getMonthByIndex } from "./schedule";
 
 type Props = {
     onClose: () => void;
@@ -23,7 +24,7 @@ export function SportsmanAttendance(props: Props) {
         queryFn: () => apiProvider.journals.getSportsmanAttendanceByMonth(month),
     });
 
-    console.log("useSportsmanAttendanceByMonthQuery :>> ", useSportsmanAttendanceByMonthQuery.data);
+    console.log("useSportsmanAttendanceByMonthQuery :>> ", getMonthByIndex(currentMonth));
 
     return (
         <S.Root>
@@ -32,8 +33,17 @@ export function SportsmanAttendance(props: Props) {
                 Посещаемость
             </Typography>
             <CalendarTable month={month} onChange={setMonth} show={false}>
-                {/* {Array.from(days).map(day => )} */}
+                {useSportsmanAttendanceByMonthQuery.data?.tracking[getMonthByIndex(currentMonth)].flatMap((x) =>
+                    x.attendance.map((y) => {
+                        if (!y) return <div></div>;
+                        if (y === "disease") {
+                            return <div>Б</div>;
+                        }
+                        return <div>О</div>;
+                    })
+                )}
             </CalendarTable>
+            {!useSportsmanAttendanceByMonthQuery.data && <Typography variant="h1">Нет посещаемости</Typography>}
         </S.Root>
     );
 }

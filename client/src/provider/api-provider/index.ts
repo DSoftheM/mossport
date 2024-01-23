@@ -81,7 +81,7 @@ export const apiProvider = {
             return (await axios.get<ScheduleTable>("journals/getScheduleTable")).data;
         },
         async getSportsmanAttendanceByMonth(month: number) {
-            return (await axios.get<User.View>("journals/getSportsmanAttendanceByMonth", { params: { month } })).data;
+            return (await axios.get<any>("journals/getSportsmanAttendanceByMonth", { params: { month } })).data;
         },
     },
     registration: {

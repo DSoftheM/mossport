@@ -36,14 +36,14 @@ export function CalendarTable(props: PropsWithChildren<CalendarTableProps>) {
     const days = daysInMonth(month, currentYear);
 
     return (
-        <S.Table $columns={days + 2}>
+        <S.Table $columns={props.show ? days + 2 : days}>
             {props.show && (
                 <>
                     <p style={{ gridRow: "1 / 3" }}>№ п/п</p>
                     <p style={{ gridRow: "1 / 3" }}>Фамилия, имя</p>
                 </>
             )}
-            <p style={{ gridColumn: "3 / -1" }}>
+            <p style={{ gridColumn: props.show ? "3 / -1" : "1 / -1" }}>
                 <Tooltip title="Предыдущий месяц">
                     <IconButton disabled={month === 0} onClick={() => setMonth(month - 1)}>
                         <ArrowBackIosNewIcon />
