@@ -24,7 +24,7 @@ export function SportsmanAttendance(props: Props) {
         queryFn: () => apiProvider.journals.getSportsmanAttendanceByMonth(month),
     });
 
-    console.log("useSportsmanAttendanceByMonthQuery :>> ", getMonthByIndex(currentMonth));
+    console.log("useSportsmanAttendanceByMonthQuery.data :>> ", useSportsmanAttendanceByMonthQuery.data);
 
     return (
         <S.Root>
@@ -33,15 +33,16 @@ export function SportsmanAttendance(props: Props) {
                 Посещаемость
             </Typography>
             <CalendarTable month={month} onChange={setMonth} show={false}>
-                {useSportsmanAttendanceByMonthQuery.data?.tracking[getMonthByIndex(currentMonth)].flatMap((x) =>
-                    x.attendance.map((y) => {
-                        if (!y) return <div></div>;
-                        if (y === "disease") {
-                            return <div>Б</div>;
-                        }
-                        return <div>О</div>;
-                    })
-                )}
+                {useSportsmanAttendanceByMonthQuery.data &&
+                    useSportsmanAttendanceByMonthQuery.data.tracking[getMonthByIndex(currentMonth)].flatMap((x) =>
+                        x.attendance.map((y) => {
+                            if (!y) return <div></div>;
+                            if (y === "disease") {
+                                return <div>Б</div>;
+                            }
+                            return <div>О</div>;
+                        })
+                    )}
             </CalendarTable>
             {!useSportsmanAttendanceByMonthQuery.data && <Typography variant="h1">Нет посещаемости</Typography>}
         </S.Root>

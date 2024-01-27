@@ -8,14 +8,14 @@ import { Nav } from "@nav";
 import { Alert, Box, Button, Link, Paper, Stack, TextField, Typography } from "@mui/material";
 
 export function LoginPage(): JSX.Element {
-    const [email, setEmail] = useState("test@mail.ru");
+    const [email, setEmail] = useState("t1");
     const [password, setPassword] = useState("123");
     const navigate = useNavigate();
 
     const query = useQuery({
         queryKey: "auth",
         queryFn: () => apiProvider.auth.login(email, password),
-        enabled: true,
+        enabled: false,
 
         onSuccess: (data) => {
             axios.interceptors.request.use((config) => {
