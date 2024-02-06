@@ -3,6 +3,7 @@ import { Journal, JournalWithoutId } from './types';
 import * as fs from 'fs/promises';
 import * as crypto from 'crypto';
 import { getJournalsJsonPath } from 'data/journals';
+import { Month } from '@shared/types';
 
 @Injectable()
 export class JournalsRepository {
@@ -44,21 +45,6 @@ export class JournalsRepository {
       return Boolean(x.attendance.tracking[monthWord]?.find((x) => x.sportsman.id == sportsmanId));
     })?.attendance;
   }
-}
-
-export enum Month {
-  January = 'january',
-  February = 'february',
-  March = 'march',
-  April = 'april',
-  May = 'may',
-  June = 'june',
-  July = 'july',
-  August = 'august',
-  September = 'september',
-  October = 'october',
-  November = 'november',
-  December = 'december',
 }
 
 export function getMonthByIndex(index: number): Month {

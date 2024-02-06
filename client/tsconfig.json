@@ -20,8 +20,10 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true,
+        "rootDir": "..",
         "paths": {
             "@nav": ["./src/nav"],
+            "@shared/*": ["../shared/*"],
             "@ui/*": ["./src/ui/*"]
         }
     },

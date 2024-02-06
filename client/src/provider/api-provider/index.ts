@@ -25,6 +25,12 @@ declare namespace User {
     type View = Base & {
         userId: number;
         roles: string;
+        achievements: {
+            cups: number;
+            medals: number;
+            camps: number;
+            competitions: number;
+        };
     };
 
     type Sportsman = Base & {

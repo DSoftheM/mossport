@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import bgPath from "./bg.png";
 import { motion } from "framer-motion";
 
@@ -45,8 +45,20 @@ export const Avatar = styled(motion.div)`
     }
 `;
 
+const slide = keyframes`
+    to {
+        opacity: 1;
+    }
+`;
+
 export const Title = styled.h3`
     white-space: nowrap;
+`;
+
+export const Title2 = styled.h3`
+    white-space: nowrap;
+    opacity: 0;
+    animation: ${slide} 0.5s ease 0s 1 forwards;
 `;
 
 export const Logo = styled.img`

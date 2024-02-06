@@ -14,10 +14,13 @@ import { useAnimate } from "framer-motion";
 import { Box, IconButton, Tooltip } from "@mui/material";
 import { LogoutSharp } from "@mui/icons-material";
 import axios from "axios";
-import { useQueryClient } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { SportsmanSchedule } from "./journals/sportsman-schedule";
 import { SportsmanInformation } from "./journals/sportsman-information";
 import { SportsmanAttendance } from "./journals/sportsman-attendance";
+import { apiProvider } from "../../provider/api-provider";
+import { ScheduleTable } from "./journals/types";
+import { Info } from "./journals/info";
 
 enum Key {
     News = "News",
@@ -25,6 +28,7 @@ enum Key {
     Schedule = "Schedule",
     Information = "Information",
     SportsmanAttendance = "SportsmanAttendance",
+    Info = "Info",
 }
 
 // Расписание тренировок
@@ -66,16 +70,21 @@ export function MainPage() {
                 <S.Body>
                     <Shape
                         title="Новости"
-                        shape="rectangle"
                         onClick={() => {
                             setSelectedId(Key.News);
+                            newsQuery.refetch();
+                        }}
+                    />
+                    <Shape
+                        title="Информация об учреждении"
+                        onClick={() => {
+                            setSelectedId(Key.Info);
                             newsQuery.refetch();
                         }}
                     />
                     {profileQuery.data?.roles.includes("coach") && (
                         <Shape
                             title="Журналы"
-                            shape="rectangle"
                             onClick={() => {
                                 setSelectedId(Key.Journals);
                                 newsQuery.refetch();
@@ -86,21 +95,18 @@ export function MainPage() {
                         <>
                             <Shape
                                 title="Расписание"
-                                shape="rectangle"
                                 onClick={() => {
                                     setSelectedId(Key.Schedule);
                                 }}
                             />
                             <Shape
                                 title="Информация"
-                                shape="rectangle"
                                 onClick={() => {
                                     setSelectedId(Key.Information);
                                 }}
                             />
                             <Shape
                                 title="Посещаемость"
-                                shape="rectangle"
                                 onClick={() => {
                                     setSelectedId(Key.SportsmanAttendance);
                                 }}
@@ -130,6 +136,10 @@ export function MainPage() {
         if (selectedId === Key.SportsmanAttendance) {
             return <SportsmanAttendance onClose={() => setSelectedId(null)} />;
         }
+
+        if (selectedId === Key.Info) {
+            return <Info onClose={() => setSelectedId(null)} />;
+        }
     }
 
     return (
@@ -142,6 +152,26 @@ export function MainPage() {
     );
 }
 
+// Найти ближайшую тренировку
+function findNearestWorkoutDate(data: ScheduleTable | undefined): Date | null {
+    if (!data) return null;
+    let nearestDate: string | null = null;
+    if (data.january.find((ranges) => ranges.length !== 0)) {
+        nearestDate = data.january.find((ranges) => ranges.length !== 0)?.[0].start ?? null;
+        const index = data.january.findIndex((ranges) => ranges.length !== 0);
+        const date = new Date();
+        const [hours, minutes] = (nearestDate ?? "").split(":");
+        console.log("hours :>> ", hours);
+        console.log("minutes :>> ", minutes);
+        date.setHours(+hours);
+        date.setMinutes(+minutes);
+        date.setMonth(0);
+        date.setDate(index);
+        return date;
+    }
+    return nearestDate ? new Date(nearestDate) : null;
+}
+
 export function MainHeader() {
     const navigate = useNavigate();
 
@@ -150,10 +180,30 @@ export function MainHeader() {
     const isProfile = useMatch(Nav.profile());
     const queryClient = useQueryClient();
 
+    const getScheduleTableQuery = useQuery({
+        queryKey: "getScheduleTable",
+        queryFn: () => apiProvider.journals.getScheduleTable(),
+    });
+
+    const [changeTitle, setChangeTitle] = useState(false);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setChangeTitle(true);
+        }, 5000);
+    }, []);
+
     return (
         <S.HeaderContainer>
             <S.Header>
-                <S.Title>Добро пожаловать</S.Title>
+                {!changeTitle ? (
+                    <S.Title>Добро пожаловать</S.Title>
+                ) : (
+                    <S.Title2>
+                        {"Ближайшая тренировка " +
+                            findNearestWorkoutDate(getScheduleTableQuery.data)?.toLocaleString("ru").slice(0, -3)}
+                    </S.Title2>
+                )}
                 <S.Logo src={logoPath} />
                 <Box display={"flex"} alignItems={"center"} gap={2}>
                     <Tooltip title="Выйти">

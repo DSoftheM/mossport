@@ -25,4 +25,6 @@ export const Close = styled.button`
     z-index: 1;
 `;
 
-export const Title = styled.h3``;
+export const Title = styled.h3`
+    white-space: nowrap;
+`;

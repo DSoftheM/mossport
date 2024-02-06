@@ -13,6 +13,6 @@ export class LoggerExceptionFilter implements ExceptionFilter {
     this.loggerRepository.writeLog(exception);
     this.loggerRepository.log(exception);
 
-    res.status(exception.getStatus()).json(exception.getResponse());
+    // res.status(exception.getStatus()).json(exception.getResponse());
   }
 }

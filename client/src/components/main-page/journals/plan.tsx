@@ -3,8 +3,9 @@ import { CloseButton } from "../../close-button";
 import { months } from "./months";
 import * as S from "./plan.styled";
 import { useImmer } from "use-immer";
-import { CreationPlan, Month, type Plan } from "./types";
+import { CreationPlan, type Plan } from "./types";
 import { produce } from "immer";
+import { Month } from "@shared/types";
 
 type Props = {
     onClose: () => void;

@@ -1,9 +1,10 @@
 import { useState } from "react";
 import * as S from "./journal-view.styled";
-import { AbsenceReason, Journal, Month, MonthAttendanceTracking } from "./types";
+import { MonthAttendanceTracking } from "./types";
 import { useCreateJournalMutation } from "../../../provider/query/use-journals-query";
 import { CloseButton } from "../../close-button";
 import { Button, Stack, TextField } from "@mui/material";
+import { Month } from "@shared/types";
 
 type Props = {
     onClose: () => void;

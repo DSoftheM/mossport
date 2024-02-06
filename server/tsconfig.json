@@ -8,6 +8,7 @@
     "allowSyntheticDefaultImports": true,
     "target": "es2017",
     "sourceMap": true,
+    "rootDir": "..",
     "lib": ["es2021"],
     "outDir": "./dist",
     "strict": true,
@@ -19,6 +20,9 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "paths": {
+      "@shared/*": ["../shared/*"]
+    }
   }
 }

@@ -1,10 +1,8 @@
+import { Box, Typography } from "@mui/material";
 import * as S from "./shape.styled";
-
-type ShapeType = "rectangle";
 
 type ShapeProps = {
     title: string;
-    shape: ShapeType;
     onClick: () => void;
 };
 

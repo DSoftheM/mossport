@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Shape } from "../shape";
 import * as S from "./journal-view.styled";
 import { GeneralInformation } from "./general-information";
-import { Journal, Sportsman } from "./types";
+import { Journal } from "./types";
 import { produce } from "immer";
 import { Schedule } from "./schedule";
 import { Plan } from "./plan";
@@ -39,23 +39,11 @@ export function JournalView(props: Props) {
                     <p>Начат: {props.journal.startDate.toLocaleDateString("ru")}</p>
                     <br />
                     <S.Shapes>
-                        <Shape shape="rectangle" onClick={() => setSelectedStage(JournalStage.Schedule)} title="Расписание" />
-                        <Shape
-                            shape="rectangle"
-                            onClick={() => setSelectedStage(JournalStage.GeneralInformation)}
-                            title="Общие сведения"
-                        />
-                        <Shape
-                            shape="rectangle"
-                            onClick={() => setSelectedStage(JournalStage.Plan)}
-                            title="План спортивной подготовки"
-                        />
-                        <Shape
-                            shape="rectangle"
-                            onClick={() => setSelectedStage(JournalStage.AttendanceTracking)}
-                            title="Учет посещаемости"
-                        />
-                        <Shape shape="rectangle" onClick={() => setSelectedStage(JournalStage.Results)} title="Итоги" />
+                        <Shape onClick={() => setSelectedStage(JournalStage.Schedule)} title="Расписание" />
+                        <Shape onClick={() => setSelectedStage(JournalStage.GeneralInformation)} title="Общие сведения" />
+                        <Shape onClick={() => setSelectedStage(JournalStage.Plan)} title="План спортивной подготовки" />
+                        <Shape onClick={() => setSelectedStage(JournalStage.AttendanceTracking)} title="Учет посещаемости" />
+                        <Shape onClick={() => setSelectedStage(JournalStage.Results)} title="Итоги" />
                     </S.Shapes>
                 </Box>
             );

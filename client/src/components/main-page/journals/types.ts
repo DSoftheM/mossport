@@ -1,3 +1,5 @@
+import { Month } from "@shared/types";
+
 export type Journal = {
     name: string;
     scheduleTable: ScheduleTable;
@@ -50,21 +52,6 @@ export type MonthAttendanceTracking = {
 export enum AbsenceReason {
     Disease = "disease",
     Lack = "lack",
-}
-
-export enum Month {
-    January = "january",
-    February = "february",
-    March = "march",
-    April = "april",
-    May = "may",
-    June = "june",
-    July = "july",
-    August = "august",
-    September = "september",
-    October = "october",
-    November = "november",
-    December = "december",
 }
 
 type TimeRange = {

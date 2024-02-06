@@ -1,12 +1,13 @@
 import { useRef, useState } from "react";
 import { months } from "./months";
 import * as S from "./schedule.styled";
-import { Month, ScheduleTable } from "./types";
+import { ScheduleTable } from "./types";
 import { useImmer } from "use-immer";
 import { Box, Button, IconButton, Stack, Tooltip, Typography } from "@mui/material";
 import { CloseButton } from "../../close-button";
 import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
+import { Month } from "@shared/types";
 
 type Props = {
     onClose: () => void;

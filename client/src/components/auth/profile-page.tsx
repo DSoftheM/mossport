@@ -140,7 +140,31 @@ export function ProfilePage() {
                     </Box>
                     <Box>
                         <Paper sx={{ padding: 3, height: "100%", borderRadius: "20px" }} elevation={2}>
-                            xs=3
+                            <Typography variant="h4" mb={3} textAlign={"center"}>
+                                Достижения
+                            </Typography>
+                            <Box display={"flex"} justifyContent={"space-between"}>
+                                <Box display={"flex"} flexDirection={"column"} gap={1} alignItems={"center"}>
+                                    <Icon src="https://e7.pngegg.com/pngimages/667/921/png-clipart-trophy-gold-medal-golden-cup-medal-golden-cup.png" />
+                                    <Typography>Кубки</Typography>
+                                    <Typography>{profileQuery.data?.achievements?.cups ?? 0}</Typography>
+                                </Box>
+                                <Box display={"flex"} flexDirection={"column"} gap={1} alignItems={"center"}>
+                                    <Icon src="https://e7.pngegg.com/pngimages/667/921/png-clipart-trophy-gold-medal-golden-cup-medal-golden-cup.png" />
+                                    <Typography>Медали</Typography>
+                                    <Typography>{profileQuery.data?.achievements?.medals ?? 0}</Typography>
+                                </Box>
+                                <Box display={"flex"} flexDirection={"column"} gap={1} alignItems={"center"}>
+                                    <Icon src="https://e7.pngegg.com/pngimages/667/921/png-clipart-trophy-gold-medal-golden-cup-medal-golden-cup.png" />
+                                    <Typography>Сборы</Typography>
+                                    <Typography>{profileQuery.data?.achievements?.camps ?? 0}</Typography>
+                                </Box>
+                                <Box display={"flex"} flexDirection={"column"} gap={1} alignItems={"center"}>
+                                    <Icon src="https://e7.pngegg.com/pngimages/667/921/png-clipart-trophy-gold-medal-golden-cup-medal-golden-cup.png" />
+                                    <Typography>Соревнования</Typography>
+                                    <Typography>{profileQuery.data?.achievements?.competitions ?? 0}</Typography>
+                                </Box>
+                            </Box>
                         </Paper>
                     </Box>
                 </SBox>
@@ -148,3 +172,9 @@ export function ProfilePage() {
         </div>
     );
 }
+
+const Icon = styled.img`
+    width: 80%;
+    aspect-ratio: 1/ 1;
+    border-radius: 50%;
+`;

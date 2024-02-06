@@ -1,10 +1,10 @@
 import { months } from "./months";
 import * as S from "./schedule.styled";
-import { Month, ScheduleTable } from "./types";
 import { Box, Typography } from "@mui/material";
 import { CloseButton } from "../../close-button";
 import { useQuery } from "react-query";
 import { apiProvider } from "../../../provider/api-provider";
+import { Month } from "@shared/types";
 
 type Props = {
     onClose: () => void;
