@@ -1,3 +1,5 @@
+import { Month } from './journals.repository';
+
 export type Journal = {
   id: string;
   name: string;
@@ -6,6 +8,9 @@ export type Journal = {
   startDate: Date;
   generalInformation: {
     sportsmen: Sportsman[];
+  };
+  attendance: {
+    tracking: Record<Month, { attendance: any[]; sportsman: Sportsman }[]>;
   };
   // Todo: endDate
   // endDate?: Date;
@@ -37,4 +42,5 @@ export type Sportsman = {
   };
   parentsFio: string;
   tel: string;
+  id: string;
 };

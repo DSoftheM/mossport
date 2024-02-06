@@ -41,20 +41,12 @@ export class JournalsRepository {
     //   console.log('x.attendance.tracking[month] :>> ', x.attendance.tracking[month]);
     // });
     return allJournals.find((x) => {
-      // @ts-ignore
-      console.log(
-        'x.attendance.tracking[month] :>> ',
-        // @ts-ignore
-        x.attendance.tracking[month],
-      );
-      // @ts-ignore
       return Boolean(x.attendance.tracking[monthWord]?.find((x) => x.sportsman.id == sportsmanId));
-      // @ts-ignore
     })?.attendance;
   }
 }
 
-enum Month {
+export enum Month {
   January = 'january',
   February = 'february',
   March = 'march',
@@ -69,7 +61,7 @@ enum Month {
   December = 'december',
 }
 
-function getMonthByIndex(index: number): Month {
+export function getMonthByIndex(index: number): Month {
   if (index === 0) return Month.January;
   if (index === 1) return Month.February;
   if (index === 2) return Month.March;

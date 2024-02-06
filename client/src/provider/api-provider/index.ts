@@ -89,4 +89,9 @@ export const apiProvider = {
             return (await axios.get<User.View[]>("auth/allCoaches")).data;
         },
     },
+    sportsmen: {
+        async planPass(date: Date) {
+            return (await axios.post<any>("sportsmen/plan-pass", { date })).data;
+        },
+    },
 };

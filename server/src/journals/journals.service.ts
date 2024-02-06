@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { JournalsRepository } from './journals.repository';
+import { JournalsRepository, getMonthByIndex } from './journals.repository';
 import { Journal, JournalWithoutId } from './types';
 
 @Injectable()
@@ -25,4 +25,36 @@ export class JournalsService {
   getSportsmanAttendanceByMonth(sportsmanId: string, month: number) {
     return this.journalsRepository.getSportsmanAttendanceByMonth(sportsmanId, month);
   }
+
+  private async getJournalBySportsmanId(id: string) {
+    const allJournals = await this.getAllJournals();
+    const journal = allJournals.find((j) => {
+      console.log('j :>> ', j.generalInformation.sportsmen);
+      console.log('id :>> ', typeof id);
+      const sportsmenIds = j.generalInformation.sportsmen.map((s) => s.id);
+      return sportsmenIds.includes(id);
+    });
+    return journal ?? null;
+  }
+
+  async planPass(sportsmanId: string, date: Date) {
+    const journal = await this.getJournalBySportsmanId(sportsmanId);
+    if (!journal) return;
+    const month = getMonthByIndex(date.getMonth());
+    const updatedAttendance = journal.attendance.tracking[month].find(
+      (x) => x.sportsman.id === sportsmanId,
+    )?.attendance;
+    if (updatedAttendance) {
+      updatedAttendance.splice(date.getDate() - 1, 1, 'PlanPass');
+      const index = journal.attendance.tracking[month].findIndex((x) => x.sportsman.id === sportsmanId);
+      journal.attendance.tracking[month][index].attendance = updatedAttendance;
+      this.editJournal(journal);
+    }
+  }
 }
+
+const user = {
+  names: ['Alex', 'John'],
+};
+
+user.names[1];

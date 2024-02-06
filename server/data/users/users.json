@@ -1,1 +1,28 @@
-{"users":[{"email":"t1","name":"Тренер1","password":"123","patronymic":"Тренер1","surname":"Тренер1","tel":"234234234","roles":["coach"],"coachId":"","sportSchool":"N1","userId":0},{"email":"s1","name":"Спортсмен1","password":"123","patronymic":"Спортсмен1","surname":"Спортсмен1","tel":"12314234234","roles":["sportsman"],"coachId":0,"sportSchool":"","userId":1}]}
+{
+  "users": [
+    {
+      "email": "t1",
+      "name": "Тренер1",
+      "password": "123",
+      "patronymic": "Тренер1",
+      "surname": "Тренер1",
+      "tel": "234234234",
+      "roles": ["coach"],
+      "coachId": "",
+      "sportSchool": "N1",
+      "userId": 0
+    },
+    {
+      "email": "s1",
+      "name": "Спортсмен1",
+      "password": "123",
+      "patronymic": "Спортсмен1",
+      "surname": "Спортсмен1",
+      "tel": "12314234234",
+      "roles": ["sportsman"],
+      "coachId": 0,
+      "sportSchool": "",
+      "userId": 1
+    }
+  ]
+}

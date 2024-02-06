@@ -6,5 +6,6 @@ import { JournalsRepository } from './journals.repository';
 @Module({
   controllers: [JournalsController],
   providers: [JournalsService, JournalsRepository],
+  exports: [JournalsService, JournalsRepository],
 })
 export class JournalsModule {}

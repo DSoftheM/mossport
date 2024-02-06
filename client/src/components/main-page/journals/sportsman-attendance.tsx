@@ -1,13 +1,14 @@
 import * as S from "./schedule.styled";
-import { Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { CloseButton } from "../../close-button";
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { apiProvider } from "../../../provider/api-provider";
 import { useProfileQuery } from "../../../provider/query/use-profile-query";
 import { translateSchool } from "../../auth/register-page";
 import { CalendarTable, daysInMonth } from "./attendance-tracking";
 import { useState } from "react";
 import { getMonthByIndex } from "./schedule";
+import { DatePicker } from "@mui/x-date-pickers";
 
 type Props = {
     onClose: () => void;
@@ -18,13 +19,25 @@ export function SportsmanAttendance(props: Props) {
     const [month, setMonth] = useState<number>(currentMonth);
     const currentYear = new Date().getFullYear();
     const days = daysInMonth(month, currentYear);
+    const [openPlanPass, setOpenPlanPass] = useState(false);
+    const [passDate, setPassDate] = useState<Date | null>(null);
 
-    const useSportsmanAttendanceByMonthQuery = useQuery({
+    const sportsmanAttendanceByMonthQuery = useQuery({
         queryKey: ["sportsmanAttendanceByMonth", month],
         queryFn: () => apiProvider.journals.getSportsmanAttendanceByMonth(month),
     });
 
-    console.log("useSportsmanAttendanceByMonthQuery.data :>> ", useSportsmanAttendanceByMonthQuery.data);
+    const queryClient = useQueryClient();
+    const planPassMutation = useMutation({
+        mutationFn: (date: Date) => apiProvider.sportsmen.planPass(date),
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: ["sportsmanAttendanceByMonth"],
+            });
+        },
+    });
+
+    console.log("data :>> ", planPassMutation.data);
 
     return (
         <S.Root>
@@ -33,18 +46,41 @@ export function SportsmanAttendance(props: Props) {
                 Посещаемость
             </Typography>
             <CalendarTable month={month} onChange={setMonth} show={false}>
-                {useSportsmanAttendanceByMonthQuery.data &&
-                    useSportsmanAttendanceByMonthQuery.data.tracking[getMonthByIndex(currentMonth)].flatMap((x) =>
+                {sportsmanAttendanceByMonthQuery.data &&
+                    sportsmanAttendanceByMonthQuery.data.tracking[getMonthByIndex(currentMonth)].flatMap((x) =>
                         x.attendance.map((y) => {
                             if (!y) return <div></div>;
                             if (y === "disease") {
                                 return <div>Б</div>;
                             }
+                            if (y === "PlanPass") {
+                                return <div>З</div>;
+                            }
                             return <div>О</div>;
                         })
                     )}
             </CalendarTable>
-            {!useSportsmanAttendanceByMonthQuery.data && <Typography variant="h1">Нет посещаемости</Typography>}
+            {!sportsmanAttendanceByMonthQuery.data && <Typography variant="h1">Нет посещаемости</Typography>}
+            <Button sx={{ mt: 2 }} variant="contained" onClick={() => setOpenPlanPass(!openPlanPass)}>
+                Запланировать пропуск
+            </Button>
+            {openPlanPass && (
+                <Box display={"flex"} gap={3} mt={2}>
+                    <DatePicker onChange={setPassDate} value={passDate} />
+                    <Button
+                        color="success"
+                        variant="contained"
+                        disabled={!passDate}
+                        onClick={() => {
+                            if (!passDate) return;
+                            setOpenPlanPass(false);
+                            planPassMutation.mutate(passDate);
+                        }}
+                    >
+                        Сохранить
+                    </Button>
+                </Box>
+            )}
         </S.Root>
     );
 }
