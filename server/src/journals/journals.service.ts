@@ -29,8 +29,6 @@ export class JournalsService {
   private async getJournalBySportsmanId(id: string) {
     const allJournals = await this.getAllJournals();
     const journal = allJournals.find((j) => {
-      console.log('j :>> ', j.generalInformation.sportsmen);
-      console.log('id :>> ', typeof id);
       const sportsmenIds = j.generalInformation.sportsmen.map((s) => s.id);
       return sportsmenIds.includes(id);
     });

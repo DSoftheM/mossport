@@ -13,6 +13,18 @@
       "userId": 0
     },
     {
+      "email": "t2",
+      "name": "Тренер2",
+      "password": "123",
+      "patronymic": "Тренер2",
+      "surname": "Тренер2",
+      "tel": "234234234",
+      "roles": ["coach"],
+      "coachId": "",
+      "sportSchool": "N1",
+      "userId": 1
+    },
+    {
       "email": "s1",
       "name": "Спортсмен1",
       "password": "123",
@@ -22,7 +34,19 @@
       "roles": ["sportsman"],
       "coachId": 0,
       "sportSchool": "",
-      "userId": 1
+      "userId": 2
+    },
+    {
+      "email": "s2",
+      "name": "Спортсмен2",
+      "password": "123",
+      "patronymic": "Спортсмен2",
+      "surname": "Спортсмен2",
+      "tel": "12314234234",
+      "roles": ["sportsman"],
+      "coachId": 1,
+      "sportSchool": "",
+      "userId": 3
     }
   ]
 }
