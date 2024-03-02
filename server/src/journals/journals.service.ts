@@ -19,6 +19,8 @@ export class JournalsService {
   }
 
   getScheduleTable(sportsmanId: string) {
+    console.log('sportsmanId :>> ', sportsmanId);
+    return null;
     return this.journalsRepository.getScheduleTable(sportsmanId);
   }
 

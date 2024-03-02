@@ -8,10 +8,11 @@ export class LoggerRepository {
   async writeLog(exception: HttpException) {
     const logFileName = new Date().toISOString();
     const logFilePath = `./src/global/exception-filters/logs/${logFileName}.json`.replaceAll(':', '-');
-    fs.writeFile(logFilePath, JSON.stringify(exception));
+    console.log('exception :>> ', exception);
+    // fs.writeFile(logFilePath, JSON.stringify(exception));
   }
 
   async log(exception: HttpException) {
-    console.log(`\u001b[1;41m  ${exception.name} \u001b[1;41m  ${exception.message}   `);
+    console.log(exception);
   }
 }

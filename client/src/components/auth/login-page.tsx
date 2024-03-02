@@ -1,7 +1,7 @@
 import { useState } from "react";
 import * as S from "./register-page.styled";
 import { apiProvider } from "../../provider/api-provider";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Nav } from "@nav";
@@ -12,17 +12,25 @@ export function LoginPage(): JSX.Element {
     const [password, setPassword] = useState("123");
     const navigate = useNavigate();
 
+    const queryClient = useQueryClient();
+
     const query = useQuery({
         queryKey: "auth",
         queryFn: () => apiProvider.auth.login(email, password),
         enabled: false,
 
         onSuccess: (data) => {
-            axios.interceptors.request.use((config) => {
-                config.headers.Authorization = `Bearer ${data.access_token}`;
-                return config;
-            });
+            // axios.interceptors.request.use((config) => {
+            //     config.headers.Authorization = `Bearer ${data.access_token}`;
+            //     return config;
+            // });
+            console.log(123);
+            axios.defaults.headers.common.Authorization = `Bearer ${data.access_token}`;
             document.cookie = `access_token=Bearer ${data.access_token}`;
+            queryClient.invalidateQueries({
+                queryKey: "profile",
+            });
+            queryClient.clear();
             return navigate(Nav.main());
         },
     });

@@ -24,7 +24,6 @@ export class JournalsController {
 
   @Get('/getScheduleTable')
   getScheduleTable(@Req() req: Request) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return this.journalsService.getScheduleTable(req.user.userId);
   }

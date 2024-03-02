@@ -30,7 +30,7 @@ export class JournalsRepository {
   async getScheduleTable(sportsmanId: string): Promise<any> {
     const allJournals = await this.getAllJournals();
     // @ts-ignore
-    return allJournals.find((x) => x.generalInformation.sportsmen.some((s) => s.id == sportsmanId)).scheduleTable;
+    return allJournals.find((x) => x.generalInformation.sportsmen.some((s) => s.id == sportsmanId))?.scheduleTable;
   }
 
   async getSportsmanAttendanceByMonth(sportsmanId: string, month: number): Promise<any> {

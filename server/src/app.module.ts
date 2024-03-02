@@ -33,10 +33,10 @@ import { Employee } from './db/entities/employee.entity';
   controllers: [AppController],
   providers: [
     AppService,
-    {
-      provide: APP_FILTER,
-      useFactory: () => new LoggerExceptionFilter(new LoggerRepository()),
-    },
+    // {
+    //   provide: APP_FILTER,
+    //   useFactory: () => new LoggerExceptionFilter(new LoggerRepository()),
+    // },
   ],
 })
 export class AppModule {}

@@ -183,6 +183,7 @@ export function MainHeader() {
     const getScheduleTableQuery = useQuery({
         queryKey: "getScheduleTable",
         queryFn: () => apiProvider.journals.getScheduleTable(),
+        enabled: false,
     });
 
     const [changeTitle, setChangeTitle] = useState(false);

@@ -24,6 +24,7 @@ export class AuthController {
 
   @Get('profile')
   getProfile(@Req() req: Request) {
+    console.log('123 :>> ', 123);
     return req.user;
   }
 
