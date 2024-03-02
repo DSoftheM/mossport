@@ -7,7 +7,7 @@ import { Box, Button, IconButton, Stack, Tooltip, Typography } from "@mui/materi
 import { CloseButton } from "../../close-button";
 import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
-import { Month } from "@shared/types";
+import { Month } from "../../../month";
 
 type Props = {
     onClose: () => void;

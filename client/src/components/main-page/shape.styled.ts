@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const Root = styled.div`
     transition: all 0.3s ease 0s;
     &:hover {
-        font-size: 24px;
-        padding: 20px;
+        font-size: 22px;
+        padding: 15px;
     }
 `;
 export const Rectangle = styled.div`

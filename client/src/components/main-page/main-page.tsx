@@ -161,8 +161,6 @@ function findNearestWorkoutDate(data: ScheduleTable | undefined): Date | null {
         const index = data.january.findIndex((ranges) => ranges.length !== 0);
         const date = new Date();
         const [hours, minutes] = (nearestDate ?? "").split(":");
-        console.log("hours :>> ", hours);
-        console.log("minutes :>> ", minutes);
         date.setHours(+hours);
         date.setMinutes(+minutes);
         date.setMonth(0);
@@ -194,17 +192,18 @@ export function MainHeader() {
         }, 5000);
     }, []);
 
+    const renderTitle = () => {
+        if (!changeTitle) return <S.Title>Добро пожаловать</S.Title>;
+        if (nearest) return <S.Title2>Ближайшая тренировка {nearest}</S.Title2>;
+        return <S.Title>Добро пожаловать</S.Title>;
+    };
+
+    const nearest = findNearestWorkoutDate(getScheduleTableQuery.data)?.toLocaleString("ru").slice(0, -3);
+
     return (
         <S.HeaderContainer>
             <S.Header>
-                {!changeTitle ? (
-                    <S.Title>Добро пожаловать</S.Title>
-                ) : (
-                    <S.Title2>
-                        {"Ближайшая тренировка " +
-                            findNearestWorkoutDate(getScheduleTableQuery.data)?.toLocaleString("ru").slice(0, -3)}
-                    </S.Title2>
-                )}
+                {renderTitle()}
                 <S.Logo src={logoPath} />
                 <Box display={"flex"} alignItems={"center"} gap={2}>
                     <Tooltip title="Выйти">

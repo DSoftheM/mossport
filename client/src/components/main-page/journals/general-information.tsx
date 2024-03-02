@@ -5,7 +5,7 @@ import { getDate, getSportsCategory } from "./general-information.lib";
 import { Sportsman, SportsCategory } from "./types";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
-import { Box, Button, IconButton, MenuItem, Select, Typography } from "@mui/material";
+import { Box, Button, IconButton, Input, MenuItem, Select, Typography } from "@mui/material";
 import React from "react";
 import { CloseButton } from "../../close-button";
 import CreateIcon from "@mui/icons-material/Create";
@@ -115,17 +115,18 @@ export function GeneralInformation(props: Props) {
                     onChange={(date) => setFirstMedicalExamination(date)}
                 />
                 <DatePicker
+                    sx={{ height: "74px" }}
                     label="Дата второго медосмотра"
                     value={secondMedicalExamination}
                     onChange={(date) => setSecondMedicalExamination(date)}
                 />
-                <input
+                <Input
                     type="text"
                     placeholder="ФИО родителей"
                     value={parentsFio}
                     onChange={(e) => setParentsFio(e.target.value)}
                 />
-                <input type="tel" placeholder="Номер телефона" value={tel} onChange={(e) => setTel(e.target.value)} />
+                <Input type="tel" placeholder="Номер телефона" value={tel} onChange={(e) => setTel(e.target.value)} />
             </>
         );
     }
@@ -165,9 +166,8 @@ export function GeneralInformation(props: Props) {
     const restSportsmen = allSportsmenQuery.data?.filter((s) => !props.sportsmen.map((x) => x.id).includes(s.userId.toString()));
 
     return (
-        <div style={{ padding: "20px 40px", position: "relative", overflow: "auto" }}>
+        <div style={{ padding: "20px 40px", position: "relative" }}>
             <CloseButton onClose={props.onClose} />
-            {/* <button onClick={props.onClose}>Закрыть таблицу</button> */}
             <Typography variant="h3" sx={{ textAlign: "center" }} mb={2}>
                 Общие сведения
             </Typography>
@@ -227,10 +227,11 @@ export function GeneralInformation(props: Props) {
                                     style={{ position: "absolute", right: "100%", top: "50%", transform: "translateY(-50%)" }}
                                     disabled={editIndex !== null || isCreation}
                                     onClick={() => {
-                                        const { birthDate, medicalExamination, name, parentsFio, sportsCategory, tel } =
+                                        const { birthDate, medicalExamination, name, parentsFio, sportsCategory, tel, id } =
                                             sportsman;
                                         setEditIndex(i);
                                         setTel(tel);
+                                        setId(id);
                                         setName(name);
                                         setParentsFio(parentsFio);
                                         setBirthDate(dateToDayjs(birthDate));

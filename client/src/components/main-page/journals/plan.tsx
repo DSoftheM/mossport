@@ -1,11 +1,11 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Input, Typography } from "@mui/material";
 import { CloseButton } from "../../close-button";
 import { months } from "./months";
 import * as S from "./plan.styled";
 import { useImmer } from "use-immer";
 import { CreationPlan, type Plan } from "./types";
 import { produce } from "immer";
-import { Month } from "@shared/types";
+import { Month } from "../../../month";
 
 type Props = {
     onClose: () => void;
@@ -34,7 +34,7 @@ export function Plan(props: Props) {
                 ))}
                 {state.map((plan, i) => (
                     <>
-                        <input
+                        <Input
                             type="text"
                             value={plan.content}
                             onChange={(e) => {
@@ -43,8 +43,7 @@ export function Plan(props: Props) {
                                 });
                             }}
                         />
-                        <input
-                            min={1}
+                        <Input
                             type="number"
                             value={plan.hoursCount}
                             onChange={(e) => {

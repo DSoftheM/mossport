@@ -3,8 +3,6 @@ import { Box, Button, Typography } from "@mui/material";
 import { CloseButton } from "../../close-button";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { apiProvider } from "../../../provider/api-provider";
-import { useProfileQuery } from "../../../provider/query/use-profile-query";
-import { translateSchool } from "../../auth/register-page";
 import { CalendarTable, daysInMonth } from "./attendance-tracking";
 import { useState } from "react";
 import { getMonthByIndex } from "./schedule";
@@ -37,7 +35,7 @@ export function SportsmanAttendance(props: Props) {
         },
     });
 
-    console.log("data :>> ", planPassMutation.data);
+    const monthWord = getMonthByIndex(month);
 
     return (
         <S.Root>
@@ -47,8 +45,8 @@ export function SportsmanAttendance(props: Props) {
             </Typography>
             <CalendarTable month={month} onChange={setMonth} show={false}>
                 {sportsmanAttendanceByMonthQuery.data &&
-                    sportsmanAttendanceByMonthQuery.data.tracking[getMonthByIndex(currentMonth)].flatMap((x) =>
-                        x.attendance.map((y) => {
+                    sportsmanAttendanceByMonthQuery.data.tracking[monthWord].flatMap((x: any) =>
+                        x.attendance.map((y: any) => {
                             if (!y) return <div></div>;
                             if (y === "disease") {
                                 return <div>Б</div>;

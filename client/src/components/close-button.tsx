@@ -9,8 +9,8 @@ type Props = {
 const Root = styled.div`
     transition: all 0.3s ease 0s;
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 10px;
+    top: 10px;
 
     &:hover {
         transform: rotate(360deg);

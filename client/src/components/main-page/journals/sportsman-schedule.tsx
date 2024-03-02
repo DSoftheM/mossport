@@ -4,7 +4,7 @@ import { Box, Typography } from "@mui/material";
 import { CloseButton } from "../../close-button";
 import { useQuery } from "react-query";
 import { apiProvider } from "../../../provider/api-provider";
-import { Month } from "@shared/types";
+import { Month } from "../../../month";
 
 type Props = {
     onClose: () => void;

@@ -3,7 +3,7 @@ import { Journal, JournalWithoutId } from './types';
 import * as fs from 'fs/promises';
 import * as crypto from 'crypto';
 import { getJournalsJsonPath } from 'data/journals';
-import { Month } from '@shared/types';
+import { Month } from 'src/month';
 
 @Injectable()
 export class JournalsRepository {
@@ -30,19 +30,24 @@ export class JournalsRepository {
   async getScheduleTable(sportsmanId: string): Promise<any> {
     const allJournals = await this.getAllJournals();
     // @ts-ignore
-    return allJournals.find((x) => x.generalInformation.sportsmen.some((s) => s.id == sportsmanId))?.scheduleTable;
+    return allJournals.find(
+      (x) =>
+        x.generalInformation.sportsmen.some((s) => {
+          return s.id == sportsmanId;
+        }),
+      // @ts-ignore
+    )?.scheduleTable;
   }
 
   async getSportsmanAttendanceByMonth(sportsmanId: string, month: number): Promise<any> {
     const allJournals = await this.getAllJournals();
     const monthWord = getMonthByIndex(month);
-    // console.log('monthWord :>> ', monthWord);
-    // allJournals.forEach((x) => {
-    //   // @ts-ignore
-    //   console.log('x.attendance.tracking[month] :>> ', x.attendance.tracking[month]);
-    // });
     return allJournals.find((x) => {
-      return Boolean(x.attendance.tracking[monthWord]?.find((x) => x.sportsman.id == sportsmanId));
+      return Boolean(
+        x.attendance.tracking[monthWord]?.find((x) => {
+          return x.sportsman.id == sportsmanId;
+        }),
+      );
     })?.attendance;
   }
 }

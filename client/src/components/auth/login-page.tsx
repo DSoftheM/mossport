@@ -24,7 +24,6 @@ export function LoginPage(): JSX.Element {
             //     config.headers.Authorization = `Bearer ${data.access_token}`;
             //     return config;
             // });
-            console.log(123);
             axios.defaults.headers.common.Authorization = `Bearer ${data.access_token}`;
             document.cookie = `access_token=Bearer ${data.access_token}`;
             queryClient.invalidateQueries({

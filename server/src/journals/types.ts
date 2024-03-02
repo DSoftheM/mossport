@@ -1,4 +1,4 @@
-import { Month } from '@shared/types';
+import { Month } from 'src/month';
 
 export type Journal = {
   id: string;

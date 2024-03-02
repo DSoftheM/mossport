@@ -4,7 +4,7 @@ import { MonthAttendanceTracking } from "./types";
 import { useCreateJournalMutation } from "../../../provider/query/use-journals-query";
 import { CloseButton } from "../../close-button";
 import { Button, Stack, TextField } from "@mui/material";
-import { Month } from "@shared/types";
+import { Month } from "../../../month";
 
 type Props = {
     onClose: () => void;

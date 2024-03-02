@@ -1,4 +1,4 @@
-import { Month } from "@shared/types";
+import { Month } from "../../../month";
 
 export type Journal = {
     name: string;
@@ -51,6 +51,7 @@ export type MonthAttendanceTracking = {
 
 export enum AbsenceReason {
     Disease = "disease",
+    PlanPass = "PlanPass",
     Lack = "lack",
 }
 

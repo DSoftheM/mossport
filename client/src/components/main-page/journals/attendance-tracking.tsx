@@ -106,13 +106,18 @@ export function AttendanceTrackingEdit(props: Props) {
                                         }}
                                     >
                                         <MenuItem value="">Не выбрано</MenuItem>
+                                        <MenuItem value={AbsenceReason.PlanPass}>Запланирован пропуск</MenuItem>
                                         <MenuItem value={AbsenceReason.Disease}>Болел</MenuItem>
+
                                         <MenuItem style={{ display: "none" }} value={AbsenceReason.Disease}>
                                             Б
                                         </MenuItem>
                                         <MenuItem value={AbsenceReason.Lack}>Отсутствовал</MenuItem>
                                         <MenuItem style={{ display: "none" }} value={AbsenceReason.Lack}>
                                             О
+                                        </MenuItem>
+                                        <MenuItem style={{ display: "none" }} value={AbsenceReason.PlanPass}>
+                                            З
                                         </MenuItem>
                                     </Select>
                                 );
